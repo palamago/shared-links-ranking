@@ -13,5 +13,6 @@ if [ -d "$OPENSHIFT_REPO_DIR/php" ]; then
 	ln -s $OPENSHIFT_REPO_DIR/public $OPENSHIFT_REPO_DIR/php
 fi
  
-( unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar install )
+#( unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar install )
+( unset GIT_DIR )
 
