@@ -54,10 +54,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => "$_ENV['OPENSHIFT_MYSQL_DB_HOST']",
-			'database'  => "$_ENV['OPENSHIFT_APP_NAME']",
-			'username'  => "$_ENV['OPENSHIFT_MYSQL_DB_USERNAME']",
-			'password'  => "$_ENV['OPENSHIFT_MYSQL_DB_PASSWORD']",
+			'host'      => 'localhost',
+			'database'  => 'database',
+			'username'  => 'root',
+			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
