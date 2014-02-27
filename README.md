@@ -7,7 +7,9 @@ You need to install the PHP5.4 and MySQL5.5 cartridge before installing this qui
 You should remove the comment in the last line of .openshift/actions_hooks/build by changing
 ```shell
 #( unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi install )
+```
 to
+```shell
 ( unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi install )
 ```
 Now using git
