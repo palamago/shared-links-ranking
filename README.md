@@ -10,7 +10,7 @@ After installing PHP and MySQL cartridges, add the quickstart github repository 
 git remote add upstream -m master git@github.com:muffycompo/openshift-laravel4-quickstart-app.git
 git pull -s recursive -X theirs upstream master
 ```
-#### NOTE: See [After Openshift application creation](https://github.com/muffycompo/openshift-laravel4-quickstart-app#after-openshift-application-creation)
+###### NOTE: See [After Openshift application creation](https://github.com/muffycompo/openshift-laravel4-quickstart-app#after-openshift-application-creation)
 
 ### Installation - Using Openshift Origin Instant App
 This Quickstart is also configured to utilize your Openshift Origin installation. To provide Laravel 4 as an instant app for Openshift Origin, you will need to modify `/etc/openshift/quickstarts.json` and add the following to the end of the file
