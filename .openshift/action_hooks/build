@@ -10,10 +10,20 @@ else
 	php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi self-update
 fi
 
-#if [ -d "$OPENSHIFT_REPO_DIR/php" ]; then
-#	rm -rf $OPENSHIFT_REPO_DIR/php
-#	ln -s $OPENSHIFT_REPO_DIR/public $OPENSHIFT_REPO_DIR/php
-#fi
-# Uncomment to activate composer install for Laravel on Git Push
-#( unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi install )
+if [ -d "$OPENSHIFT_REPO_DIR/php" ]; then
+    if [ -e "$OPENSHIFT_REPO_DIR/php/index.php" ; then
+		echo 'Public directory already symlinked, Moving on...'
+	else
+		echo 'Creating symlink for "public" directory'
+		rm -rf $OPENSHIFT_REPO_DIR/php
+		ln -s $OPENSHIFT_REPO_DIR/public $OPENSHIFT_REPO_DIR/php
+	fi
+fi
+
+if [ -d "$OPENSHIFT_REPO_DIR/vendor" ]; then
+	echo 'Public directory already symlinked, Moving on...'
+else
+	# Uncomment to activate composer install for Laravel on Git Push
+	#( echo 'Installing/Updating Laravel'; unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi install )	
+fi
 
