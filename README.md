@@ -1,5 +1,12 @@
 ## Openshift Laravel Quickstart
-This is an Openshift Quickstart for Laravel 4. It has been configured to utilize your Openshift Origin installation. To provide Laravel 4 as an instant app for Openshift Origin, you will need to modify `/etc/openshift/quickstarts.json` and add the following to the end of the file
+This is an Openshift Quickstart for Laravel 4.
+
+### Installation - Using PHP and MySQL Cartridges
+You will need to install the PHP5.4 and MySQL5.5 cartridges before installing this quickstart for Laravel.
+
+### Installation - Using Openshift Origin Instant App
+This Quickstart is also configured to utilize your Openshift Origin installation. To provide Laravel 4 as an instant app for Openshift Origin, you will need to modify `/etc/openshift/quickstarts.json` and add the following to the end of the file
+
 ```json
 {
 	"quickstart": {
@@ -14,10 +21,8 @@ This is an Openshift Quickstart for Laravel 4. It has been configured to utilize
 	}
 }
 ```
-### Cartridge Requirement
-You will need to install the PHP5.4 and MySQL5.5 cartridges before installing this quickstart for Laravel.
 
-####NOTE
+### NOTE - After Openshift application creation
 You should remove the comment # in `.openshift/actions_hooks/build` by changing
 ```shell
 #( unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi install )
@@ -33,4 +38,4 @@ git commit -a -m 'Install Laravel 4 Composer Dependencies'
 git push
 ```
 ### Post Installation
-After the installation of composer dependencies, Laravel is ready to go. We have setup your database credentials `app/config/database.php` to use Openshift environment variables (OPENSHIFT*).
+After the installation of composer dependencies, Laravel 4 is ready to go. We have setup your database credentials `app/config/database.php` to use Openshift environment variables (OPENSHIFT*).
