@@ -23,6 +23,7 @@ fi
 if [ -d "$OPENSHIFT_REPO_DIR/vendor" ]; then
 	echo 'Public directory already symlinked, Moving on...'
 else
+	echo 'Visit https://github.com/muffycompo/openshift-laravel4-quickstart-app for more instructions'
 	# Uncomment to activate composer install for Laravel on Git Push
 	#( echo 'Installing/Updating Laravel'; unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi install )	
 fi
