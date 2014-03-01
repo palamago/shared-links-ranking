@@ -11,7 +11,7 @@ else
 fi
 
 if [ -d "$OPENSHIFT_REPO_DIR/php" ]; then
-    if [ -e "$OPENSHIFT_REPO_DIR/php/index.php" ; then
+    if [ -e "$OPENSHIFT_REPO_DIR/php/index.php" ]; then
 		echo 'Public directory already symlinked, Moving on...'
 	else
 		echo 'Creating symlink for "public" directory'
