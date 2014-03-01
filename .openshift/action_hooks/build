@@ -10,12 +10,10 @@ else
 	php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi self-update
 fi
 
-if [ -d "$OPENSHIFT_REPO_DIR/php" ]; then
-	echo 'Removing php directory'
-	rm -rf $OPENSHIFT_REPO_DIR/php
-	echo 'Creating symlink for public directory'
-	ln -s $OPENSHIFT_REPO_DIR/public $OPENSHIFT_REPO_DIR/php
-fi
- echo 'Installing/Updating Composer dependencies'
-( unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi install )
+#if [ -d "$OPENSHIFT_REPO_DIR/php" ]; then
+#	rm -rf $OPENSHIFT_REPO_DIR/php
+#	ln -s $OPENSHIFT_REPO_DIR/public $OPENSHIFT_REPO_DIR/php
+#fi
+# Uncomment to activate composer install for Laravel on Git Push
+#( unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi install )
 
