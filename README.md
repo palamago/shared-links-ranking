@@ -1,8 +1,21 @@
 ## Openshift Laravel Quickstart
 This is an Openshift Quickstart for Laravel 4.
 
-### Installation - Using PHP and MySQL Cartridges
-You will need to install the PHP5.4 and MySQL5.5 cartridges before installing this quickstart for Laravel.
+#### Installation on Openshift Online - Using PHP 5.3 and MySQL 5.5 Cartridges
+When using this quickstart with Openshift Online, you should be aware that PHP 5.4 cartridges do not come bundled with PHP Mcrypt (but will be [included soon](https://trello.com/c/iDrhIUof/136-php-5-4-support-mcrypt-extension)) which is needed by Laravel 4 for password Hashing. As a temporary workaround, you will need to install the PHP 5.4 and MySQL 5.5 cartridges before installing this quickstart for Laravel. You can use the [web console](https://openshift.redhat.com/app/console/applications) or RHC cli
+
+```shell
+rhc create app laravel php-5.3
+rhc cartridge add mysql-5.5 -a laravel
+```
+
+#### Installation on Openshift Origin - Using PHP 5.4 and MySQL 5.5 Cartridges
+You will need to install the PHP 5.4 and MySQL 5.5 cartridges before installing this quickstart for Laravel. You can use the [web console](https://openshift.redhat.com/app/console/applications) or RHC cli. Also be sure to install PHP 5.4 Mcrypt package/extension.
+
+```shell
+rhc create app laravel php-5.4
+rhc cartridge add mysql-5.5 -a laravel
+```
 
 After installing PHP and MySQL cartridges, add the quickstart github repository and pull afterwhich you can push to your Openshift repository
 
@@ -12,7 +25,7 @@ git pull -s recursive -X theirs upstream master
 ```
 ###### NOTE: See [After Openshift application creation](https://github.com/muffycompo/openshift-laravel4-quickstart-app#after-openshift-application-creation) for installing Laravel dependencies.
 
-### Installation - Using Openshift Origin Instant App
+#### Installation on Openshift Origin - Using Openshift Origin Instant App
 This Quickstart is also configured to utilize your Openshift Origin installation. To provide Laravel 4 as an instant app for Openshift Origin, you will need to modify `/etc/openshift/quickstarts.json` and add the following to the end of the file
 
 ```json
