@@ -2,7 +2,7 @@
 This is an Openshift Quickstart for Laravel 4.
 
 #### Installation on Openshift Online - Using PHP 5.3 and MySQL 5.5 Cartridges
-When using this quickstart with Openshift Online, you should be aware that PHP 5.4 cartridges do not come bundled with PHP Mcrypt (but will be [included soon](https://trello.com/c/iDrhIUof/136-php-5-4-support-mcrypt-extension)) which is needed by Laravel 4 for password Hashing. As a temporary workaround, you will need to install the PHP 5.4 and MySQL 5.5 cartridges before installing this quickstart for Laravel. You can use the [web console](https://openshift.redhat.com/app/console/applications) or RHC cli
+When using this quickstart with Openshift Online, you should be aware that PHP 5.4 cartridges do not come bundled with PHP Mcrypt (but will be [included soon](https://trello.com/c/iDrhIUof/136-php-5-4-support-mcrypt-extension)) which is needed by Laravel 4 for password Hashing. As a temporary workaround, you will need to install the PHP 5.3 and MySQL 5.5 cartridges before installing this quickstart for Laravel (See (example laravel install)[http://laravel-maomuffy.rhcloud.com]). You can use the [web console](https://openshift.redhat.com/app/console/applications) or RHC cli
 
 ```shell
 rhc create app laravel php-5.3
