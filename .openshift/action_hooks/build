@@ -11,7 +11,7 @@ else
 fi
 
 if [ -d "$OPENSHIFT_REPO_DIR/php" ]; then
-    if [ -e "$OPENSHIFT_REPO_DIR/php/index.php" ]; then
+    if [ -e "$OPENSHIFT_REPO_DIR/php/robots.txt" ]; then
 		echo 'Public directory already symlinked, Moving on...'
 	else
 		echo 'Creating symlink for "public" directory'
@@ -21,9 +21,9 @@ if [ -d "$OPENSHIFT_REPO_DIR/php" ]; then
 fi
 
 if [ -d "$OPENSHIFT_REPO_DIR/vendor" ]; then
-	echo 'Public directory already symlinked, Moving on...'
+	echo 'Laravel dependencies already installed, Moving on...'
 else
-	echo 'Visit https://github.com/muffycompo/openshift-laravel4-quickstart-app for more instructions'
+	echo 'Hang in there, we are getting ready to Install/Update Laravel dependencies'
 	# Uncomment to activate composer install for Laravel on Git Push
 	#( echo 'Installing/Updating Laravel'; unset GIT_DIR ; cd $OPENSHIFT_REPO_DIR ; php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi install )	
 fi
