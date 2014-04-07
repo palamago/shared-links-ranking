@@ -10,15 +10,17 @@ else
 	php $OPENSHIFT_DATA_DIR/composer.phar -q --no-ansi self-update
 fi
 
-if [ -d "$OPENSHIFT_REPO_DIR/php" ]; then
-    if [ -e "$OPENSHIFT_REPO_DIR/php/robots.txt" ]; then
-		echo 'Public directory already symlinked, Moving on...'
-	else
-		echo 'Creating symlink for "public" directory'
-		rm -rf $OPENSHIFT_REPO_DIR/php
-		ln -s $OPENSHIFT_REPO_DIR/public $OPENSHIFT_REPO_DIR/php
-	fi
-fi
+# Use new directory structure for PHP cartridge
+
+# if [ -d "$OPENSHIFT_REPO_DIR/php" ]; then
+    # if [ -e "$OPENSHIFT_REPO_DIR/php/robots.txt" ]; then
+		# echo 'Public directory already symlinked, Moving on...'
+	# else
+		# echo 'Creating symlink for "public" directory'
+		# rm -rf $OPENSHIFT_REPO_DIR/php
+		# ln -s $OPENSHIFT_REPO_DIR/public $OPENSHIFT_REPO_DIR/php
+	# fi
+# fi
 
 if [ -d "$OPENSHIFT_REPO_DIR/vendor" ]; then
 	echo 'Laravel dependencies already installed, Moving on...'
