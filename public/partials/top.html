@@ -1,0 +1,78 @@
+<div class="row">
+	<div class="col-md-12 text-center">
+		<div class="btn-group btn-group-justified">
+			<a class="btn btn-default" ng-click='filterClick("tag","")' ng-class="{active:(filters.tag=='')}">
+				Todas las categorías
+			</a>
+			<a ng-repeat="tag in tags" class="btn btn-default" data-id="{{tag.id}}" data-toggle="tooltip" data-placement="bottom" title="{{link.name}}" ng-click='filterClick("tag",tag.id)' ng-class="{active:(filters.tag==tag.id)}">
+				{{tag.name}}
+				<span class="label" style="background-color:{{tag.color}};">
+				</span>
+			</a>
+		</div>
+	</div>
+</div>
+<hr/>
+<div class="row">	
+	<div class="col-md-12 text-center">
+		<div class="btn-group btn-group-justified">
+			<a class="btn btn-lg btn-default" ng-click='filterClick("newspaper","")' ng-class="{active:(filters.newspaper=='')}">
+				Todos
+			</a>
+			<a ng-repeat="newspaper in newspapers" class="btn btn-lg btn-default tooltip-simple" data-id="{{newspaper.id}}" data-toggle="tooltip" data-placement="bottom" title="{{newspaper.name}}" ng-click='filterClick("newspaper",newspaper.id)' ng-class="{active:(filters.newspaper==newspaper.id)}">
+				<img ng-src="/uploads/logos/resize/{{newspaper.logo}}" width="25" />
+			</a>		
+		</div>
+		<hr/>
+	</div>
+</div>
+
+<div class="jumbotron">
+	<h2 class="text-center">Noticias más compartidas</h2>
+  	<h1 class="text-center"> <span style="color:{{titles.tagColor}}" ng-show="titles.tag">{{titles.tag}}</span> <span style="color:{{titles.tagColor}}" ng-show="titles.newspaper"><strong>{{titles.newspaper}}</strong></span> <small ng-show="titles.time">{{titles.time}}</small></h1>
+</div>
+
+<h2 ng-show="topnews.length==0">No hay noticias con estos criterios.</h2>
+
+<div class="row" ng-repeat="link in topnews">
+	<div class="col-md-12">
+		<div class="jumbotron">
+			<h1>{{$index+1}}. <a href="{{link.url}}" target="_blank">{{link.title}} <i class="glyphicon glyphicon-new-window"></i></a></h1>
+			<hr/>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="list-group">
+					    <div class="list-group-item">
+					        <div class="row-picture">
+					            <img ng-click='filterClick("newspaper",link.newspaper.id)' class="circle" ng-src="/uploads/logos/resize/{{link.newspaper.logo}}" alt="icon">
+					        </div>
+					        <div class="row-content">
+					            <small>{{link.date}}</small>
+					            <h4 class="list-group-item-heading">{{link.newspaper.name}} <a href="{{link.newspaper.url}}" target="_blank"><i class="glyphicon glyphicon-new-window"></i></a></h4>
+					            <p class="list-group-item-text"><span class="label" style="background-color:{{link.tag.color}};"><a ng-click='filterClick("tag",link.tag.id)'>{{link.tag.name}}</a></span></p>
+					        </div>
+					    </div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<h4 class="text-center">Tendencia</h4>
+					<div id="sparkline-{{link.id}}" class="text-center"><i class="text-primary fa fa-spinner fa-3x"></i></div>
+				</div>
+				<div class="col-md-4">
+					<h4 class="text-center">Total: <strong><i class="text-primary fa fa-share-alt"></i> {{link.total}}</strong></h4>
+					<div class="row">
+						<div class="col-xs-3 text-center tooltip-simple" data-toggle="tooltip" data-placement="bottom" title="Facebook">
+							<p><i class="text-primary fa fa-facebook"></i> {{link.facebook}}</p></div>
+						<div class="col-xs-3 text-center tooltip-simple" data-toggle="tooltip" data-placement="bottom" title="Twitter">
+							<p><i class="text-primary fa fa-twitter"></i> {{link.twitter}}</p></div>
+						<div class="col-xs-3 text-center tooltip-simple" data-toggle="tooltip" data-placement="bottom" title="Google +">
+							<p><i class="text-primary fa fa-google-plus"></i> {{link.googleplus}}</p></div>
+						<div class="col-xs-3 text-center tooltip-simple" data-toggle="tooltip" data-placement="bottom" title="Linkedin">
+							<p><i class="text-primary fa fa-linkedin"></i> {{link.linkedin}}</p></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
