@@ -1,31 +1,4 @@
-<div class="row">
-	<div class="col-md-12 text-center">
-		<div class="btn-group btn-group-justified">
-			<a class="btn btn-default" ng-click='filterClick("tag","")' ng-class="{active:(filters.tag=='')}">
-				Todas las categorías
-			</a>
-			<a ng-repeat="tag in tags" class="btn btn-default" data-id="{{tag.id}}" data-toggle="tooltip" data-placement="bottom" title="{{link.name}}" ng-click='filterClick("tag",tag.id)' ng-class="{active:(filters.tag==tag.id)}">
-				{{tag.name}}
-				<span class="label" style="background-color:{{tag.color}};">
-				</span>
-			</a>
-		</div>
-	</div>
-</div>
-<hr/>
-<div class="row">	
-	<div class="col-md-12 text-center">
-		<div class="btn-group btn-group-justified">
-			<a class="btn btn-lg btn-default" ng-click='filterClick("newspaper","")' ng-class="{active:(filters.newspaper=='')}">
-				Todos
-			</a>
-			<a ng-repeat="newspaper in newspapers" class="btn btn-lg btn-default tooltip-simple" data-id="{{newspaper.id}}" data-toggle="tooltip" data-placement="bottom" title="{{newspaper.name}}" ng-click='filterClick("newspaper",newspaper.id)' ng-class="{active:(filters.newspaper==newspaper.id)}">
-				<img ng-src="/uploads/logos/resize/{{newspaper.logo}}" width="25" />
-			</a>		
-		</div>
-		<hr/>
-	</div>
-</div>
+<div ng-include="'partials/menu.html'"></div>
 
 <div class="jumbotron">
 	<h2 class="text-center">Noticias más compartidas</h2>

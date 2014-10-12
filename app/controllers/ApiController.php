@@ -3,11 +3,11 @@
 class ApiController extends BaseController {
 
 	public function getNewspapers(){
-		return Response::json(Newspaper::select('id','name','logo')->get());
+		return Response::json(Newspaper::select('id','name','logo')->orderBy('name', 'ASC')->get());
 	}
 
 	public function getTags(){
-		return Response::json(Tag::select('id','name','color')->get());
+		return Response::json(Tag::select('id','name','color')->orderBy('name', 'ASC')->get());
 	}
 
 	public function getTopNews(){

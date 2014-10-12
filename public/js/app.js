@@ -68,6 +68,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
     if(!justSet){
       $scope.refresh();
     }
+    $("#nav-main").collapse('hide');
   }
 
   $scope.refresh = function(){
