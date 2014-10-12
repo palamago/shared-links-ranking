@@ -15,7 +15,7 @@ class CreateLinkTable extends Migration {
 		Schema::create('link', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('url', 300)->unique('url_UNIQUE');
+			$table->string('url', 300)->index('url_UNIQUE');
 			$table->string('title', 200);
 			$table->timestamps();
 			$table->integer('id_rss')->index('fk_link_1_idx');
