@@ -55,10 +55,10 @@ return array(
 	        'title' => 'Logo (200 x 200)',
 	        'type' => 'image',
 	        'naming' => 'random',
-	        'location' => 'public/uploads/logos/originals/',
+	        'location' => public_path() . '/uploads/logos/originals/',
 	        'size_limit' => 2,
 	        'sizes' => array(
-	            array(200, 200, 'crop', 'public/uploads/logos/resize/', 100),
+	            array(200, 200, 'crop', public_path() . '/uploads/logos/resize/', 100),
 	        )
 		),
 		'url' => array(
