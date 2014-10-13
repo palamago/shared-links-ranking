@@ -1,3 +1,0 @@
- #!/bin/bash date >> ${OPENSHIFT_PHP_LOG_DIR}/ticktock.log ^D chmod +x ticktock 
-#!/bin/bash
-date >> ${OPENSHIFT_PHP_LOG_DIR}/ticktock.log
