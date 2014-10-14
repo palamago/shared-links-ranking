@@ -16,7 +16,7 @@ class CreateNewspaperTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->string('name', 45);
-			$table->string('logo', 45);
+			$table->string('logo', 100);
 			$table->string('url', 45);
 			$table->timestamps();
 		});

@@ -43,7 +43,7 @@
 
 							<li class="col-md-6" ng-repeat="newspaper in newspapers" ><a data-id="{{newspaper.id}}" data-toggle="tooltip" data-placement="bottom" title="{{newspaper.name}}" ng-click='filterClick("newspaper",newspaper.id)' ng-class="{active:(filters.newspaper==newspaper.id)}">
 								<h2 class="text-left">
-									<img ng-src="/uploads/logos/resize/{{newspaper.logo}}" width="30" />
+									<img ng-src="{{newspaper.logo}}" width="30" />
 								{{newspaper.name}}
 								</h2>
 							</a></li>

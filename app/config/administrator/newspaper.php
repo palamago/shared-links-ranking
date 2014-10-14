@@ -19,7 +19,7 @@ return array(
 		'id',
 		'logo' => array(
 			'title' => 'Logo',
-			'output' => '<img src="/uploads/logos/resize/(:value)" height="50" />',
+			'output' => '<img src="(:value)" height="50" />',
 		),
 		'name' => array(
 			'title' => 'Nombre'
@@ -52,14 +52,8 @@ return array(
 			'type' => 'text'
 		),
 		'logo' => array(
-	        'title' => 'Logo (200 x 200)',
-	        'type' => 'image',
-	        'naming' => 'random',
-	        'location' => public_path() . '/uploads/logos/originals/',
-	        'size_limit' => 2,
-	        'sizes' => array(
-	            array(200, 200, 'crop', public_path() . '/uploads/logos/resize/', 100),
-	        )
+	        'title' => 'Logo (cuadrado)',
+			'type' => 'text'
 		),
 		'url' => array(
 			'title' => 'Url',
