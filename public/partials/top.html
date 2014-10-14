@@ -1,11 +1,12 @@
 <div ng-include="'partials/menu.html'"></div>
-
 <div class="jumbotron">
 	<h2 class="text-center">Noticias más compartidas</h2>
   	<h1 class="text-center"> <span style="color:{{titles.tagColor}}" ng-show="titles.tag">{{titles.tag}}</span> <span style="color:{{titles.tagColor}}" ng-show="titles.newspaper"><strong>{{titles.newspaper}}</strong></span> <small ng-show="titles.time">{{titles.time}}</small></h1>
 </div>
 
-<h2 ng-show="topnews.length==0">No hay noticias con estos criterios.</h2>
+<h2 ng-show="loading" class="text-center"><i class="text-primary fa fa-spinner fa-3x"></i><br/>Cargando Noticias</h2>
+
+<h2 ng-show="topnews.length==0 && !loading">No hay noticias con estos criterios.</h2>
 
 <div class="row" ng-repeat="link in topnews">
 	<div class="col-md-12">

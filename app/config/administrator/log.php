@@ -20,6 +20,9 @@ return array(
 		'status' => array(
 			'title' => 'Status'
 		),
+		'minutes' => array(
+			'title' => 'Minutos'
+		),
 		'created_at' => array(
 			'title' => 'Creado'
 		),

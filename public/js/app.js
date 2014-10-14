@@ -21,7 +21,6 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
   $scope.filters = {
   	newspaper:'',
-  	time:'today',
   	tag:''
   }
 
@@ -36,12 +35,11 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
   $scope.newspapers   = [];
   $scope.tags     = [];
   $scope.topnews    = [];
+  $scope.loading = true;
 
   $scope.createTitle = function(){
 
     var temp;
-    temp = _.where($scope.times, {id: $scope.filters.time})[0];
-    $scope.titles.time = temp.title;
 
     if($scope.filters.newspaper!=''){
       temp = _.where($scope.newspapers, {id: $scope.filters.newspaper})[0];
@@ -68,15 +66,17 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
     if(!justSet){
       $scope.refresh();
     }
-
     if($('.navbar-toggle').is(':visible')){
       $("#nav-main").collapse('hide');
     }
   }
 
   $scope.refresh = function(){
+    $scope.loading = true;
     $scope.createTitle();
-  	Restangular.all('topnews').getList($scope.filters).then(function(data){
+  	$scope.topnews = [];
+    Restangular.all('topnews').getList($scope.filters).then(function(data){
+      $scope.loading = false;
       $scope.topnews = data;
       $scope.refreshSparklines();
     });
@@ -126,20 +126,17 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
   });
 
   $scope.init = function(){
-    if($location.search().time){
-      $scope.filterClick('time',$location.search().time,true);
-    }
-    if($location.search().tag){
-      $scope.filterClick('tag',$location.search().tag,true);
-    }
-    if($location.search().newspaper){
-      $scope.filterClick('newspaper',$location.search().newspaper,true);
-    }
 
     Restangular.all('newspaper').getList().then(function(nList){
       $scope.newspapers = nList;
       Restangular.all('tag').getList().then(function(tList){
         $scope.tags = tList;
+        if($location.search().tag){
+          $scope.filterClick('tag',$location.search().tag,true);
+        }
+        if($location.search().newspaper){
+          $scope.filterClick('newspaper',$location.search().newspaper,true);
+        }
         $scope.refresh();
       });
     });

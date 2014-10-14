@@ -84,7 +84,6 @@ class CheckerCommand extends Command {
 	}
 
 	private function getSharesCount($url){
-		$this->info('.');
 		$r = array(
 			'facebook' 		=> $this->getSharesFacebook($url),
 			'twitter' 		=> $this->getSharesTwitter($url),
