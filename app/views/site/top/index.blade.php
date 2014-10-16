@@ -93,6 +93,7 @@
         <script src="{{asset('material/js/ripples.min.js')}}"></script>
         <script src="{{asset('material/js/material.min.js')}}"></script>
 
+  		<script src="{{asset('js/libs/moment.js')}}"></script>
         <script src="{{asset('js/libs/lodash.min.js')}}"></script>
         <script src="{{asset('js/libs/angular.min.js')}}"></script>
         <script src="{{asset('js/libs/angular-route.min.js')}}"></script>

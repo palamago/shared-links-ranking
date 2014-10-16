@@ -53,7 +53,7 @@ class CheckerCommand extends Command {
 			}
 		});
 
-		//Load
+		//Load shares
 		Link::where('date','>',$filterDate)->chunk(100, function($links)
 		{
 			foreach ($links as $value) {
@@ -123,7 +123,7 @@ class CheckerCommand extends Command {
 		try {
 			$string = file_get_contents('https://api.facebook.com/method/links.getStats?urls='.$url.'&format=json');
 			$json = json_decode($string);
-			$res = $json[0]->share_count;
+			$res = $json[0]->share_count + $json[0]->like_count;
 		} catch (Exception $e) {
 			$this->info($url);
 			$this->info($e->getMessage());
@@ -171,49 +171,56 @@ class CheckerCommand extends Command {
 	}
 
 	private function loadRss($rss){
-		$feed = FeedReader::read($rss->url);
-		$data = array();
-		foreach ($feed->get_items() as $key => $value) {
+		try{
+			
+			$feed = FeedReader::read($rss->url);
+			$data = array();
+			foreach ($feed->get_items() as $key => $value) {
 
-			//Fallback url mala de Clarin
-			$url = $value->get_id();
-			$url = (filter_var($url, FILTER_VALIDATE_URL) === FALSE)?$value->get_permalink():$url;
+				//Fallback bad url
+				$url = $value->get_id();
+				$url = (filter_var($url, FILTER_VALIDATE_URL) === FALSE)?$value->get_permalink():$url;
 
-			$this->info($url);
+				//REMOVE THIS!
+				$url = (strpos($url,"www.canchallena.com")>-1)?str_replace("www.canchallena.com", "canchallena.lanacion.com.ar", $url):$url;
 
-			$link = Link::where('url', $url )->get()->first();
+				$link = Link::where('url', $url )->get()->first();
 
-			if ( is_null($link) ){
-				$date = $value->get_date('Y-m-d H:i:s');
-				
-				//Fallback Diario Perfil
-				if(strpos($date, '1969')==0){
-					$date = $value->get_date('');
-					$date = explode(' +', $date);
-					$date = date_create_from_format('d m Y H:i:s', $date[0].'0');
-					if($date){
-						$date = $date->format('Y-m-d H:i:s');
-					} else {
+				if ( is_null($link) ){
+
+					$this->info($url);
+
+					$date = $value->get_date('Y-m-d H:i:s');
+
+					/*$this->info($value->get_date(''));
+					$this->info($value->get_date('Y-m-d H:i:s'));*/
+
+					//Fallback bad dates
+					if(strpos($date, '1969')==0){
 						$date = new DateTime();
 					}
+
+					$data[] = array(
+						'url' => $url,
+						'title' => html_entity_decode($value->get_title()),
+						'id_rss' => $rss->id,
+						'id_tag' => $rss->id_tag,
+						'id_newspaper' => $rss->id_newspaper,
+						'date' => $date,
+						'facebook' => 0,
+						'twitter' => 0,
+						'linkedin' => 0,
+						'googleplus' => 0,
+						'updated_at' => date('Y-m-d H:i:s'),
+						'created_at' => date('Y-m-d H:i:s')
+						);
 				}
 
-				$data[] = array(
-					'url' => $url,
-					'title' => $value->get_title(),
-					'id_rss' => $rss->id,
-					'id_tag' => $rss->id_tag,
-					'id_newspaper' => $rss->id_newspaper,
-					'date' => $date,
-					'facebook' => 0,
-					'twitter' => 0,
-					'linkedin' => 0,
-					'googleplus' => 0,
-					'updated_at' => date('Y-m-d H:i:s'),
-					'created_at' => date('Y-m-d H:i:s')
-					);
 			}
 
+		} catch (Exception $e) {
+			$this->info($rss->url);
+			$this->info($e->getMessage());
 		}
 
 		if(count($data)){

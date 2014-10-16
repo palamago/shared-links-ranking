@@ -12,13 +12,14 @@ class ApiController extends BaseController {
 
 	public function getTopNews(){
 		$query = Link::with('newspaper')->with('tag');
-		//$time 			= (Input::get('time','')!='')?Input::get('time'):'today';
+		$hs 			= (Input::get('hs','')!='')?Input::get('hs'):'3';
+		$hs 			= (in_array($hs, [3,6,12,24])?$hs:'3');
 		$newspaper_id 	= (Input::get('newspaper','')!='')?Input::get('newspaper'):false;
 		$tag_id 		= (Input::get('tag','')!='')?Input::get('tag'):false;
 
 		//Time
 		$filterDate = new DateTime('now');
-		$filterDate->sub(new DateInterval('P1D'));
+		$filterDate->sub(new DateInterval('PT'.$hs.'H'));
 		$query->where('date','>',$filterDate);
 
 		//Newspaper

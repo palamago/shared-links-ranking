@@ -14,21 +14,18 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
   $scope.titles = {
     newspaper: false,
-    time: 'Últimas 24hs',
+    hs: 3,
     tag:false,
     tagColor:''
   }
 
   $scope.filters = {
   	newspaper:'',
-  	tag:''
+  	tag:'',
+    hs: 3
   }
 
-  $scope.times = [
-    {id:'today',  label:'Hoy', title: 'Últimas 24hs'}
-    ,{id:'3days', label:'3 días', title: 'de los últimos 3 días'}
-    ,{id:'week',  label:'Semana', title: 'de la última semana'}
-  ];
+  $scope.times = [ '3', '6', '12', '24' ];
   
   Restangular.setBaseUrl('/api');
 
@@ -36,6 +33,13 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
   $scope.tags     = [];
   $scope.topnews    = [];
   $scope.loading = true;
+
+  $scope.getDateDiff = function(date){
+    var diff = moment().diff(moment(date));
+    diff = Math.floor(moment.duration(diff).asHours());
+    diff = (diff==0)?'menos de una hora':(diff==1)?'una hora':diff+' horas';
+    return "Publicado hace "+ diff;
+  }
 
   $scope.createTitle = function(){
 
@@ -136,6 +140,10 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
         }
         if($location.search().newspaper){
           $scope.filterClick('newspaper',$location.search().newspaper,true);
+        }
+        if($location.search().hs){
+          var hs = _.contains($scope.times, $location.search().hs)?$location.search().hs:3;
+          $scope.filterClick('hs',hs,true);
         }
         $scope.refresh();
       });

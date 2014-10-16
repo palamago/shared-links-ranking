@@ -19,15 +19,16 @@
 	                    <li><a ng-click='filterClick("tag","")' ng-class="{active:(filters.tag=='')}">
 							<h2>Todas las categorías</h2>
 						</a></li>
-						<li class="divider"></li>
 
-							<li class="col-md-6" ng-repeat="tag in tags"><a data-id="{{tag.id}}" data-toggle="tooltip" data-placement="bottom" title="{{link.name}}" ng-click='filterClick("tag",tag.id)' ng-class="{active:(filters.tag==tag.id)}">
-								<h2 class="text-left">
-									<span class="label" style="background-color:{{tag.color}};">
-									   {{tag.name}}
+						<li class="col-md-6 tags-selector" ng-repeat="tag in tags">
+							<a data-id="{{tag.id}}" data-toggle="tooltip" data-placement="bottom" title="{{link.name}}" ng-click='filterClick("tag",tag.id)' ng-class="{active:(filters.tag==tag.id)}">
+								<div class="text-center">
+									<span class="label lead" style="background-color:{{tag.color}};">
+								   	{{tag.name}}
 									</span>
-								</h2>
-							</a></li>
+								</div>
+							</a>
+						</li>
 
 	                </ul>
 	            </li>
@@ -39,14 +40,15 @@
 						<li><a ng-click='filterClick("newspaper","")' ng-class="{active:(filters.newspaper=='')}">
 							<h2>Todos los medios</h2>
 						</a></li>
-						<li class="divider"></li>
 
-							<li class="col-md-6" ng-repeat="newspaper in newspapers" ><a data-id="{{newspaper.id}}" data-toggle="tooltip" data-placement="bottom" title="{{newspaper.name}}" ng-click='filterClick("newspaper",newspaper.id)' ng-class="{active:(filters.newspaper==newspaper.id)}">
-								<h2 class="text-left">
+						<li class="col-md-6" ng-repeat="newspaper in newspapers" >
+							<a data-id="{{newspaper.id}}" data-toggle="tooltip" data-placement="bottom" title="{{newspaper.name}}" ng-click='filterClick("newspaper",newspaper.id)' ng-class="{active:(filters.newspaper==newspaper.id)}">
+								<div class="text-left">
 									<img ng-src="{{newspaper.logo}}" width="30" />
-								{{newspaper.name}}
-								</h2>
-							</a></li>
+									{{newspaper.name}}
+								</div>
+							</a>
+						</li>
 
 	                </ul>
 	            </li>
