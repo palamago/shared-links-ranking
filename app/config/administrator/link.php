@@ -24,6 +24,10 @@ return array(
 			'title' => 'Url',
 			'output' => '<a href="(:value)" target="_blank">Link<a/>'
 		),
+		'final_url' => array(
+			'title' => 'FinalUrl',
+			'output' => '<a href="(:value)" target="_blank">Link<a/>'
+		),
 		'date' => array(
 			'title' => 'Fecha'
 		),

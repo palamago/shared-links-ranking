@@ -57,7 +57,7 @@ class CheckerCommand extends Command {
 		Link::where('date','>',$filterDate)->chunk(100, function($links)
 		{
 			foreach ($links as $value) {
-				$shares = $this->getSharesCount($value->url);
+				$shares = $this->getSharesCount($value->final_url);
 				
 				$stat = new Stats();
 				$stat->id_link 		= $value->id;
@@ -182,13 +182,15 @@ class CheckerCommand extends Command {
 				$url = (filter_var($url, FILTER_VALIDATE_URL) === FALSE)?$value->get_permalink():$url;
 
 				//REMOVE THIS!
-				$url = (strpos($url,"www.canchallena.com")>-1)?str_replace("www.canchallena.com", "canchallena.lanacion.com.ar", $url):$url;
+	//			$url = (strpos($url,"www.canchallena.com")>-1)?str_replace("www.canchallena.com", "canchallena.lanacion.com.ar", $url):$url;
 
 				$link = Link::where('url', $url )->get()->first();
 
 				if ( is_null($link) ){
 
 					$this->info($url);
+
+					$final_url = $this->getFinalURL($url);
 
 					$date = $value->get_date('Y-m-d H:i:s');
 
@@ -202,6 +204,7 @@ class CheckerCommand extends Command {
 
 					$data[] = array(
 						'url' => $url,
+						'final_url' => $final_url,
 						'title' => html_entity_decode($value->get_title()),
 						'id_rss' => $rss->id,
 						'id_tag' => $rss->id_tag,
@@ -227,6 +230,44 @@ class CheckerCommand extends Command {
 			Link::insert($data);
 		}
 
+	}
+
+	private function getFinalURL($url,$orig=null) {
+
+		$ch = curl_init();
+
+		curl_setopt($ch, CURLOPT_HEADER, true);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	    curl_setopt($ch, CURLOPT_URL, $url);
+	    $out = curl_exec($ch);
+
+	    // line endings is the wonkiest piece of this whole thing
+	    $out = str_replace("\r", "", $out);
+
+	    // only look at the headers
+	    $headers_end = strpos($out, "\n\n");
+	    if( $headers_end !== false ) { 
+	        $out = substr($out, 0, $headers_end);
+	    }   
+
+	    $headers = explode("\n", $out);
+	    foreach($headers as $header) {
+	        if( substr($header, 0, 10) == "Location: " ) { 
+	            $target = substr($header, 10);
+				//$this->info($url." redirects to ".$target."");
+				//$this->info('redirects!');
+				if($url == $target || $target == $orig){
+					return $target;
+				} else {
+					return $this->getFinalURL($target,$url);
+				}
+	            break;
+	        }   
+	    }
+
+	    return $url;
+		
 	}
 
 	/**

@@ -70,7 +70,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
     if(!justSet){
       $scope.refresh();
     }
-    if($('.navbar-toggle').is(':visible')){
+    if($('.navbar-toggle').is(':visible') && $('#nav-main').is(':visible')){
       $("#nav-main").collapse('hide');
     }
   }
