@@ -122,6 +122,7 @@ class CheckerCommand extends Command {
 		$res = null;
 		try {
 			$string = file_get_contents('https://api.facebook.com/method/links.getStats?urls='.$url.'&format=json');
+			var_dump($string);
 			$json = json_decode($string);
 			if($json && $json[0]){
 				$res = (int)$json[0]->share_count + (int)$json[0]->like_count;
