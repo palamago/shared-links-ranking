@@ -123,7 +123,9 @@ class CheckerCommand extends Command {
 		try {
 			$string = file_get_contents('https://api.facebook.com/method/links.getStats?urls='.$url.'&format=json');
 			$json = json_decode($string);
-			$res = $json[0]->share_count + $json[0]->like_count;
+			if($json && $json[0]){
+				$res = (int)$json[0]->share_count + (int)$json[0]->like_count;
+			}
 		} catch (Exception $e) {
 			$this->info($url);
 			$this->info($e->getMessage());
