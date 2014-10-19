@@ -122,7 +122,7 @@ class CheckerCommand extends Command {
 		try {
 			$string = file_get_contents('https://api.facebook.com/method/links.getStats?urls='.$url.'&format=json');
 			$json = json_decode($string);
-			if($json && $json[0]){
+			if(isset($json) && isset($json[0])){
 				$res = (int)$json[0]->share_count + (int)$json[0]->like_count;
 			}
 		} catch (Exception $e) {
@@ -163,7 +163,11 @@ class CheckerCommand extends Command {
 			$curl_results = curl_exec ($curl);
 			curl_close ($curl);
 			$json = json_decode($curl_results, true);
-			$res = intval( $json[0]['result']['metadata']['globalCounts']['count'] );
+			//if(isset($json[0]) && isset($json[0]['result'])){
+				$res = intval( $json[0]['result']['metadata']['globalCounts']['count'] );
+			//} else {
+			//	$res = null;
+			//}
 		} catch (Exception $e) {
 			$this->info($url);
 			$this->info($e->getMessage());
@@ -192,6 +196,12 @@ class CheckerCommand extends Command {
 					$this->info($url);
 
 					$final_url = $this->getFinalURL($url);
+
+					if(strpos($final_url, "/")==0){
+						$orig = parse_url($url);
+						$final_url = $orig['scheme']. '://' . $orig['host'] . $final_url;
+						$this->info($final_url);
+					}
 
 					$date = $value->get_date('Y-m-d H:i:s');
 
