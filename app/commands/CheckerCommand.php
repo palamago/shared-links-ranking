@@ -91,7 +91,6 @@ class CheckerCommand extends Command {
 			'googleplus' 	=> $this->getSharesGooglePlus($url)
 			);
 
-
 		return $r;
 	}
 
@@ -122,7 +121,6 @@ class CheckerCommand extends Command {
 		$res = null;
 		try {
 			$string = file_get_contents('https://api.facebook.com/method/links.getStats?urls='.$url.'&format=json');
-			var_dump($string);
 			$json = json_decode($string);
 			if($json && $json[0]){
 				$res = (int)$json[0]->share_count + (int)$json[0]->like_count;
@@ -259,8 +257,11 @@ class CheckerCommand extends Command {
 	        if( substr($header, 0, 10) == "Location: " ) { 
 	            $target = substr($header, 10);
 				//$this->info($url." redirects to ".$target."");
-				//$this->info('redirects!');
-				if($url == $target || $target == $orig){
+				//$this->info( ($target == null) );
+				if($target == null){
+					return $url;
+				}
+				if( ($url == $target || $target == $orig) ){
 					return $target;
 				} else {
 					return $this->getFinalURL($target,$url);
