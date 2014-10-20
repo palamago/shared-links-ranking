@@ -19,10 +19,10 @@ class Link extends Eloquent {
         return $this->belongsTo('Tag','id_tag');
     }
 
-	/*public function stats()
+	public function stats()
     {
         return $this->hasMany('Stats','id_link');
-    }*/
+    }
 
     public function totalCount()
     {

@@ -59,6 +59,13 @@ class CheckerCommand extends Command {
 			foreach ($links as $value) {
 				$shares = $this->getSharesCount($value->final_url);
 				
+				$ref = Stats::where('id_link',$value->id)->orderBy('created_at', 'DESC')->first();
+
+				if(!$ref) {
+					$ref = new stdClass();
+					$ref->total = 0;
+				}
+
 				$stat = new Stats();
 				$stat->id_link 		= $value->id;
 				$stat->facebook 	= ($shares['facebook']!=null)?$shares['facebook']:$value->facebook;
@@ -66,6 +73,7 @@ class CheckerCommand extends Command {
 				$stat->linkedin 	= ($shares['linkedin']!=null)?$shares['linkedin']:$value->linkedin;
 				$stat->googleplus 	= ($shares['googleplus']!=null)?$shares['googleplus']:$value->googleplus;
 				$stat->total 		= $stat->facebook + $stat->twitter + $stat->linkedin + $stat->googleplus;
+				$stat->dif_total	= $stat->total - $ref->total; 
 				$stat->save();
 
 				$value->facebook 	= $stat->facebook;

@@ -11,7 +11,6 @@ class ApiController extends BaseController {
 	}
 
 	public function getTopNews(){
-		$query = Link::with('newspaper')->with('tag');
 		$hs 			= (Input::get('hs','')!='')?Input::get('hs'):'3';
 		$hs 			= (in_array($hs, [3,6,12,24])?$hs:'3');
 		$newspaper_id 	= (Input::get('newspaper','')!='')?Input::get('newspaper'):false;
@@ -20,23 +19,23 @@ class ApiController extends BaseController {
 		//Time
 		$filterDate = new DateTime('now');
 		$filterDate->sub(new DateInterval('PT'.$hs.'H'));
-		$query->where('date','>',$filterDate);
 
+		$query = Link::with('newspaper')->with('tag')
+            ->join('stats', 'link.id', '=', 'stats.id_link')
+            ->select('*',DB::raw('sum(stats.dif_total) as diff'))
+            ->orderBy('diff','DESC')
+            ->where('stats.created_at','>',$filterDate)
+            ->groupBy('link.id');
+		
 		//Newspaper
 		if($newspaper_id){
-			$query->where('id_newspaper', $newspaper_id);
+			$query->where('link.id_newspaper', $newspaper_id);
 		}
 
 		//tag
 		if($tag_id){
-			$query->where('id_tag', $tag_id);
+			$query->where('link.id_tag', $tag_id);
 		}
-
-		//order
-		$query->orderBy('total', 'DESC');
-		
-		//relations
-		$query->with('newspaper');
 
 		return Response::json($query->take(5)->get());
 	}
