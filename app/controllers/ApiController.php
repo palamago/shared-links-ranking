@@ -22,7 +22,7 @@ class ApiController extends BaseController {
 
 		$query = Link::with('newspaper')->with('tag')
             ->join('stats', 'link.id', '=', 'stats.id_link')
-            ->select('*',DB::raw('sum(stats.dif_total) as diff'))
+            ->select('*',DB::raw('sum(stats.dif_total) as diff'),'link.id as id')
             ->orderBy('diff','DESC')
             ->where('stats.created_at','>',$filterDate)
             ->groupBy('link.id');
@@ -51,7 +51,7 @@ class ApiController extends BaseController {
 		$response = array();
 
 		foreach ($ids as $key => $id) {
-			$response[$id] = Stats::where('id_link',$id)->orderBy('total', 'ASC')->lists('total');
+			$response[$id] = Stats::where('id_link',$id)->orderBy('total', 'ASC')->lists('total','dif_total');
 		}
 
 		return Response::json($response);

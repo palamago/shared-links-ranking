@@ -104,14 +104,36 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
   $scope.renderSparklines = function(){
      angular.forEach($scope.sparklineData,function(e,i){
-      if(e[0]!=0){
-        e.unshift(0);
+      var diff = _.keys(e);
+      var acum = _.values(e);
+
+      if(diff[0]!=0){
+        diff.unshift(0);
       }
-      $("#sparkline-"+i).sparkline(e, 
-      {
-        type: 'line',
-          width: $("#sparkline-"+i).parent().width(),
-          height: '50'
+
+      if(acum[0]!=0){
+        acum.unshift(0);
+      }
+
+      var w = $("#sparkline-"+i).parent().width();
+      var q = acum.length;
+
+      $("#sparkline-"+i).sparkline(acum, 
+        {
+          type: 'line',
+          width: w,
+          height: 50
+        });
+
+      $("#sparkline-"+i).sparkline(diff, 
+        {
+          composite: true,
+          type: 'bar',
+          width: w,
+          height: 50,
+          barColor: 'rgba(0,0,0,0.5)',
+          barWidth: (w*0.2)/q,
+          barSpacing: (w*0.8)/(q-1)
         });
     });
   }
