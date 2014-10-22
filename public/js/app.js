@@ -31,7 +31,6 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
   $scope.titles = {
     newspaper: false,
-    hs: 3,
     tag:false,
     tagColor:''
   }
@@ -39,10 +38,10 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
   $scope.filters = {
   	newspaper:'',
   	tag:'',
-    hs: 3
+    hs: 1
   }
 
-  $scope.times = [ '3', '6', '12', '24' ];
+  $scope.times = [ '1', '3', '6', '12', '24' ];
   
   $scope.newspapers   = [];
   $scope.tags     = [];
@@ -130,7 +129,9 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
         {
           type: 'line',
           width: w,
-          height: 35
+          height: 35,
+          tooltipFormat: '<span class="tooltip-clas"><span style="color: {{color}}">&#9679;</span> {{prefix}}{{y}}{{suffix}}</span>',
+          
         });
 
       $("#sparkline-accum-"+i).sparkline(diff, 
@@ -138,6 +139,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
           type: 'line',
           width: w,
           height: 35,
+          tooltipFormat: '<span class="tooltip-clas"><span style="color: {{color}}">&#9679;</span> {{prefix}}{{y}}{{suffix}}</span>'
 /*          barColor: 'rgba(0,0,0,0.5)',
           barWidth: (w*0.2)/q,
           barSpacing: (w*0.8)/(q-1)*/

@@ -31,3 +31,8 @@ i {
 .tags-selector div {
   height: 35px;
 }
+.jqstooltip {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}

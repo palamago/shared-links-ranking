@@ -11,8 +11,8 @@ class ApiController extends BaseController {
 	}
 
 	public function getTopNews(){
-		$hs 			= (Input::get('hs','')!='')?Input::get('hs'):'3';
-		$hs 			= (in_array($hs, [3,6,12,24])?$hs:'3');
+		$hs 			= (Input::get('hs','')!='')?Input::get('hs'):'1';
+		$hs 			= (in_array($hs, [1,3,6,12,24])?$hs:'1');
 		$newspaper_id 	= (Input::get('newspaper','')!='')?Input::get('newspaper'):false;
 		$tag_id 		= (Input::get('tag','')!='')?Input::get('tag'):false;
 
