@@ -7,6 +7,23 @@ NewsApp.config(function($routeProvider) {
       templateUrl:'/partials/top.html',
       reloadOnSearch: false
     })
+    .when('/link/:id', {
+      controller:'LinkCtrl',
+      templateUrl:'/partials/link.html'
+    });
+
+});
+
+NewsApp.run(function($rootScope, Restangular){
+
+  Restangular.setBaseUrl('/api');
+
+  $rootScope.getDateDiff = function(date){
+    var diff = moment().diff(moment(date));
+    diff = Math.floor(moment.duration(diff).asHours());
+    diff = (diff==0)?'menos de una hora':(diff==1)?'una hora':diff+' horas';
+    return "hace "+ diff;
+  }
 
 });
 
@@ -27,19 +44,11 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
   $scope.times = [ '3', '6', '12', '24' ];
   
-  Restangular.setBaseUrl('/api');
-
   $scope.newspapers   = [];
   $scope.tags     = [];
   $scope.topnews    = [];
   $scope.loading = true;
-
-  $scope.getDateDiff = function(date){
-    var diff = moment().diff(moment(date));
-    diff = Math.floor(moment.duration(diff).asHours());
-    diff = (diff==0)?'menos de una hora':(diff==1)?'una hora':diff+' horas';
-    return "Publicado hace "+ diff;
-  }
+  $scope.sparklineData = {};
 
   $scope.createTitle = function(){
 
@@ -78,15 +87,14 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
   $scope.refresh = function(){
     $scope.loading = true;
     $scope.createTitle();
-  	$scope.topnews = [];
+    $scope.topnews = [];
     Restangular.all('topnews').getList($scope.filters).then(function(data){
       $scope.loading = false;
       $scope.topnews = data;
       $scope.refreshSparklines();
     });
-  } 	
+  }   
 
-  $scope.sparklineData = {};
 
   $scope.refreshSparklines = function(){
     if($scope.topnews.length){
@@ -95,7 +103,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
         IDs.push(e.id);
       });
 
-      $http.get('/api/sparklines/'+IDs.join(',')).success(function(data){
+      Restangular.one('sparklines', IDs.join(',')).get().then(function(data){
         $scope.sparklineData = data;
         $scope.renderSparklines();
       });
@@ -104,8 +112,8 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
   $scope.renderSparklines = function(){
      angular.forEach($scope.sparklineData,function(e,i){
-      var diff = _.keys(e);
-      var acum = _.values(e);
+      var diff = _.values(e);
+      var acum = _.keys(e);
 
       if(diff[0]!=0){
         diff.unshift(0);
@@ -122,34 +130,21 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
         {
           type: 'line',
           width: w,
-          height: 50
+          height: 35
         });
 
-      $("#sparkline-"+i).sparkline(diff, 
+      $("#sparkline-accum-"+i).sparkline(diff, 
         {
-          composite: true,
-          type: 'bar',
+          type: 'line',
           width: w,
-          height: 50,
-          barColor: 'rgba(0,0,0,0.5)',
+          height: 35,
+/*          barColor: 'rgba(0,0,0,0.5)',
           barWidth: (w*0.2)/q,
-          barSpacing: (w*0.8)/(q-1)
+          barSpacing: (w*0.8)/(q-1)*/
         });
     });
   }
 
-  $(window).bind('resize', function(e)
-  {
-      window.resizeEvt;
-      $(window).resize(function()
-      {
-          clearTimeout(window.resizeEvt);
-          window.resizeEvt = setTimeout(function()
-          {
-              $scope.renderSparklines();
-          }, 250);
-      });
-  });
 
   $scope.init = function(){
 
@@ -170,8 +165,42 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
         $scope.refresh();
       });
     });
+  
+    $(window).bind('resize', function(e)
+    {
+        window.resizeEvt;
+        $(window).resize(function()
+        {
+            clearTimeout(window.resizeEvt);
+            window.resizeEvt = setTimeout(function()
+            {
+                $scope.renderSparklines();
+            }, 250);
+        });
+    });
 
   }
+
+  $scope.init();
+
+});
+
+NewsApp.controller('LinkCtrl', function($scope, Restangular, $http, $routeParams, $location) {
+
+  $scope.link    = false;
+  $scope.loading = true;
+
+  $scope.init = function(){
+    Restangular.one('link', $routeParams.id).get().then(function(data){
+      console.log(data);
+      if(data.id){
+        $scope.link = data;
+      } else {
+        $location.path('/');
+      }
+      $scope.loading = false;
+    });
+  };
 
   $scope.init();
 

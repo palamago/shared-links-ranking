@@ -22,7 +22,20 @@ class ApiController extends BaseController {
 
 		$query = Link::with('newspaper')->with('tag')
             ->join('stats', 'link.id', '=', 'stats.id_link')
-            ->select('*',DB::raw('sum(stats.dif_total) as diff'),'link.id as id')
+            ->select(DB::raw('sum(stats.dif_total) as diff')
+            	,'link.id as id'
+            	,'link.url as url'
+            	,'link.id_newspaper as id_newspaper'
+            	,'link.id_tag as id_tag'
+            	,'link.final_url as final_url'
+            	,'link.title as title'
+            	,'link.date as date'
+            	,'link.facebook as facebook'
+            	,'link.twitter as twitter'
+            	,'link.total as total'
+            	,'link.googleplus as googleplus'
+            	,'link.linkedin as linkedin'
+            	)
             ->orderBy('diff','DESC')
             ->where('stats.created_at','>',$filterDate)
             ->groupBy('link.id');
@@ -42,7 +55,6 @@ class ApiController extends BaseController {
 
 	public function getSparklinesData($ids)
 	{
-		$title = 'TOP 5 shared news';
 		$ids = explode(',',$ids);
 		if(count($ids)>5){
 			$ids = array_slice($ids, 0, 5);
@@ -53,6 +65,13 @@ class ApiController extends BaseController {
 		foreach ($ids as $key => $id) {
 			$response[$id] = Stats::where('id_link',$id)->orderBy('total', 'ASC')->lists('total','dif_total');
 		}
+
+		return Response::json($response);
+	}
+
+	public function getLinkData($id)
+	{
+		$response = Link::with('newspaper')->with('tag')->with('stats')->find($id);
 
 		return Response::json($response);
 	}
