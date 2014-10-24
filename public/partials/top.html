@@ -46,30 +46,33 @@
 				<div class="col-md-6">
 					<div class="row">
 						<div class="col-md-6">
-							<h4 class="text-center">
+							<h4 class="">
 								<strong>  
 								<i class="text-primary fa fa-share-alt"></i>
 								+{{link.diff}}
 								</strong>  
-								<small>Tendencia por hora</small>
+								<small>Tendencia en 
+								<span ng-if="filters.hs==1">última hora</span>
+	    						<span ng-if="filters.hs!=1">últimas {{filters.hs}} horas</span>
+	    						</small>
 							</h4>
 						</div>
 						<div class="col-md-6">
-							<div id="sparkline-accum-{{link.id}}" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+							<div id="sparkline-{{link.id}}" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></div>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-md-6">
-							<h4 class="text-center">
+							<h4 class="">
 								<strong>  
-								<i class="text-primary fa fa-share-alt"></i>
+								<i class="text-primary fa fa-share-alt"></i> 
 								{{link.total}}
 								</strong>  
 								<small>Total acumulado</small>
 							</h4>
 						</div>
 						<div class="col-md-6">
-							<div id="sparkline-{{link.id}}" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+							<div id="sparkline-accum-{{link.id}}" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></div>
 						</div>
 					</div>
 				</div>

@@ -104,7 +104,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
       });
 
       Restangular.one('sparklines', IDs.join(',')).get().then(function(data){
-        $scope.sparklineData = data;
+        $scope.sparklineData = data.data;
         $scope.renderSparklines();
       });
     }
@@ -112,8 +112,8 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
   $scope.renderSparklines = function(){
      angular.forEach($scope.sparklineData,function(e,i){
-      var diff = _.values(e);
-      var acum = _.keys(e);
+      var diff = e.dif_total;
+      var acum = e.total;
 
       if(diff[0]!=0){
         diff.unshift(0);
@@ -126,7 +126,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
       var w = $("#sparkline-"+i).parent().width();
       var q = acum.length;
 
-      $("#sparkline-"+i).sparkline(acum, 
+      $("#sparkline-"+i).sparkline(diff, 
         {
           type: 'line',
           width: w,
@@ -135,7 +135,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
           
         });
 
-      $("#sparkline-accum-"+i).sparkline(diff, 
+      $("#sparkline-accum-"+i).sparkline(acum, 
         {
           type: 'line',
           width: w,

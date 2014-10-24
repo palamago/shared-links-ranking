@@ -63,10 +63,11 @@ class ApiController extends BaseController {
 		$response = array();
 
 		foreach ($ids as $key => $id) {
-			$response[$id] = Stats::where('id_link',$id)->orderBy('total', 'ASC')->lists('total','dif_total');
+			$response[$id]['total'] = Stats::where('id_link',$id)->lists('total');
+			$response[$id]['dif_total'] = Stats::where('id_link',$id)->lists('dif_total');
 		}
 
-		return Response::json($response);
+		return Response::json(array('data'=>$response));
 	}
 
 	public function getLinkData($id)
