@@ -83,6 +83,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
     window.location = $location.absUrl();
     if(!justSet){
       $scope.refresh();
+    } else {
     }
     if($('.navbar-toggle').is(':visible') && $('#nav-main').is(':visible')){
       $("#nav-main").collapse('hide');
@@ -91,9 +92,9 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
   $scope.refresh = function(){
     $scope.loading = true;
-    $scope.createTitle();
     $scope.topnews = [];
     Restangular.all('topnews').getList($scope.filters).then(function(data){
+      $scope.createTitle();
       $scope.loading = false;
       $scope.topnews = data;
       $scope.refreshSparklines();
@@ -157,9 +158,9 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
   $scope.init = function(){
 
     Restangular.all('newspaper').getList().then(function(nList){
-      $scope.newspapers = nList;
+      $scope.newspapers = Restangular.stripRestangular(nList);
       Restangular.all('tag').getList().then(function(tList){
-        $scope.tags = tList;
+        $scope.tags = Restangular.stripRestangular(tList);
         if($location.search().tag){
           $scope.filterClick('tag',$location.search().tag,true);
         }
@@ -200,7 +201,6 @@ NewsApp.controller('LinkCtrl', function($scope, Restangular, $http, $routeParams
 
   $scope.init = function(){
     Restangular.one('link', $routeParams.id).get().then(function(data){
-      console.log(data);
       if(data.id){
         $scope.link = data;
       } else {
