@@ -80,7 +80,7 @@
 
 	    <div id="footer">
 	      <div class="container text-center">
-	        <p class="muted credit">Idea: <a href="http://twitter.com/gauyo">@Gauyo</a> | Desarrollo: <a href="http://twitter.com/palamago">@palamago</a> | Beta-testers(?): <a href="http://twitter.com/abad">@abad</a> | <a href="http://twitter.com/hvergara">@hvergara</a> | <a class="btn btn-primary" href="#/acerca">Acerca del proyecto</a>
+	        <p class="muted credit">Idea: <a href="http://twitter.com/gauyo" target="_blank">@Gauyo</a> | Desarrollo: <a href="http://twitter.com/palamago" target="_blank">@palamago</a> | Beta-testers(?): <a href="http://twitter.com/abad" target="_blank">@abad</a> | <a href="http://twitter.com/hvergara" target="_blank">@hvergara</a> | <a class="btn btn-primary" href="#/acerca">Acerca del proyecto</a>
 	      </div>
 	    </div>
 
