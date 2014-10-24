@@ -6,7 +6,7 @@
 		<meta charset="utf-8" />
 		<title>
 			@section('title')
-			Laravel 4 Sample Site
+			Shared Links Ranking
 			@show
 		</title>
 		@section('meta_keywords')

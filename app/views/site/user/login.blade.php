@@ -2,7 +2,7 @@
 
 {{-- Web site Title --}}
 @section('title')
-{{{ Lang::get('user/user.login') }}} ::
+Login
 @parent
 @stop
 

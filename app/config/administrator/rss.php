@@ -58,6 +58,19 @@ return array(
 			'type' => 'text'
 		)
 
-	)
+	),
+
+	'filters' => array(
+		'tag' => array(
+			'title' => 'Tag',
+			'type' => 'relationship',
+			'name_field' => 'name'
+		),
+		'newspaper' => array(
+			'title' => 'Newspaper',
+			'type' => 'relationship',
+			'name_field' => 'name'
+		)
+	),
 
 );
