@@ -58,17 +58,21 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
     var temp;
 
-    console.log('pala');
-
-    if($scope.filters.newspaper!=''){
+    if($scope.filters.newspaper && $scope.filters.newspaper!=''){
       temp = _.where($scope.newspapers, {id: $scope.filters.newspaper})[0];
+      if(!temp){
+        return;
+      }
       $scope.titles.newspaper = temp.name;
     } else {
       $scope.titles.newspaper = false;
     }
 
-    if($scope.filters.tag!=''){
+    if($scope.filters.tag && $scope.filters.tag!=''){
       temp = _.where($scope.tags, {id: $scope.filters.tag})[0];
+      if(!temp){
+        return;
+      }
       $scope.titles.tag = temp.name;
       $scope.titles.tagColor = temp.color;
     } else {
@@ -174,7 +178,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
           $scope.filterClick('hs',hs,true);
         }
         //Remove this horrible thing. Just to avoid a weird problem with openshift load-times
-        setTimeout(function(){$scope.refresh();},1000);
+        $scope.refresh();
       });
     });
   
