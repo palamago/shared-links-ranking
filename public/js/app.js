@@ -58,6 +58,8 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
     var temp;
 
+    console.log('pala');
+
     if($scope.filters.newspaper!=''){
       temp = _.where($scope.newspapers, {id: $scope.filters.newspaper})[0];
       $scope.titles.newspaper = temp.name;
@@ -171,7 +173,8 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
           var hs = _.contains($scope.times, $location.search().hs)?$location.search().hs:3;
           $scope.filterClick('hs',hs,true);
         }
-        $scope.refresh();
+        //Remove this horrible thing. Just to avoid a weird problem with openshift load-times
+        setTimeout(function(){$scope.refresh();},1000);
       });
     });
   
