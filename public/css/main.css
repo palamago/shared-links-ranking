@@ -36,3 +36,6 @@ i {
   -moz-box-sizing: content-box;
   box-sizing: content-box;
 }
+#footer {
+  margin-top: 30px;
+}

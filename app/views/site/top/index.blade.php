@@ -79,8 +79,8 @@
 
 
 	    <div id="footer">
-	      <div class="container">
-	        <p class="muted credit">@palamago</p>
+	      <div class="container text-center">
+	        <p class="muted credit">Idea: <a href="http://twitter.com/gauyo">@Gauyo</a> | Desarrollo: <a href="http://twitter.com/palamago">@palamago</a> | Beta-testers(?): <a href="http://twitter.com/abad">@abad</a> | <a href="http://twitter.com/hvergara">@hvergara</a> | <a class="btn btn-primary" href="#/acerca">Acerca del proyecto</a>
 	      </div>
 	    </div>
 

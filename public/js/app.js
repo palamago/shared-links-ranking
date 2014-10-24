@@ -7,6 +7,9 @@ NewsApp.config(function($routeProvider) {
       templateUrl:'/partials/top.html',
       reloadOnSearch: false
     })
+    .when('/acerca', {
+      templateUrl:'/partials/about.html'
+    })
     .when('/link/:id', {
       controller:'LinkCtrl',
       templateUrl:'/partials/link.html'
