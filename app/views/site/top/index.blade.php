@@ -78,10 +78,18 @@
 		<!-- ./wrap -->
 
 
+
 	    <div id="footer">
-	      <div class="container text-center">
-	        <p class="muted credit">Idea: <a href="http://twitter.com/gauyo" target="_blank">@Gauyo</a> | Desarrollo: <a href="http://twitter.com/palamago" target="_blank">@palamago</a> | Beta-testers(?): <a href="http://twitter.com/abad" target="_blank">@abad</a> | <a href="http://twitter.com/hvergara" target="_blank">@hvergara</a> | <a class="btn btn-primary" href="#/acerca">Acerca del proyecto</a>
-	      </div>
+			<div class="container text-center">
+				<p class="muted credit">Idea: <a href="http://twitter.com/gauyo" target="_blank">@Gauyo</a> | Desarrollo: <a href="http://twitter.com/palamago" target="_blank">@palamago</a> | Beta-testers(?): <a href="http://twitter.com/abad" target="_blank">@abad</a> | <a href="http://twitter.com/hvergara" target="_blank">@hvergara</a> | <a class="btn btn-primary" href="#/acerca">Acerca del proyecto</a>
+				<div id="compartir" class="">
+						<div class="row">
+							<div class="col-sm-2 col-sm-offset-3 text-center" fb-like></div>
+							<div class="col-sm-2 text-center" google-plus></div>
+							<div class="col-sm-2 text-center" tweet="shareText"></div>
+						</div>
+				</div>
+			</div>
 	    </div>
 
 		<!-- Javascripts
@@ -98,6 +106,7 @@
         <script src="{{asset('js/libs/angular.min.js')}}"></script>
         <script src="{{asset('js/libs/angular-route.min.js')}}"></script>
         <script src="{{asset('js/libs/restangular.min.js')}}"></script>
+        <script src="{{asset('js/libs/angulike.js')}}"></script>
 		<script src="{{asset('js/app.js')}}"></script>
         <script src="{{asset('js/main.js')}}"></script>
 

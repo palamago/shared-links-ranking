@@ -1,4 +1,4 @@
-var NewsApp = angular.module('news-ranking-project', ['ngRoute','restangular']);
+var NewsApp = angular.module('news-ranking-project', ['ngRoute','restangular','angulike']);
 
 NewsApp.config(function($routeProvider) {
   $routeProvider
@@ -27,6 +27,8 @@ NewsApp.run(function($rootScope, Restangular){
     diff = (diff==0)?'menos de una hora':(diff==1)?'una hora':diff+' horas';
     return "hace "+ diff;
   }
+
+  $rootScope.shareText = "Shared Links Ranking";
 
 });
 

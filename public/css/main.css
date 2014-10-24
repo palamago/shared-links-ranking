@@ -39,3 +39,6 @@ i {
 #footer {
   margin-top: 30px;
 }
+#footer .share-btn {
+  display: inline;
+}
