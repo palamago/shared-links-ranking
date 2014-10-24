@@ -72,6 +72,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
   }
 
   $scope.filterClick = function(filter,value,justSet){
+    _gaq.push(['_trackEvent', 'filter', filter, value]);
     $scope.filters[filter] = value;
     $location.search(filter,value);
     window.location = $location.absUrl();
