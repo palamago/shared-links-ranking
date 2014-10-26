@@ -85,6 +85,9 @@ class CheckerCommand extends Command {
 
 			}
 		});
+		
+		//Remove old links
+		Link::where('date','<',$filterDate)->delete();
 
 		$log->status = "finished";
 		$log->save();
