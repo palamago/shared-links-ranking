@@ -10,13 +10,13 @@
 			@show
 		</title>
 		@section('meta_keywords')
-		<meta name="keywords" content="your, awesome, keywords, here" />
+		<meta name="keywords" content="news, links, ranking" />
 		@show
 		@section('meta_author')
-		<meta name="author" content="Jon Doe" />
+		<meta name="author" content="@palamago" />
 		@show
 		@section('meta_description')
-		<meta name="description" content="Lorem ipsum dolor sit amet, nihil fabulas et sea, nam posse menandri scripserit no, mei." />
+		<meta name="description" content="Shared Links Ranking from multiples RSS sources." />
                 @show
 		<!-- Mobile Specific Metas
 		================================================== -->

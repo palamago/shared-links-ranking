@@ -339,6 +339,7 @@ return array(
     'File_ASN1' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',
     'File_ASN1_Element' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/ASN1.php',
     'File_X509' => $vendorDir . '/phpseclib/phpseclib/phpseclib/File/X509.php',
+    'ForeignFix' => $baseDir . '/app/database/migrations/2014_10_26_195016_foreign_fix.php',
     'Frozennode\\Administrator\\Actions\\Action' => $vendorDir . '/frozennode/administrator/src/Frozennode/Administrator/Actions/Action.php',
     'Frozennode\\Administrator\\Actions\\Factory' => $vendorDir . '/frozennode/administrator/src/Frozennode/Administrator/Actions/Factory.php',
     'Frozennode\\Administrator\\AdminController' => $vendorDir . '/frozennode/administrator/src/controllers/AdminController.php',
