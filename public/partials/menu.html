@@ -13,7 +13,7 @@
             <ul class="nav navbar-nav col-md-12">
 				<li class="dropdown col-md-6 text-center">
 	                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-	                	<h2>{{(titles.tag)?titles.tag:'Todos las categorías'}} <i class="icon-material-expand-more"></i></h2> 
+	                	<h2>{{(titles.tag)?titles.tag:'Todos las categorías'}} <i class="mdi-hardware-keyboard-arrow-down"></i></h2> 
 	                </a>
 	                <ul class="dropdown-menu col-md-12">
 	                    <li><a ng-click='filterClick("tag","")' ng-class="{active:(filters.tag=='')}">
@@ -34,7 +34,7 @@
 	            </li>
 	            <li class="dropdown col-md-6 text-center">
 	                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-	                	<h2>{{(titles.newspaper)?titles.newspaper:'Todos los medios'}} <i class="icon-material-expand-more"></i></h2>
+	                	<h2>{{(titles.newspaper)?titles.newspaper:'Todos los medios'}} <i class="mdi-hardware-keyboard-arrow-down"></i></h2>
 	                </a>
 	                <ul class="dropdown-menu col-md-12">
 						<li><a ng-click='filterClick("newspaper","")' ng-class="{active:(filters.newspaper=='')}">

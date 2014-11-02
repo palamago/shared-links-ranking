@@ -177,6 +177,9 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
           var hs = _.contains($scope.times, $location.search().hs)?$location.search().hs:3;
           $scope.filterClick('hs',hs,true);
         }
+        
+        $.material.init();
+
         //Remove this horrible thing. Just to avoid a weird problem with openshift load-times
         $scope.refresh();
       });
