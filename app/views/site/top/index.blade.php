@@ -33,7 +33,7 @@
         <link rel="stylesheet" href="{{asset('css/main.css')}}">
 		<style>
         body {
-            padding: 115px 0;
+            padding: 70px 0;
         }
 		@section('styles')
 		@show

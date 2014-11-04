@@ -1,23 +1,23 @@
 <!-- Navbar -->
 <div class="navbar navbar-default navbar-inverse navbar-fixed-top">
 	 <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <div class="navbar-header col-md-2">
+            <a class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
+                <i class="mdi-hardware-keyboard-control"></i>
+            </a>
+            <a class="navbar-brand" href="javascript:void(0)"><strong><i class="mdi-action-stars"></i>Top links</strong></a>
         </div>
-        <div id="nav-main" class="collapse navbar-collapse navbar-ex1-collapse row">
-            <ul class="nav navbar-nav col-md-12">
+        <div id="nav-main" class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav col-md-10">
 				<li class="dropdown col-md-6 text-center">
 	                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-	                	<h2>{{(titles.tag)?titles.tag:'Todos las categorías'}} <i class="mdi-hardware-keyboard-arrow-down"></i></h2> 
+	                	<i class="mdi-maps-local-offer"></i>
+	                	<span> {{(titles.tag)?titles.tag:'Todos las categorías'}} <i class="mdi-hardware-keyboard-arrow-down"></i></span> 
 	                </a>
 	                <ul class="dropdown-menu col-md-12">
 	                    <li><a ng-click='filterClick("tag","")' ng-class="{active:(filters.tag=='')}">
-							<h2>Todas las categorías</h2>
+							<span>Todas las categorías</span>
 						</a></li>
 
 						<li class="col-md-6 tags-selector" ng-repeat="tag in tags">
@@ -34,11 +34,12 @@
 	            </li>
 	            <li class="dropdown col-md-6 text-center">
 	                <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-	                	<h2>{{(titles.newspaper)?titles.newspaper:'Todos los medios'}} <i class="mdi-hardware-keyboard-arrow-down"></i></h2>
+	                	<i class="mdi-content-content-paste"></i>
+	                	<span>{{(titles.newspaper)?titles.newspaper:'Todos los medios'}} <i class="mdi-hardware-keyboard-arrow-down"></i></span>
 	                </a>
 	                <ul class="dropdown-menu col-md-12">
 						<li><a ng-click='filterClick("newspaper","")' ng-class="{active:(filters.newspaper=='')}">
-							<h2>Todos los medios</h2>
+							<span>Todos los medios</span>
 						</a></li>
 
 						<li class="col-md-6" ng-repeat="newspaper in newspapers" >

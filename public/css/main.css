@@ -21,10 +21,11 @@
 i {
   margin-left: 10px;
 }
-.tags-selector {
+.navbar-nav a {
   cursor: pointer;
 }
 .tags-selector a {
+  cursor: pointer;
   padding: 20px;
   font-size: 20px;
 }
@@ -41,4 +42,11 @@ i {
 }
 #footer .share-btn {
   display: inline;
+}
+.navbar-toggle {
+  margin: 0px;
+}
+.navbar-toggle i {
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 27px;
 }
