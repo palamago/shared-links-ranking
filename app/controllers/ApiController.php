@@ -35,6 +35,7 @@ class ApiController extends BaseController {
             	,'link.total as total'
             	,'link.googleplus as googleplus'
             	,'link.linkedin as linkedin'
+            	,'link.image as image'
             	)
             ->orderBy('diff','DESC')
             ->where('stats.created_at','>',$filterDate)

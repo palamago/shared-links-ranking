@@ -87,7 +87,7 @@ class CheckerCommand extends Command {
 		});
 		
 		//Remove old links
-		Link::where('date','<',$filterDate)->delete();
+		Link::where('date','<',$filterDate)->where('updated_at','<',$filterDate)->delete();
 
 		$log->status = "finished";
 		$log->save();
@@ -197,16 +197,13 @@ class CheckerCommand extends Command {
 				$url = $value->get_id();
 				$url = (filter_var($url, FILTER_VALIDATE_URL) === FALSE)?$value->get_permalink():$url;
 
-				//REMOVE THIS!
-	//			$url = (strpos($url,"www.canchallena.com")>-1)?str_replace("www.canchallena.com", "canchallena.lanacion.com.ar", $url):$url;
-
 				$link = Link::where('url', $url )->get()->first();
 
 				if ( is_null($link) ){
 
-					$this->info($url);
-
 					$final_url = $this->getFinalURL($url);
+
+					$this->info($final_url);
 
 					if(strpos($final_url, "/")==0){
 						$orig = parse_url($url);
@@ -214,20 +211,32 @@ class CheckerCommand extends Command {
 						$this->info($final_url);
 					}
 
-					$date = $value->get_date('Y-m-d H:i:s');
+					/*$tags = get_meta_tags($final_url);
+					$this->info('imagen:');
+					$this->info($tags['og:image']);*/
 
-					/*$this->info($value->get_date(''));
+//					var_dump($rss->date_format);
+					//var_dump($value->get_date($rss->date_format));
+					$date = strtotime($value->get_date());
+//'Y-m-d H:i:s'
+					/*$this->info($rss->date_format);
+					$this->info($value->get_date(''));
 					$this->info($value->get_date('Y-m-d H:i:s'));*/
 
 					//Fallback bad dates
 					if(strpos($date, '1969')==0){
 						$date = new DateTime();
+					}else{
+						$date = date('Y-m-d H:i:s',$date);
 					}
+
+					$image = $this->getImage($value,$url);
 
 					$data[] = array(
 						'url' => $url,
 						'final_url' => $final_url,
 						'title' => html_entity_decode($value->get_title()),
+						'image' => $image,
 						'id_rss' => $rss->id,
 						'id_tag' => $rss->id_tag,
 						'id_newspaper' => $rss->id_newspaper,
@@ -239,6 +248,8 @@ class CheckerCommand extends Command {
 						'updated_at' => date('Y-m-d H:i:s'),
 						'created_at' => date('Y-m-d H:i:s')
 						);
+				} else {
+					$link->touch();
 				}
 
 			}
@@ -294,6 +305,47 @@ class CheckerCommand extends Command {
 	    return $url;
 		
 	}
+
+	private function getImage($item,$final_url) {
+		$image = null;
+		//var_dump($item->get_enclosures());
+		if(count($item->get_enclosures())>0 ){
+			if (isset($item->get_enclosures()[0]->thumbnails) && count($item->get_enclosures()[0]->thumbnails)>0){
+				$image = $item->get_enclosures()[0]->thumbnails[0]; 
+			} else if (isset($item->get_enclosures()[0]->link) ) {
+				$image = $item->get_enclosures()[0]->link;
+			}
+		}
+
+		if(!$image){
+			//var_dump( file_get_contents($final_url));
+
+			$curl = curl_init();
+			curl_setopt($curl, CURLOPT_URL, $final_url);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+			# you may set this options if you need to follow redirects.
+			# Though I didn't get any in your case
+			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+
+			$content = curl_exec($curl);
+			curl_close($curl);
+
+			# note the variable change.
+//			var_dump($content);
+
+
+			$tags = get_meta_tags($final_url);
+			$this->info('imagen:');
+			$this->info($tags['og:image']);
+
+
+		}
+
+		var_dump($image);
+
+		return $image;
+	}
+
 
 	/**
 	 * Get the console command arguments.

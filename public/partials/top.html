@@ -24,8 +24,15 @@
 
 <div class="row news-item" ng-repeat="link in topnews">
 	<div class="col-md-12">
-		<div class="jumbotron">
-			<h2>{{$index+1}}. <a href="{{link.url}}" target="_blank">{{link.title}}</a> <small>{{getDateDiff(link.date)}} en <span class="label" style="background-color:{{link.tag.color}};"><a ng-click='filterClick("tag",link.tag.id)'>{{link.tag.name}}</a></span></small></h2>
+		<div class="jumbotron" >
+			<div class="row">
+				<div class="col-md-6 news-image" style="background-image:url('{{link.image}}');size:cover;">
+					<h2>{{$index+1}}. <a href="{{link.url}}" target="_blank">{{link.title}}</a> <small>{{getDateDiff(link.date)}} en <span class="label" style="background-color:{{link.tag.color}};"><a ng-click='filterClick("tag",link.tag.id)'>{{link.tag.name}}</a></span></small></h2>
+				</div>
+				<div class="col-md-6 news-data">
+					
+				</div>
+			</div>
 			<hr/>
 			<div class="row">
 				<div class="col-md-3">

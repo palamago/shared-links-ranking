@@ -30,6 +30,9 @@ return array(
 			'relationship' => 'tag',
 			'select' => '(:table).name'
 		),
+		/*'date_format' => array(
+			'title' => 'Formato Fecha'
+		),*/
 		'created_at' => array(
 			'title' => 'Creado'
 		),
@@ -57,6 +60,10 @@ return array(
 			'title' => 'Url',
 			'type' => 'text'
 		)
+		/*'date_format' => array(
+			'title' => 'Formato fecha',
+			'type' => 'text'
+		)*/
 
 	),
 

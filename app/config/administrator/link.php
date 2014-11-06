@@ -20,13 +20,9 @@ return array(
 		'title' => array(
 			'title' => 'Titulo'
 		),
-		'url' => array(
-			'title' => 'Url',
-			'output' => '<a href="(:value)" target="_blank">Link<a/>'
-		),
 		'final_url' => array(
 			'title' => 'FinalUrl',
-			'output' => '<a href="(:value)" target="_blank">Link<a/>'
+			'output' => '<a href="(:value)" target="_blank">Link</a>'
 		),
 		'date' => array(
 			'title' => 'Fecha'
@@ -41,12 +37,10 @@ return array(
 			'relationship' => 'tag',
 			'select' => '(:table).name',
 		),		
-		/*'id_rss' => array(
+		'image' => array(
 			'title' => 'Rss',
-			'relationship' => 'rss',
-			'select' => '(:table).url',
-			'output' => '<a href="(:value)" target="_blank">Link<a/>'
-		),*/
+			'output' => '<img src="(:value)" width="50" />'
+		),
 		'created_at' => array(
 			'title' => 'Creado'
 		),
