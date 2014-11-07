@@ -38,7 +38,7 @@ return array(
 			'select' => '(:table).name',
 		),		
 		'image' => array(
-			'title' => 'Rss',
+			'title' => 'Img',
 			'output' => '<img src="(:value)" width="50" />'
 		),
 		'created_at' => array(

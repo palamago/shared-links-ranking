@@ -20,7 +20,7 @@
   margin: 0px;
   color: #fff;
   text-shadow: 2px 2px #000;
-  height: 110px;
+  min-height: 135px;
 }
 .news-item h2 a {
   color: #fff;
