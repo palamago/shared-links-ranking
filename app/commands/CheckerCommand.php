@@ -320,7 +320,7 @@ class CheckerCommand extends Command {
 		if(!$image){
 			//var_dump( file_get_contents($final_url));
 
-			$curl = curl_init();
+			/*$curl = curl_init();
 			curl_setopt($curl, CURLOPT_URL, $final_url);
 			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 			# you may set this options if you need to follow redirects.
@@ -328,20 +328,20 @@ class CheckerCommand extends Command {
 			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
 			$content = curl_exec($curl);
-			curl_close($curl);
+			curl_close($curl);*/
 
 			# note the variable change.
 //			var_dump($content);
 
 
-			$tags = get_meta_tags($final_url);
+			/*$tags = get_meta_tags($final_url);
 			$this->info('imagen:');
 			$this->info($tags['og:image']);
-
+*/
 
 		}
 
-		var_dump($image);
+		//var_dump($image);
 
 		return $image;
 	}

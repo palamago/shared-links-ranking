@@ -22,85 +22,61 @@
 
 <h2 ng-show="topnews.length==0 && !loading">No hay noticias con estos criterios.</h2>
 
-<div class="row news-item" ng-repeat="link in topnews">
-	<div class="col-md-12">
-		<div class="jumbotron" >
+<div class="row" >
+	<div class="col-md-6 news-item" ng-repeat="link in topnews" >
+		<div class="jumbotron" style="background-image:url('{{link.image}}');background-size:cover;">
 			<div class="row">
-				<div class="col-md-6 news-image" style="background-image:url('{{link.image}}');size:cover;">
-					<h2>{{$index+1}}. <a href="{{link.url}}" target="_blank">{{link.title}}</a> <small>{{getDateDiff(link.date)}} en <span class="label" style="background-color:{{link.tag.color}};"><a ng-click='filterClick("tag",link.tag.id)'>{{link.tag.name}}</a></span></small></h2>
-				</div>
-				<div class="col-md-6 news-data">
-					
-				</div>
-			</div>
-			<hr/>
-			<div class="row">
-				<div class="col-md-3">
-					<div class="list-group">
+				<div class="col-md-12" >
+					<div class="list-group pull-right newspaper-icon">
 					    <div class="list-group-item">
 					        <div class="row-picture">
 					            <img ng-click='filterClick("newspaper",link.newspaper.id)' class="circle" ng-src="{{link.newspaper.logo}}" alt="icon">
 					        </div>
-					        <div class="row-content">
-					            <h5 class="list-group-item-heading">{{link.newspaper.name}}</h5>
-					            <p class="list-group-item-text">
-					            <small><a href="{{link.newspaper.url}}" target="_blank">{{link.newspaper.url}}</a>
-					            </small>
-					            </p>
-					        </div>
 					    </div>
+					    <p class="text-center">{{getDateDiff(link.date)}}</p>
 					</div>
-				</div>
-
-				<div class="col-md-6">
-					<div class="row">
-						<div class="col-md-6">
-							<h4 class="">
-								<strong>  
-								<i class="text-primary fa fa-share-alt"></i>
-								+{{link.diff}}
-								</strong>  
-								<small>Tendencia en 
-								<span ng-if="filters.hs==1">última hora</span>
-	    						<span ng-if="filters.hs!=1">últimas {{filters.hs}} horas</span>
-	    						</small>
-							</h4>
-						</div>
-						<div class="col-md-6">
-							<div id="sparkline-{{link.id}}" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<h4 class="">
-								<strong>  
-								<i class="text-primary fa fa-share-alt"></i> 
-								{{link.total}}
-								</strong>  
-								<small>Total acumulado</small>
-							</h4>
-						</div>
-						<div class="col-md-6">
-							<div id="sparkline-accum-{{link.id}}" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="row">
-						<div class="col-xs-6 text-center tooltip-simple" data-toggle="tooltip" data-placement="bottom" title="Facebook">
-							<p><i class="text-primary fa fa-facebook"></i> {{link.facebook}}</p></div>
-						<div class="col-xs-6 text-center tooltip-simple" data-toggle="tooltip" data-placement="bottom" title="Twitter">
-							<p><i class="text-primary fa fa-twitter"></i> {{link.twitter}}</p></div>
-					</div>
-					<div class="row">	
-						<div class="col-xs-6 text-center tooltip-simple" data-toggle="tooltip" data-placement="bottom" title="Google +">
-							<p><i class="text-primary fa fa-google-plus"></i> {{link.googleplus}}</p></div>
-						<div class="col-xs-6 text-center tooltip-simple" data-toggle="tooltip" data-placement="bottom" title="Linkedin">
-							<p><i class="text-primary fa fa-linkedin"></i> {{link.linkedin}}</p></div>
+					<div>
+						<h2>{{$index+1}}. <a href="{{link.url}}" target="_blank">{{link.title}}</a></h2>
+						<p><span class="label" style="background-color:{{link.tag.color}};"><a ng-click='filterClick("tag",link.tag.id)'>{{link.tag.name}}</a></span></p>
 					</div>
 				</div>
 			</div>
+			<div class="row social-numbers">
+				<div class="col-xs-4 text-center">
+					<p class="">
+						<strong>  
+						<i class="text-primary fa fa-share-alt"></i>
+						+{{link.diff}}
+						</strong>  
+						<small>
+						<span>{{filters.hs}}h</span>
+						</small>
+					</p>
+				</div>
+				<div class="col-xs-4 text-center">
+					<p class="">
+						<strong>  
+						<i class="text-primary fa fa-share-alt"></i> 
+						{{link.total}}
+						</strong>  
+						<small>Total</small>
+					</p>
+				</div>
+				<div class="col-xs-4 sparkline-container">
+					<div id="sparkline-accum-{{link.id}}" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+				</div>
+			</div>	
+			<div class="row social-numbers">	
+				<div class="col-xs-3 text-center" >
+					<p><i class="text-primary fa fa-facebook"></i> {{link.facebook}}</p></div>
+				<div class="col-xs-3 text-center" >
+					<p><i class="text-primary fa fa-twitter"></i> {{link.twitter}}</p></div>
+				<div class="col-xs-3 text-center" >
+					<p><i class="text-primary fa fa-google-plus"></i> {{link.googleplus}}</p></div>
+				<div class="col-xs-3 text-center" >
+					<p><i class="text-primary fa fa-linkedin"></i> {{link.linkedin}}</p></div>
+			</div>
+
 		</div>
 	</div>
 

@@ -24,8 +24,9 @@ NewsApp.run(function($rootScope, Restangular){
   $rootScope.getDateDiff = function(date){
     var diff = moment().diff(moment(date));
     diff = Math.floor(moment.duration(diff).asHours());
-    diff = (diff==0)?'menos de una hora':(diff==1)?'una hora':diff+' horas';
-    return "hace "+ diff;
+    //diff = (diff==0)?'menos de una hora':(diff==1)?'una hora':diff+' horas';
+    diff = (diff==0)?'1h':(diff==1)?'1h':diff+'h';
+    return diff;
   }
 
   $rootScope.shareText = "Shared Links Ranking";
@@ -135,26 +136,34 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
         acum.unshift(0);
       }
 
-      var w = $("#sparkline-"+i).parent().width();
+      var w = $("#sparkline-accum-"+i).parent().width();
       var q = acum.length;
 
-      $("#sparkline-"+i).sparkline(diff, 
+    /*  $("#sparkline-"+i).sparkline(diff, 
         {
           type: 'line',
           width: w,
           height: 35,
           tooltipFormat: '<span class="tooltip-clas"><span style="color: {{color}}">&#9679;</span> {{prefix}}{{y}}{{suffix}}</span>',
           
-        });
+        });*/
 
       $("#sparkline-accum-"+i).sparkline(acum, 
         {
           type: 'line',
           width: w,
           height: 35,
-          tooltipFormat: '<span class="tooltip-clas"><span style="color: {{color}}">&#9679;</span> {{prefix}}{{y}}{{suffix}}</span>'
-/*          barColor: 'rgba(0,0,0,0.5)',
-          barWidth: (w*0.2)/q,
+          tooltipFormat: '<span class="tooltip-clas"><span style="color: {{color}}">&#9679;</span> {{prefix}}{{y}}{{suffix}}</span>',
+          lineColor: 'rgba(255,255,255,1)',
+          spotColor: '#FFFFFF',
+          minSpotColor: '#FFFFFF',
+          maxSpotColor: '#FFFFFF',
+         // valueSpots: acum,
+          spotRadius: 3,
+          lineWidth: 3,
+          fillColor: false,
+          highlightSpotColor: '#4285f4'
+/*          barWidth: (w*0.2)/q,
           barSpacing: (w*0.8)/(q-1)*/
         });
     });

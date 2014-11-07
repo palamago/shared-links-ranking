@@ -51,14 +51,14 @@ class ApiController extends BaseController {
 			$query->where('link.id_tag', $tag_id);
 		}
 
-		return Response::json($query->take(5)->get());
+		return Response::json($query->take(10)->get());
 	}
 
 	public function getSparklinesData($ids)
 	{
 		$ids = explode(',',$ids);
-		if(count($ids)>5){
-			$ids = array_slice($ids, 0, 5);
+		if(count($ids)>10){
+			$ids = array_slice($ids, 0, 10);
 		}
 
 		$response = array();
