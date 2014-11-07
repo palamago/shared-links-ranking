@@ -307,7 +307,7 @@ class CheckerCommand extends Command {
 	}
 
 	private function getImage($item,$final_url) {
-		$image = null;
+		$image = '';
 		//var_dump($item->get_enclosures());
 		if(count($item->get_enclosures())>0 ){
 			if (isset($item->get_enclosures()[0]->thumbnails) && count($item->get_enclosures()[0]->thumbnails)>0){
@@ -328,7 +328,7 @@ class CheckerCommand extends Command {
 			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 
 			$content = curl_exec($curl);
-			curl_close($curl);*/
+			curl_close($curl);
 
 			# note the variable change.
 //			var_dump($content);
