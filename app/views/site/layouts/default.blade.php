@@ -59,7 +59,7 @@
 		<!-- Navbar -->
 		<div class="navbar navbar-default navbar-inverse navbar-fixed-top">
 			 <div class="container">
-				 <a class="navbar-brand" href="javascript:void(0)">News ranking</a>
+				 <a class="navbar-brand" href="javascript:void(0)"><strong><i class="mdi-action-stars"></i>Top links</strong></a>
 			</div>
 		</div>
 		<!-- ./ navbar -->
