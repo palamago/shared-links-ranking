@@ -201,7 +201,9 @@ class CheckerCommand extends Command {
 
 				if ( is_null($link) ){
 
-					$final_url = $this->getFinalURL($url);
+					$htmlParts = $this->getFinalURL($url);
+
+					$final_url = $htmlParts['final_url'];
 
 					$this->info($final_url);
 
@@ -211,18 +213,9 @@ class CheckerCommand extends Command {
 						$this->info($final_url);
 					}
 
-					/*$tags = get_meta_tags($final_url);
-					$this->info('imagen:');
-					$this->info($tags['og:image']);*/
-
-//					var_dump($rss->date_format);
-					//var_dump($value->get_date($rss->date_format));
+					//'Y-m-d H:i:s'
 					$date = strtotime($value->get_date());
-//'Y-m-d H:i:s'
-					/*$this->info($rss->date_format);
-					$this->info($value->get_date(''));
-					$this->info($value->get_date('Y-m-d H:i:s'));*/
-
+					
 					//Fallback bad dates
 					if(strpos($date, '1969')==0){
 						$date = new DateTime();
@@ -230,7 +223,7 @@ class CheckerCommand extends Command {
 						$date = date('Y-m-d H:i:s',$date);
 					}
 
-					$image = $this->getImage($value,$url);
+					$image = $this->getImage($value,$htmlParts['og_image']);
 
 					$data[] = array(
 						'url' => $url,
@@ -256,7 +249,8 @@ class CheckerCommand extends Command {
 
 		} catch (Exception $e) {
 			$this->info($rss->url);
-			$this->info($e->getMessage());
+			$this->info($e->getTraceAsString());
+
 		}
 
 		if(count($data)){
@@ -273,10 +267,10 @@ class CheckerCommand extends Command {
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 	    curl_setopt($ch, CURLOPT_URL, $url);
-	    $out = curl_exec($ch);
+	    $rawHtml = curl_exec($ch);
 
 	    // line endings is the wonkiest piece of this whole thing
-	    $out = str_replace("\r", "", $out);
+	    $out = str_replace("\r", "", $rawHtml);
 
 	    // only look at the headers
 	    $headers_end = strpos($out, "\n\n");
@@ -291,10 +285,16 @@ class CheckerCommand extends Command {
 				//$this->info($url." redirects to ".$target."");
 				//$this->info( ($target == null) );
 				if($target == null){
-					return $url;
+					return array(
+						'final_url'	=>	$url,
+						'og_image'	=>	$this->getOgImage($rawHtml)
+						);
 				}
 				if( ($url == $target || $target == $orig) ){
-					return $target;
+					return array(
+						'final_url' =>	$target,
+						'og_image'	=>	$this->getOgImage($rawHtml)
+						);
 				} else {
 					return $this->getFinalURL($target,$url);
 				}
@@ -302,46 +302,38 @@ class CheckerCommand extends Command {
 	        }   
 	    }
 
-	    return $url;
+	    return array(
+			'final_url'	=>	$url,
+			'og_image'	=>	$this->getOgImage($rawHtml)
+			);
 		
 	}
 
-	private function getImage($item,$final_url) {
-		$image = '';
-		//var_dump($item->get_enclosures());
-		if(count($item->get_enclosures())>0 ){
-			if (isset($item->get_enclosures()[0]->thumbnails) && count($item->get_enclosures()[0]->thumbnails)>0){
-				$image = $item->get_enclosures()[0]->thumbnails[0]; 
-			} else if (isset($item->get_enclosures()[0]->link) ) {
-				$image = $item->get_enclosures()[0]->link;
+	private function getOgImage($html){
+		$doc = new DOMDocument();
+		@$doc->loadHTML($html);
+	    $ogImg = false;
+		foreach( $doc->getElementsByTagName('meta') as $meta ) { 
+			if($meta->getAttribute('property') == "og:image"){
+				$ogImg = $meta->getAttribute('content');
 			}
 		}
+		return $ogImg;
+	}
 
+	private function getImage($item,$ogImage) {
+		$image = $ogImage;
+
+		//If no og:image get rss image
 		if(!$image){
-			//var_dump( file_get_contents($final_url));
-
-			/*$curl = curl_init();
-			curl_setopt($curl, CURLOPT_URL, $final_url);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-			# you may set this options if you need to follow redirects.
-			# Though I didn't get any in your case
-			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
-
-			$content = curl_exec($curl);
-			curl_close($curl);
-
-			# note the variable change.
-//			var_dump($content);
-
-
-			/*$tags = get_meta_tags($final_url);
-			$this->info('imagen:');
-			$this->info($tags['og:image']);
-*/
-
+			if(count($item->get_enclosures())>0 ){
+				if (isset($item->get_enclosures()[0]->thumbnails) && count($item->get_enclosures()[0]->thumbnails)>0){
+					$image = $item->get_enclosures()[0]->thumbnails[0]; 
+				} else if (isset($item->get_enclosures()[0]->link) ) {
+					$image = $item->get_enclosures()[0]->link;
+				}
+			}
 		}
-
-		//var_dump($image);
 
 		return $image;
 	}
