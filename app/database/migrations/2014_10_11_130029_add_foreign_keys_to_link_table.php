@@ -30,9 +30,9 @@ class AddForeignKeysToLinkTable extends Migration {
 	{
 		Schema::table('link', function(Blueprint $table)
 		{
-			$table->dropForeign('id_rss');
-			$table->dropForeign('id_newspaper');
-			$table->dropForeign('id_tag');
+			$table->dropForeign('fk_link_1');
+			$table->dropForeign('link_ibfk_1');
+			$table->dropForeign('link_ibfk_2');
 		});
 	}
 

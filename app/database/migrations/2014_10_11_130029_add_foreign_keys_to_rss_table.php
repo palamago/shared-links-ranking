@@ -29,8 +29,8 @@ class AddForeignKeysToRssTable extends Migration {
 	{
 		Schema::table('rss', function(Blueprint $table)
 		{
-			$table->dropForeign('id_newspaper');
-			$table->dropForeign('id_tag');
+			$table->dropForeign('fk_rss_1');
+			$table->dropForeign('rss_ibfk_1');
 		});
 	}
 

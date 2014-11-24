@@ -28,7 +28,7 @@ class AddForeignKeysToStatsTable extends Migration {
 	{
 		Schema::table('stats', function(Blueprint $table)
 		{
-			$table->dropForeign('id_link');
+			$table->dropForeign('stats_ibfk_1');
 		});
 	}
 
