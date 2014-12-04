@@ -20,13 +20,14 @@ class ApiController extends BaseController {
 		$filterDate = new DateTime('now');
 		$filterDate->sub(new DateInterval('PT'.$hs.'H'));
 
-		$query = Link::with('newspaper')->with('tag')
+		$query = Link::with('newspaper')->with('tag')->with('rss')
             ->join('stats', 'link.id', '=', 'stats.id_link')
             ->select(DB::raw('sum(stats.dif_total) as diff')
             	,'link.id as id'
             	,'link.url as url'
             	,'link.id_newspaper as id_newspaper'
             	,'link.id_tag as id_tag'
+            	,'link.id_rss as id_rss'
             	,'link.final_url as final_url'
             	,'link.title as title'
             	,'link.date as date'

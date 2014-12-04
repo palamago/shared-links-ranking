@@ -81,14 +81,22 @@
 
 	    <div id="footer">
 			<div class="container text-center">
-				<p class="muted credit">Idea: <a href="http://twitter.com/gauyo" target="_blank">@Gauyo</a> | Desarrollo: <a href="http://twitter.com/palamago" target="_blank">@palamago</a> | Beta-testers(?): <a href="http://twitter.com/abad" target="_blank">@abad</a> | <a href="http://twitter.com/hvergara" target="_blank">@hvergara</a> | <a class="btn btn-primary" href="#/acerca">Acerca del proyecto</a>
-				<div id="compartir" class="">
-						<div class="row">
-							<div class="col-sm-2 col-sm-offset-3 text-center" fb-like></div>
-							<div class="col-sm-2 text-center" google-plus></div>
-							<div class="col-sm-2 text-center" tweet="shareText"></div>
-						</div>
-				</div>
+				<p class="muted credit">
+					<a href="http://twitter.com/gauyo" class="btn btn-default btn-fab btn-raised mdi-image-wb-incandescent" data-toggle="tooltip" data-placement="top" target="_blank" title="" data-original-title="Idea: @Gauyo"></a>
+
+					<a href="http://twitter.com/palamago" class="btn btn-default btn-fab btn-raised mdi-action-settings" data-toggle="tooltip" data-placement="top" target="_blank" title="" data-original-title="Development: @palamago"></a>
+
+					<a href="http://blog.palamago.com.ar/2014/11/shared-links-ranking/" class="btn btn-default btn-fab btn-raised mdi-editor-format-quote" data-toggle="tooltip" data-placement="top" target="_blank" title="" data-original-title="Blog Post (Spanish)"></a>
+
+					<a href="https://github.com/palamago/shared-links-ranking" class="btn btn-default btn-fab btn-raised mdi-device-developer-mode" data-toggle="tooltip" data-placement="top" target="_blank" title="" data-original-title="Source Code"></a>
+
+					<div id="compartir" class="">
+							<div class="row">
+								<div class="col-sm-2 col-sm-offset-3 text-center" fb-like></div>
+								<div class="col-sm-2 text-center" google-plus></div>
+								<div class="col-sm-2 text-center" tweet="shareText"></div>
+							</div>
+					</div>
 			</div>
 	    </div>
 

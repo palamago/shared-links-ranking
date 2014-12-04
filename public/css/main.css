@@ -20,17 +20,10 @@
   margin: 0px;
   color: #fff;
   text-shadow: 2px 2px #000;
-  min-height: 135px;
-}
-.news-item h2 a {
-  color: #fff;
-  text-decoration: none;
-}
-.news-item h2 a:hover {
-  text-decoration: none;
 }
 .news-item .social-numbers {
   background-color: rgba(0, 0, 0, 0.8);
+  margin: 0px;
 }
 .news-item .social-numbers p {
   color: #fff;
@@ -42,7 +35,7 @@
   margin-top: 10px;
 }
 .news-item .jumbotron {
-  background-color: #3f51b5;
+  background-color: transparent;
   /* Old browsers */
 
   background-color: -moz-linear-gradient(-45deg, #3f51b5 0%, #4285f4 100%);
@@ -70,6 +63,27 @@
 .navbar-nav a {
   cursor: pointer;
 }
+.navbar-nav .checkbox {
+  padding-top: 14px;
+}
+.navbar-nav .checkbox label {
+  color: rgba(255, 255, 255, 0.84);
+}
+.navbar-nav .checkbox label .check {
+  margin-right: 0px;
+}
+.checkbox input[type=checkbox]:checked ~ .check,
+.checkbox-default input[type=checkbox]:checked ~ .check {
+  color: #E1E4F4;
+}
+.checkbox input[type=checkbox]:checked ~ .check:after,
+.checkbox-default input[type=checkbox]:checked ~ .check:after {
+  background-color: #E1E4F4;
+}
+.checkbox input[type=checkbox]:checked ~ .check:before,
+.checkbox-default input[type=checkbox]:checked ~ .check:before {
+  color: #E1E4F4;
+}
 .tags-selector a {
   cursor: pointer;
   padding: 20px;
@@ -95,4 +109,50 @@
 .navbar-toggle i {
   color: rgba(255, 255, 255, 0.84);
   font-size: 27px;
+}
+/*Flip cards*/
+/* entire container, keeps perspective */
+.flip-container {
+  perspective: 1000;
+}
+/* flip the pane when hovered */
+.flip-container:hover .flipper,
+.flip-container.hover .flipper {
+  transform: rotateY(180deg);
+}
+.flip-container,
+.front,
+.back {
+  display: block;
+}
+/* flip speed goes here */
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+}
+.front {
+  backface-visibility: hidden;
+  z-index: 2;
+  /* for firefox 31 */
+
+  transform: rotateY(0deg);
+}
+.front h2 {
+  margin: 10px;
+  min-height: 120px;
+}
+/* hide back of pane during swap */
+.back {
+  backface-visibility: hidden;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotateY(180deg);
+}
+.link-placeholder {
+  height: 120px;
+  display: block;
+  width: 100%;
 }

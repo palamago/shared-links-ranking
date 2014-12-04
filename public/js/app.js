@@ -7,13 +7,11 @@ NewsApp.config(function($routeProvider) {
       templateUrl:'/partials/top.html',
       reloadOnSearch: false
     })
-    .when('/acerca', {
-      templateUrl:'/partials/about.html'
-    })
     .when('/link/:id', {
       controller:'LinkCtrl',
       templateUrl:'/partials/link.html'
-    });
+    })
+    .otherwise({redirectTo:'/'});
 
 });
 
@@ -136,6 +134,10 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
         acum.unshift(0);
       }
 
+      //Set sizes on Back
+      $('.back .social-numbers').height($('.front').height()/2);
+      $('.back .social-numbers').width($('.front').width());
+
       var w = $("#sparkline-accum-"+i).parent().width();
       var q = acum.length;
 
@@ -169,6 +171,17 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
     });
   }
 
+  $scope.toggleAutorefresh = function(){
+    if($scope.autorefresh && $scope.autorefreshID){
+      $scope.autorefresh = false;
+      clearInterval($scope.autorefreshID);
+    } else {
+      $scope.autorefresh = true;
+      $scope.autorefreshID = setInterval(function(){
+        $scope.refresh();
+      },20*60*1000);
+    }
+  }
 
   $scope.init = function(){
 
@@ -187,10 +200,18 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
           $scope.filterClick('hs',hs,true);
         }
         
+        $('[data-toggle="tooltip"]').tooltip();
+
         $.material.init();
 
         //Remove this horrible thing. Just to avoid a weird problem with openshift load-times
         $scope.refresh();
+
+        //Autorefresh Init
+        $scope.autorefresh = false;
+        $scope.autorefreshID = null;
+        $scope.toggleAutorefresh();
+
       });
     });
   
@@ -203,7 +224,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
             window.resizeEvt = setTimeout(function()
             {
                 $scope.renderSparklines();
-            }, 250);
+            }, 1000);
         });
     });
 

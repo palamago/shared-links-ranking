@@ -27,17 +27,10 @@
 		margin: 0px;
 		color: #fff;
 		text-shadow: 2px 2px #000;
-		min-height: 135px;
-		a {
-			color: #fff;
-			text-decoration: none;
-			&:hover {
-				text-decoration: none;
-			}
-		}
 	}
 	.social-numbers{
 		background-color: rgba(0,0,0,0.8);
+		margin:0px; 
 		p {
 			color: #fff;
 			font-size: 17px;
@@ -49,7 +42,7 @@
 		}
 	}
 	.jumbotron{
-		background-color: #3f51b5; /* Old browsers */
+		background-color: transparent; /* Old browsers */
 		background-color: -moz-linear-gradient(-45deg,  #3f51b5 0%, #4285f4 100%); /* FF3.6+ */
 		background-color: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#3f51b5), color-stop(100%,#4285f4)); /* Chrome,Safari4+ */
 		background-color: -webkit-linear-gradient(-45deg,  #3f51b5 0%,#4285f4 100%); /* Chrome10+,Safari5.1+ */
@@ -64,6 +57,27 @@
 	a{
 		cursor: pointer;
 	}
+	.checkbox{
+		padding-top: 14px;
+		label{
+			color: rgba(255,255,255,.84);
+			.check{
+				margin-right: 0px;
+			}
+		}
+	}
+}
+
+.checkbox input[type=checkbox]:checked~.check, .checkbox-default input[type=checkbox]:checked~.check{
+	color:#E1E4F4;
+}
+
+.checkbox input[type=checkbox]:checked~.check:after, .checkbox-default input[type=checkbox]:checked~.check:after{
+	background-color: #E1E4F4;
+}
+
+.checkbox input[type=checkbox]:checked~.check:before, .checkbox-default input[type=checkbox]:checked~.check:before{
+	color:#E1E4F4;
 }
 
 .tags-selector{
@@ -96,6 +110,56 @@
 		color: rgba(255,255,255,.84);
 		font-size: 27px;
 	}
+}
+
+
+/*Flip cards*/
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000;
+}
+/* flip the pane when hovered */
+.flip-container:hover .flipper, .flip-container.hover .flipper {
+	transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+	display: block;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+
+	position: relative;
+}
+
+.front {
+	backface-visibility: hidden;
+	z-index: 2;
+	/* for firefox 31 */
+	transform: rotateY(0deg);
+	h2{
+		margin: 10px;
+		min-height: 120px;
+	}
+}
+
+/* hide back of pane during swap */
+.back {
+	backface-visibility: hidden;
+	width: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: rotateY(180deg);
+}
+
+.link-placeholder{
+	height: 120px;
+	display: block;
+	width: 100%;
 }
 
 

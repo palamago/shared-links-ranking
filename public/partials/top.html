@@ -23,61 +23,76 @@
 <h2 ng-show="topnews.length==0 && !loading">No hay noticias con estos criterios.</h2>
 
 <div class="row" >
-	<div class="col-md-6 news-item" ng-repeat="link in topnews" >
-		<div class="jumbotron" style="background-image:url('{{link.image}}');background-size:cover;">
-			<div class="row">
-				<div class="col-md-12" >
-					<div class="list-group pull-right newspaper-icon">
-					    <div class="list-group-item">
-					        <div class="row-picture">
-					            <img ng-click='filterClick("newspaper",link.newspaper.id)' class="circle" ng-src="{{link.newspaper.logo}}" alt="icon">
-					        </div>
-					    </div>
-					    <p class="text-center">{{getDateDiff(link.date)}}</p>
+	<div class="col-md-6 news-item " ng-repeat="link in topnews" >
+				<div class="jumbotron" style="background-image:url('{{link.image}}');background-size:cover;">
+					<div class="row">
+						<div class="col-md-12" >
+							<div class="list-group pull-left newspaper-icon">
+							    <div class="list-group-item">
+							        <div class="row-picture">
+							            <a href="javascript:;" ng-click='filterClick("newspaper",link.newspaper.id)'><img class="circle" ng-src="{{link.newspaper.logo}}" alt="icon"></a>
+							        </div>
+							    </div>
+							    <p class="text-center">{{getDateDiff(link.date)}}</p>
+							</div>
+							<a ng-href="{{link.url}}" target="_blank" class="pull-right btn btn-default btn-fab btn-raised mdi-content-link"></a>
+							<div>
+								<span class="link-placeholder"></span>
+								<p><span class="label" style="background-color:{{link.tag.color}};"><a href="javascript:;" ng-click='filterClick("tag",link.tag.id)'>{{link.tag.name}}</a></span></p>
+							</div>
+						</div>
 					</div>
-					<div>
-						<h2>{{$index+1}}. <a href="{{link.url}}" target="_blank">{{link.title}}</a></h2>
-						<p><span class="label" style="background-color:{{link.tag.color}};"><a ng-click='filterClick("tag",link.tag.id)'>{{link.tag.name}}</a></span></p>
+			
+					<div class="flip-container" ontouchstart="this.classList.toggle('hover');">
+ 						<div class="flipper">
+							<div class="front">
+								<div class="row social-numbers">
+									<h2><strong>{{$index+1}}.</strong> {{link.title}}</h2>
+								</div>
+							</div>
+							<div class="back">
+								<div class="row social-numbers">
+									<div class="col-xs-4 text-center">
+										<p class="">
+											<strong>  
+											<i class="text-primary fa fa-share-alt"></i>
+											+{{link.diff}}
+											</strong>  
+											<small>
+											<span>{{filters.hs}}h</span>
+											</small>
+										</p>
+									</div>
+									<div class="col-xs-4 text-center">
+										<p class="">
+											<strong>  
+											<i class="text-primary fa fa-share-alt"></i> 
+											{{link.total}}
+											</strong>  
+											<small>Total</small>
+										</p>
+									</div>
+									<div class="col-xs-4 sparkline-container">
+										<div id="sparkline-accum-{{link.id}}" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></div>
+									</div>
+								</div>	
+								<div class="row social-numbers">	
+									<div class="col-xs-3 text-center" >
+										<p><i class="text-primary fa fa-facebook"></i> {{link.facebook}}</p></div>
+									<div class="col-xs-3 text-center" >
+										<p><i class="text-primary fa fa-twitter"></i> {{link.twitter}}</p></div>
+									<div class="col-xs-3 text-center" >
+										<p><i class="text-primary fa fa-google-plus"></i> {{link.googleplus}}</p></div>
+									<div class="col-xs-3 text-center" >
+										<p><i class="text-primary fa fa-linkedin"></i> {{link.linkedin}}</p></div>
+								</div>
+							</div>
+					
+						</div>
 					</div>
+
 				</div>
-			</div>
-			<div class="row social-numbers">
-				<div class="col-xs-4 text-center">
-					<p class="">
-						<strong>  
-						<i class="text-primary fa fa-share-alt"></i>
-						+{{link.diff}}
-						</strong>  
-						<small>
-						<span>{{filters.hs}}h</span>
-						</small>
-					</p>
-				</div>
-				<div class="col-xs-4 text-center">
-					<p class="">
-						<strong>  
-						<i class="text-primary fa fa-share-alt"></i> 
-						{{link.total}}
-						</strong>  
-						<small>Total</small>
-					</p>
-				</div>
-				<div class="col-xs-4 sparkline-container">
-					<div id="sparkline-accum-{{link.id}}" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></div>
-				</div>
-			</div>	
-			<div class="row social-numbers">	
-				<div class="col-xs-3 text-center" >
-					<p><i class="text-primary fa fa-facebook"></i> {{link.facebook}}</p></div>
-				<div class="col-xs-3 text-center" >
-					<p><i class="text-primary fa fa-twitter"></i> {{link.twitter}}</p></div>
-				<div class="col-xs-3 text-center" >
-					<p><i class="text-primary fa fa-google-plus"></i> {{link.googleplus}}</p></div>
-				<div class="col-xs-3 text-center" >
-					<p><i class="text-primary fa fa-linkedin"></i> {{link.linkedin}}</p></div>
-			</div>
 
 		</div>
 	</div>
 
-</div>
