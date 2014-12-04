@@ -2,6 +2,10 @@
 
 class ApiController extends BaseController {
 
+	public function getRss(){
+		return Response::json(Rss::select('id','id_newspaper','id_tag','url')->with('newspaper')->with('tag')->get());
+	}
+
 	public function getNewspapers(){
 		return Response::json(Newspaper::select('id','name','logo')->orderBy('name', 'ASC')->get());
 	}

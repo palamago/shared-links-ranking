@@ -60,6 +60,7 @@ Route::get('/top/n/{id}/{filter?}', 'TopController@getTopByNewspaper');
 Route::get('/top/{filter?}', 'TopController@getTop');
 
 Route::get('/api/newspaper', 'ApiController@getNewspapers');
+Route::get('/api/rss', 'ApiController@getRss');
 Route::get('/api/tag', 'ApiController@getTags');
 Route::get('/api/topnews', 'ApiController@getTopNews');
 
