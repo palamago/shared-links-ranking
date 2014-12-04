@@ -311,6 +311,8 @@ class CheckerCommand extends Command {
 
 	private function getOgImage($html){
 		$doc = new DOMDocument();
+		$doc->strictErrorChecking = false;
+
 		@$doc->loadHTML($html);
 	    $ogImg = false;
 		foreach( $doc->getElementsByTagName('meta') as $meta ) { 
