@@ -64,15 +64,12 @@ class HistoryCommand extends Command {
 			}
 		}
 
-		foreach ($topToday as $key => $t) {
-			$this->info('-'.$t->title);
-		}
-
 		$topToday = array_unique($topToday);
 
 		//Remove links for today
 		History::where('date','=',$today)->delete();
 
+		//Save history
 		foreach ($topToday as $key => $t) {
 			$this->info($t->title);
 			
@@ -106,7 +103,7 @@ class HistoryCommand extends Command {
         	)
         ->orderBy('total_day','DESC')
         ->where('stats.created_at','>=',$today)
-        ->where('stats.created_at','<',$today->next())
+        ->where('stats.created_at','<',$today->tomorrow())
         ->groupBy('link.id');
 
         //Newspaper
