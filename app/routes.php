@@ -53,12 +53,6 @@ Route::get('logout', function()
 
 Route::get('/', 'TopController@getTop');
 
-Route::get('/top/t/{id}/{filter?}', 'TopController@getTopByTag');
-
-Route::get('/top/n/{id}/{filter?}', 'TopController@getTopByNewspaper');
-
-Route::get('/top/{filter?}', 'TopController@getTop');
-
 Route::get('/api/newspaper', 'ApiController@getNewspapers');
 Route::get('/api/rss', 'ApiController@getRss');
 Route::get('/api/tag', 'ApiController@getTags');
@@ -67,3 +61,5 @@ Route::get('/api/topnews', 'ApiController@getTopNews');
 Route::get('/api/sparklines/{ids}', 'ApiController@getSparklinesData');
 
 Route::get('/api/link/{id}', 'ApiController@getLinkData');
+
+Route::get('/api/historynews', 'ApiController@getHistoryNews');

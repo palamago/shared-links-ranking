@@ -83,4 +83,16 @@ class ApiController extends BaseController {
 		return Response::json($response);
 	}
 
+	public function getHistoryNews(){
+		$newspaper_id 	= (Input::get('newspaper','')!='')?Input::get('newspaper'):false;
+		$tag_id 		= (Input::get('tag','')!='')?Input::get('tag'):false;
+
+		$query = History::with('newspaper')->with('tag')
+            ->orderBy('date','DESC')
+            ->orderBy('total_day','DESC')
+            ->groupBy('history.date');		
+
+		return Response::json($query->get());
+	}
+
 }

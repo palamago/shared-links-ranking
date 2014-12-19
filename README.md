@@ -7,15 +7,17 @@ See a Top 10 shared news/posts based on RSS feed from your favorites news portal
 
 Requirements
 ------------
-PHP
-MySQL
-Curl
-Apache (for production)
+-PHP
+-MySQL
+-Curl
+-Apache (for production)
 
 Installation
 ------------
 * Clone repo
- git clone git@github.com:palamago/shared-links-ranking.git
+```shell
+git clone git@github.com:palamago/shared-links-ranking.git
+```
 
 * Create an empty MySQL database
 
@@ -48,6 +50,11 @@ php artisan migrate --seed
 php artisan data-checker
 ```
 
+* Run process to collect history stats
+```shell
+php artisan make-history
+```
+
 * Run artisan server for local dev environment
 ```shell
 php artisan serve
@@ -57,6 +64,8 @@ php artisan serve
 
 * For admin page, go to http://localhost:8000/admin with admin/admin credentials (you must change it).
 
-...
-
-TO-DO
+* For production, run processes using CRON (every hour recommended)
+```shell
+php artisan data-checker
+php artisan make-history
+```

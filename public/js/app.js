@@ -7,6 +7,10 @@ NewsApp.config(function($routeProvider) {
       templateUrl:'/partials/top.html',
       reloadOnSearch: false
     })
+    .when('/history', {
+      controller:'HistoryCtrl',
+      templateUrl:'/partials/history.html'
+    })
     .when('/link/:id', {
       controller:'LinkCtrl',
       templateUrl:'/partials/link.html'
@@ -248,6 +252,26 @@ NewsApp.controller('LinkCtrl', function($scope, Restangular, $http, $routeParams
       }
       $scope.loading = false;
     });
+  };
+
+  $scope.init();
+
+});
+
+NewsApp.controller('HistoryCtrl', function($scope, Restangular, $http, $routeParams, $location) {
+
+    $scope.loading = true;
+    $scope.topnews = [];
+    
+  $scope.refresh = function(){
+    Restangular.all('historynews').getList().then(function(data){
+      $scope.loading = false;
+      $scope.topnews = data;
+    });
+  };
+
+  $scope.init = function(){
+    $scope.refresh();
   };
 
   $scope.init();

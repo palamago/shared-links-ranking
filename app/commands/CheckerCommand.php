@@ -38,6 +38,7 @@ class CheckerCommand extends Command {
 	public function fire()
 	{
 		$log = new Process();
+		$log->name = "data-checker";
 		$log->status = "running";
 		$log->save();
 

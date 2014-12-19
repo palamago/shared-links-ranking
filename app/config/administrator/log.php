@@ -17,11 +17,14 @@ return array(
 	 */
 	'columns' => array(
 		'id',
+		'name' => array(
+			'title' => 'Name'
+		),
 		'status' => array(
 			'title' => 'Status'
 		),
 		'minutes' => array(
-			'title' => 'Minutos'
+			'title' => 'Minutes'
 		),
 		'created_at' => array(
 			'title' => 'Creado'
@@ -38,6 +41,10 @@ return array(
 		'id',
 		'status' => array(
 			'title' => 'Status',
+			'type' => 'text'
+		),
+		'name' => array(
+			'title' => 'Nombre',
 			'type' => 'text'
 		)
 

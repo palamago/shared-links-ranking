@@ -58,6 +58,7 @@ return array(
 		'link',
 		'log',
 		'user',
+		'history',
 		'Settings' => array('settings.site'),
 	),
 
