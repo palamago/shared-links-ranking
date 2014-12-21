@@ -116,6 +116,8 @@
         <script src="{{asset('js/libs/restangular.min.js')}}"></script>
         <script src="{{asset('js/libs/angulike.js')}}"></script>
 		<script src="{{asset('js/app.js')}}"></script>
+		<script src="{{asset('js/HistoryCtrl.js')}}"></script>
+		<script src="{{asset('js/TopCtrl.js')}}"></script>
         <script src="{{asset('js/main.js')}}"></script>
 
         @yield('scripts')

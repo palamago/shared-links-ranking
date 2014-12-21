@@ -88,9 +88,24 @@ class ApiController extends BaseController {
 		$tag_id 		= (Input::get('tag','')!='')?Input::get('tag'):false;
 
 		$query = History::with('newspaper')->with('tag')
-            ->orderBy('date','DESC')
-            ->orderBy('total_day','DESC')
-            ->groupBy('history.date');		
+			->select(DB::raw('MAX(total_day) as total_day')
+				,DB::raw('DATE(date) as sdate')
+				,'history.id as id'
+            	,'history.url as url'
+            	,'history.id_newspaper as id_newspaper'
+            	,'history.id_tag as id_tag'
+            	,'history.final_url as final_url'
+            	,'history.title as title'
+            	,'history.date as date'
+            	,'history.facebook as facebook'
+            	,'history.twitter as twitter'
+            	,'history.total as total'
+            	,'history.googleplus as googleplus'
+            	,'history.linkedin as linkedin'
+            	,'history.image as image'
+            	)
+            ->groupBy('sdate')		
+            ->orderBy('date','DESC');
 
 		return Response::json($query->get());
 	}
