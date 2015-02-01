@@ -72,11 +72,16 @@ class HistoryCommand extends Command {
 		//Save history
 		foreach ($topToday as $key => $t) {
 			$this->info($t->title);
-			
-			$h = new History();
-			$h->fill($t->toArray());
-			$h->date = $today;
-			$h->save();
+			try{
+				$h = new History();
+				$h->id_ref = $t->id;
+				unset($t->id);
+				$h->fill($t->toArray());
+				$h->date = $today;
+				$h->save();
+			} catch(Exception $e) {
+
+			}
 		}
 
 		$log->status = "finished";
