@@ -7,10 +7,10 @@ See a Top 10 shared news/posts based on RSS feed from your favorites news portal
 
 Requirements
 ------------
--PHP
--MySQL
--Curl
--Apache (for production)
+*PHP
+*MySQL
+*Curl
+*Apache (for production)
 
 Installation
 ------------
@@ -45,9 +45,14 @@ In cloned folder:
 php artisan migrate --seed
 ```
 
+* Run process to collect information links from Rss'
+```shell
+php artisan get-links
+
+
 * Run process to collect information from social networks
 ```shell
-php artisan data-checker
+php artisan get-shares
 ```
 
 * Run process to collect history stats

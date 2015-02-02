@@ -48,6 +48,19 @@ return array(
 			'type' => 'text'
 		)
 
+	),
+
+	'filters' => array(
+		'name' => array(
+		    'type' => 'enum',
+		    'title' => 'Status',
+		    'options' => array(
+				'get-links' => 'Links',
+		        'get-shares' => 'Shares',
+		        'make-history' => 'History'
+		    ), //must be an array
+		)
+
 	)
 
 );
