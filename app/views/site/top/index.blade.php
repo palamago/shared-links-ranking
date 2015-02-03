@@ -125,7 +125,7 @@
 		<script type="text/javascript">
 
 		  var _gaq = _gaq || [];
-		  _gaq.push(['_setAccount', 'UA-56067310-1']);
+		  _gaq.push(['_setAccount', '<?php echo getenv('ga_code')?>']);
 		  _gaq.push(['_trackPageview']);
 
 		  (function() {
