@@ -72,6 +72,5 @@ php artisan serve
 
 * For production, run processes using CRON (every hour recommended)
 ```shell
-php artisan data-checker
-php artisan make-history
+php artisan get-links && php artisan get-shares php && artisan make-history
 ```
