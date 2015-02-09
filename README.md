@@ -8,10 +8,10 @@ See a Top 10 shared news/posts based on RSS feed from your favorites news portal
 
 Requirements
 ------------
-*PHP
-*MySQL
-*Curl
-*Apache (for production)
+* PHP
+* MySQL
+* Curl
+* Apache (for production)
 
 Installation
 ------------
