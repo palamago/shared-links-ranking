@@ -49,7 +49,7 @@ php artisan migrate --seed
 * Run process to collect information links from Rss'
 ```shell
 php artisan get-links
-
+```
 
 * Run process to collect information from social networks
 ```shell
