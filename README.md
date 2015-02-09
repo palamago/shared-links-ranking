@@ -3,7 +3,8 @@ Shared Links Ranking
 
 See a Top 10 shared news/posts based on RSS feed from your favorites news portals/blogs.
 
-[Live example instance](http://news-visualization.rhcloud.com/) with Argentina's main online news portals.
+[LIVE example instance](http://ar.topranking.link) with Argentinian main online news portals.
+[LIVE example instance](http://cl.topranking.link) with Chileans main online news portals.
 
 Requirements
 ------------
