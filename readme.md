@@ -1,25 +1,76 @@
-## Laravel PHP Framework
+Shared Links Ranking
+====================
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+See a Top 10 shared news/posts based on RSS feed from your favorites news portals/blogs.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, and caching.
+[LIVE example instance](http://ar.topranking.link) with Argentinian main online news portals.
+[LIVE example instance](http://cl.topranking.link) with Chileans main online news portals.
 
-Laravel aims to make the development process a pleasing one for the developer without sacrificing application functionality. Happy developers make the best code. To this end, we've attempted to combine the very best of what we have seen in other web frameworks, including frameworks implemented in other languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+Requirements
+------------
+* PHP
+* MySQL
+* Curl
+* Apache (for production)
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Installation
+------------
+* Clone repo
+```shell
+git clone git@github.com:palamago/shared-links-ranking.git
+```
 
-## Official Documentation
+* Create an empty MySQL database
 
-Documentation for the entire framework can be found on the [Laravel website](http://laravel.com/docs).
+* Create config file
+Copy .env.php.sample to .env.php and complete the database info.
 
-### Contributing To Laravel
+```php
+<?php
+return array(
+		'debug'      => true,
+		'db_host'      => 'localhost',
+		'db_database'  => '',
+		'db_username'  => '',
+		'db_password'  => '',
+		'enc_key'		=> '',
+		'url'		=> 'http://localhost:8000'
+	);
+?>
+```
 
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
+In cloned folder:
 
-### License
+* Run migrate & example data
+```shell
+php artisan migrate --seed
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+* Run process to collect information links from Rss'
+```shell
+php artisan get-links
+```
+
+* Run process to collect information from social networks
+```shell
+php artisan get-shares
+```
+
+* Run process to collect history stats
+```shell
+php artisan make-history
+```
+
+* Run artisan server for local dev environment
+```shell
+php artisan serve
+```
+
+* Go to http://localhost:8000 , you can see top 10 shared NYT news for Latest and Sports RSS's
+
+* For admin page, go to http://localhost:8000/admin with admin/admin credentials (you must change it).
+
+* For production, run processes using CRON (every hour recommended)
+```shell
+php artisan get-links && php artisan get-shares php && artisan make-history
+```

@@ -63,8 +63,8 @@ class LinksCommand extends Command {
 			$log->save();
 
 		} catch (Exception $e) {
-			$this->info($url);
-			$this->info($e->getMessage());			
+			$this->error($e->getMessage());
+			$this->error($e->getTraceAsString());	
 		}
 	}
 
@@ -73,6 +73,7 @@ class LinksCommand extends Command {
 			
 			$feed = FeedReader::read($rss->url);
 			$data = array();
+
 			foreach ($feed->get_items() as $key => $value) {
 
 				//Fallback bad url
@@ -123,6 +124,14 @@ class LinksCommand extends Command {
 						'updated_at' => date('Y-m-d H:i:s'),
 						'created_at' => date('Y-m-d H:i:s')
 						);
+
+					$dataShare[] = array(
+						'link' => $url,
+						'counts' => 0,
+						'max_id' => 0,
+						'updated_at' => date('Y-m-d H:i:s'),
+						'created_at' => date('Y-m-d H:i:s')
+						);
 				} else {
 					$link->touch();
 				}
@@ -130,13 +139,15 @@ class LinksCommand extends Command {
 			}
 
 		} catch (Exception $e) {
-			$this->info($rss->url);
-			$this->info($e->getTraceAsString());
+
+			$this->error($rss->url);
+			$this->error($e->getTraceAsString());
 
 		}
 
 		if(count($data)){
 			Link::insert($data);
+			TwShares::insert($dataShare);
 		}
 
 	}
@@ -166,7 +177,7 @@ class LinksCommand extends Command {
 	            $target = substr($header, 10);
 				//$this->info($url." redirects to ".$target."");
 				//$this->info( ($target == null) );
-				if($target == null){
+				if($target == null || strpos($target, 'login')>-1){
 					return array(
 						'final_url'	=>	$url,
 						'og_image'	=>	$this->getOgImage($rawHtml)

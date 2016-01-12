@@ -94,8 +94,8 @@ class SharesCommand extends Command {
 		$r = array(
 			'facebook' 		=> $this->getSharesFacebook($url),
 			'twitter' 		=> $this->getSharesTwitter($url),
-			'linkedin' 		=> $this->getSharesLinkedin($url),
-			'googleplus' 	=> $this->getSharesGooglePlus($url)
+			'linkedin' 		=> 0,//$this->getSharesLinkedin($url),
+			'googleplus' 	=> 0//$this->getSharesGooglePlus($url)
 			);
 
 		return $r;
@@ -105,9 +105,15 @@ class SharesCommand extends Command {
 	private function getSharesTwitter($url){
 		$res = null;
 		try {
-			$string = file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url='.$url);
+		/*	$string = file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url='.$url);
 			$json = json_decode($string);
-			$res = $json->count;
+			$res = $json->count;*/
+			$tw_share = TwShares::where('link',$url)->first();
+			if($tw_share){
+				$res = $tw_share->counts;
+			} else {
+				$res = 0;
+			}
 		} catch (Exception $e) {
 			$this->info($url);
 			$this->info($e->getMessage());			

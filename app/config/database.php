@@ -58,6 +58,7 @@ return array(
 			'database'  => getenv('db_database'),
 			'username'  => getenv('db_username'),
 			'password'  => getenv('db_password'),
+			'unix_socket'   => getenv('db_sock'),
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
