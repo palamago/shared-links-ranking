@@ -76,12 +76,21 @@ try:
         sql = "SELECT id, link FROM tw_shares"
         cursor.execute(sql)
         result = cursor.fetchall()
-        for link in result:
-            count = doSearch(ts,link['link'])
 
+    for link in result:
+        count = doSearch(ts,link['link'])
+        with connection.cursor() as cursor:
+            sql = "UPDATE `tw_shares` set `counts` = %s where `id` = %s"
+            cursor.execute(sql, (count,link['id']))
+            connection.commit()
 
 finally:
     connection.close()
+#insert tw shares
+
+
+
+
 
 
 #count = doSearch(ts,'http://tn.com.ar/policiales/los-profugos-tenian-cinco-armas-de-fuego_646892')

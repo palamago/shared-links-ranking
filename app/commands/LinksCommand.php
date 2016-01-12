@@ -125,13 +125,6 @@ class LinksCommand extends Command {
 						'created_at' => date('Y-m-d H:i:s')
 						);
 
-					$dataShare[] = array(
-						'link' => $url,
-						'counts' => 0,
-						'max_id' => 0,
-						'updated_at' => date('Y-m-d H:i:s'),
-						'created_at' => date('Y-m-d H:i:s')
-						);
 				} else {
 					$link->touch();
 				}
@@ -147,7 +140,7 @@ class LinksCommand extends Command {
 
 		if(count($data)){
 			Link::insert($data);
-			TwShares::insert($dataShare);
+			//Trigger db on each insert add url on tw_share table
 		}
 
 	}
