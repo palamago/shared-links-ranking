@@ -1,3 +1,9 @@
 [Twitter]
 consumer_key=xxxxxxxx
 consumer_secret=xxxxxxxxxxxxxxxxxxxxx
+
+[MySql]
+host=xxxxxx
+database=xxxxxxxx
+user=xxxxxx
+pass=xxxxxx

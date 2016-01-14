@@ -143,12 +143,12 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
 #RUN
 
 # Connect to the database
-connection = pymysql.connect(host='localhost',
-                             user='root',
-                             password='root',
+connection = pymysql.connect(host=Config.get('MySql', 'host'),
+                             user=Config.get('MySql', 'user'),
+                             password=Config.get('MySql', 'pass'),
                              db='db',
                              charset='utf8mb4',
-                             database='topranking_ar',
+                             database=Config.get('MySql', 'database'),
                              cursorclass=pymysql.cursors.DictCursor)
 
 try:
