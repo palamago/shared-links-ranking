@@ -123,15 +123,15 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
           width: w,
           height: 35,
           tooltipFormat: '<span class="tooltip-clas"><span style="color: {{color}}">&#9679;</span> {{prefix}}{{y}}{{suffix}}</span>',
-          lineColor: 'rgba(255,255,255,1)',
-          spotColor: '#FFFFFF',
-          minSpotColor: '#FFFFFF',
-          maxSpotColor: '#FFFFFF',
+          lineColor: '#4285F4',
+          spotColor: '#4285F4',
+          minSpotColor: '#4285F4',
+          maxSpotColor: '#4285F4',
          // valueSpots: acum,
           spotRadius: 3,
           lineWidth: 3,
           fillColor: false,
-          highlightSpotColor: '#4285f4'
+          highlightSpotColor: '#FFFFFF'
 /*          barWidth: (w*0.2)/q,
           barSpacing: (w*0.8)/(q-1)*/
         });
