@@ -1,0 +1,2 @@
+pymysql==0.7.0
+tweepy==3.5
