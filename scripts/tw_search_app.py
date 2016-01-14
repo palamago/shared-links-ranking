@@ -4,28 +4,24 @@ import pymysql.cursors
 import traceback
 import time
 import sys
+import json
+from app_only_connect import Client
 
 class TwitterConnectionPool:
 
     pool = [
         {
+            'consumer_key' : '0VhsX6xOwxjU6fSLHGgzXYKIT',
+            'consumer_secret' : 'yoaTwcoBL6weHcn4cCEJanV2QJC0XD9OJU4wQkc0CKJgPnaG9s'
+        },
+        {
             'consumer_key' : 'OrdZi4lkaOaF9LwW4NlUM8mfZ',
-            'consumer_secret' : '2h7iaqTEhphvbDnYmIbxIOlgD5agI3OI1gcCIGqqOD0ucbn2zx',
-            'access_token' : '138394734-cH7Ir6Ri37ZL2PuF4LytlP5zniSwld23dDyzFpXU',
-            'access_token_secret' : 'qpUp9CvMfDiMcZPBAlFEy5dhdRoDfmMBHrzczJtBxMq1p'
+            'consumer_secret' : '2h7iaqTEhphvbDnYmIbxIOlgD5agI3OI1gcCIGqqOD0ucbn2zx'
         },
         {
             'consumer_key' : '9Pas5ZRz7sqAzaQfazsgMkj3W',
-            'consumer_secret' : 'uXQvvRSrekMEgEIaD1hNvKHfUEdYkUG8jKLbFFCorWHzXP0EIe',
-            'access_token' : '138394734-27Vg4aXFcAIO2Z1RRKmmFy5Ch7JJ3Rh3ykUDT3kr',
-            'access_token_secret' : 'D2Zat3XZFaG3uMw7PzFf9soapxJEF7zZtO7dSZoQJcwxo'
+            'consumer_secret' : 'uXQvvRSrekMEgEIaD1hNvKHfUEdYkUG8jKLbFFCorWHzXP0EIe'
         },
-        {
-            'consumer_key' : '0VhsX6xOwxjU6fSLHGgzXYKIT',
-            'consumer_secret' : 'yoaTwcoBL6weHcn4cCEJanV2QJC0XD9OJU4wQkc0CKJgPnaG9s',
-            'access_token' : '138394734-YrvokIM3jA3zIX2rWKwq4nltxjVMzk05zrZX9Va3',
-            'access_token_secret' : 'Kh8ffPgo7Gj7VKJ3N8ykhL0DTt2MEY772QIVZ2BAsTr4V'
-        }
     ]
     
     currentConnection = -1
@@ -45,15 +41,13 @@ class TwitterConnectionPool:
                 data = self.pool[self.nextConnection()]
                 print '---connection %s' % self.currentConnection 
 
-                ts = TwitterSearch(
+                ts = Client(
                     data['consumer_key'],
-                    data['consumer_secret'],
-                    data['access_token'],
-                    data['access_token_secret']
+                    data['consumer_secret']
                 )
             except Exception as e:
                 ts = None
-                print '>>> traceback <<<'
+                print '>>> traceback del getConnection <<<'
                 traceback.print_exc()
                 #print '>>> end of traceback <<<'
 
@@ -79,28 +73,34 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
         tso.set_since_id(long(last_max_id))
         max_id = last_max_id
 
+
     # let's start the action
     while(todo):
 
         try:
 
             # first query the Twitter API
-            response = ts.search_tweets(tso)
+            #response = ts.search_tweets(tso)
+            response = ts.search(tso.create_search_url())
 
             # print rate limiting status
-            print( "Current rate-limiting status: %s" % ts.get_metadata()['x-rate-limit-remaining'])
+            #print( "Current rate-limiting status: %s" % ts.get_metadata()['x-rate-limit-remaining'])
+
+            status_data = ts.rate_limit_status()
+            remaining_tweets = status_data['resources']['search']['/search/tweets']['remaining']
+            print "Current rate-limiting status: %s" % remaining_tweets
 
             # check if there are statuses returned and whether we still have work to do
-            todo = not len(response['content']['statuses']) == 0
+            todo = not len(response['statuses']) == 0
 
-            new = len(response['content']['statuses'])
+            new = len(response['statuses'])
             if new > 0:
                 print ('NEWS %s!' % new)
 
             count += new
 
             # check all tweets according to their ID
-            for tweet in response['content']['statuses']:
+            for tweet in response['statuses']:
                 tweet_id = tweet['id']
 
                 # current ID is lower than current next_max_id?
@@ -112,7 +112,7 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
                     next_max_id -= 1 # decrement to avoid seeing this tweet again
 
             #stats
-            if ts.get_metadata()['x-rate-limit-remaining'] == '0':
+            if remaining_tweets == 0:
                 print '-----tiene zero!!!!!'
                 ts = twPool.getConnection()
 
@@ -120,17 +120,18 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
                 # set lowest ID as MaxID
                 tso.set_max_id(long(next_max_id))
 
-        except TwitterSearchException as e:
+        except Exception as e:
             print '>>> traceback 1 <<<'
             ts = twPool.getConnection()
-            traceback.print_exc()
-            #print '>>> end of traceback <<<'
-            #epoch = ts.get_metadata()['x-rate-limit-reset']
+            #traceback.print_exc()
 
-            #print epoch
-            #print '>>> fin <<<'
-            #reset = datetime.datetime.fromtimestamp(float(epoch)).strftime('%Y-%m-%d %H:%M:%S')
-            #print reset
+            if 'status_data' in locals():
+                epoch = status_data['resources']['search']['/search/tweets']['reset']
+
+                print epoch
+                #print '>>> fin <<<'
+                reset = datetime.datetime.fromtimestamp(float(epoch)).strftime('%Y-%m-%d %H:%M:%S')
+                print reset
             #print '>>> fin2 <<<'
             #sys.exit()
 
@@ -153,13 +154,13 @@ connection = pymysql.connect(host='localhost',
                              password='root',
                              db='db',
                              charset='utf8mb4',
-                             database='topranking',
+                             database='topranking_ar',
                              cursorclass=pymysql.cursors.DictCursor)
 
 try:
     with connection.cursor() as cursor:
         # Read a single record
-        sql = "SELECT id, link, max_id, counts FROM tw_shares"
+        sql = "SELECT id, link, max_id, counts, updated_at FROM tw_shares ORDER BY updated_at ASC"
         cursor.execute(sql)
         result = cursor.fetchall()
 
@@ -167,8 +168,8 @@ try:
 
     try:
         ts = twPool.getConnection()
-    except TwitterSearchException as e:
-        print '>>> traceback <<<'
+    except Exception as e:
+        print '>>> traceback 2<<<'
         traceback.print_exc()
 
     for link in result:
@@ -177,8 +178,8 @@ try:
             resp = doSearch(twPool,ts,link['link'],link['max_id'],link['counts'])
             #print resp
             with connection.cursor() as cursor:
-                sql = "UPDATE `tw_shares` set `counts` = %s, `max_id` = %s where `id` = %s"
-                cursor.execute(sql, (resp['count'],resp['max_id'],link['id']))
+                sql = "UPDATE `tw_shares` set `counts` = %s, `max_id` = %s, `updated_at` = %s where `id` = %s"
+                cursor.execute(sql, (resp['count'],resp['max_id'],time.strftime('%Y-%m-%d %H:%M:%S'),link['id']))
                 connection.commit()
         else:
             print 'finalizo, fracaso'

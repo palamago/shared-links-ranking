@@ -51,7 +51,7 @@ class SharesCommand extends Command {
 			Link::where('date','>',$filterDate)->chunk(100, function($links)
 			{
 				foreach ($links as $value) {
-					$shares = $this->getSharesCount($value->final_url);
+					$shares = $this->getSharesCount($value);
 					
 					$ref = Stats::where('id_link',$value->id)->orderBy('created_at', 'DESC')->first();
 
@@ -84,16 +84,15 @@ class SharesCommand extends Command {
 			$log->save();
 		
 		} catch (Exception $e) {
-			$this->info($url);
 			$this->info($e->getMessage());			
 		}
 
 	}
 
-	private function getSharesCount($url){
+	private function getSharesCount($link){
 		$r = array(
-			'facebook' 		=> $this->getSharesFacebook($url),
-			'twitter' 		=> $this->getSharesTwitter($url),
+			'facebook' 		=> $this->getSharesFacebook($link->final_url),
+			'twitter' 		=> $this->getSharesTwitter($link->id),
 			'linkedin' 		=> 0,//$this->getSharesLinkedin($url),
 			'googleplus' 	=> 0//$this->getSharesGooglePlus($url)
 			);
@@ -102,13 +101,13 @@ class SharesCommand extends Command {
 	}
 
 	/*count*/
-	private function getSharesTwitter($url){
+	private function getSharesTwitter($id_link){
 		$res = null;
 		try {
 		/*	$string = file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url='.$url);
 			$json = json_decode($string);
 			$res = $json->count;*/
-			$tw_share = TwShares::where('link',$url)->first();
+			$tw_share = TwShares::where('id_link',$id_link)->first();
 			if($tw_share){
 				$res = $tw_share->counts;
 			} else {

@@ -23,9 +23,10 @@ class CreateTriggerTw extends Migration {
 			   ( id_link,
 				 link,
 			     counts,
-			     max_id)
+			     max_id,
+			     created_at)
 			   VALUES
-			   ( NEW.id, NEW.final_url, 0, 0 );
+			   ( NEW.id, NEW.final_url, 0, 0, NOW() );
 
 			END;');
 	}
