@@ -5,22 +5,19 @@ import traceback
 import time
 import sys
 import json
+import ConfigParser
+
+Config = ConfigParser.ConfigParser()
+
+Config.read("tw_config.ini")
 
 class TwitterConnectionPool:
 
     pool = [
         {
-            'consumer_key' : '0VhsX6xOwxjU6fSLHGgzXYKIT',
-            'consumer_secret' : 'yoaTwcoBL6weHcn4cCEJanV2QJC0XD9OJU4wQkc0CKJgPnaG9s'
-        },
-        {
-            'consumer_key' : 'OrdZi4lkaOaF9LwW4NlUM8mfZ',
-            'consumer_secret' : '2h7iaqTEhphvbDnYmIbxIOlgD5agI3OI1gcCIGqqOD0ucbn2zx'
-        },
-        {
-            'consumer_key' : '9Pas5ZRz7sqAzaQfazsgMkj3W',
-            'consumer_secret' : 'uXQvvRSrekMEgEIaD1hNvKHfUEdYkUG8jKLbFFCorWHzXP0EIe'
-        },
+            'consumer_key' : Config.get('Twitter', 'consumer_key'),
+            'consumer_secret' : Config.get('Twitter', 'consumer_secret')
+        }
     ]
     
     currentConnection = -1
