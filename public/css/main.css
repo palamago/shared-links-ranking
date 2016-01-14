@@ -26,7 +26,7 @@
   font-size: 1.8em;
   margin: 0px;
   color: #333;
-  text-shadow: 2px 2px #ccc;
+  /*		text-shadow: 2px 2px #ccc;*/
 }
 .news-item .social-numbers {
   margin: 0px;
@@ -40,10 +40,14 @@
 .news-item .social-numbers .sparkline-container {
   margin-top: 10px;
 }
+.news-item .img-container {
+  background-color: #CCC;
+  background-size: cover;
+  background-position: center center;
+  min-height: 255px;
+}
 .news-item .jumbotron {
   padding: 0px;
-  background-color: transparent;
-  /* Old browsers */
   background-color: -moz-linear-gradient(-45deg, #3f51b5 0%, #4285f4 100%);
   /* FF3.6+ */
   background-color: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #3f51b5), color-stop(100%, #4285f4));
