@@ -9,7 +9,7 @@ import ConfigParser
 
 Config = ConfigParser.ConfigParser()
 
-Config.read("tw_config.ini")
+Config.read(sys.argv[1])
 
 class TwitterConnectionPool:
 

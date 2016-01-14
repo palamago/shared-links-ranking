@@ -9,11 +9,18 @@
   font-size: inherit;
   line-height: 30px;
 }
+.news-item .newspaper-icon {
+  position: absolute;
+  margin: 10px;
+}
 .news-item .newspaper-icon .list-group-item {
   padding: 0px;
 }
 .news-item .newspaper-icon .list-group-item .row-picture {
   padding: 0px;
+}
+.news-item .item-data {
+  padding: 15px;
 }
 .news-item h2 {
   font-size: 30px;
@@ -35,30 +42,23 @@
   margin-top: 10px;
 }
 .news-item .jumbotron {
+  padding: 0px;
   background-color: transparent;
   /* Old browsers */
-
   background-color: -moz-linear-gradient(-45deg, #3f51b5 0%, #4285f4 100%);
   /* FF3.6+ */
-
   background-color: -webkit-gradient(linear, left top, right bottom, color-stop(0%, #3f51b5), color-stop(100%, #4285f4));
   /* Chrome,Safari4+ */
-
   background-color: -webkit-linear-gradient(-45deg, #3f51b5 0%, #4285f4 100%);
   /* Chrome10+,Safari5.1+ */
-
   background-color: -o-linear-gradient(-45deg, #3f51b5 0%, #4285f4 100%);
   /* Opera 11.10+ */
-
   background-color: -ms-linear-gradient(-45deg, #3f51b5 0%, #4285f4 100%);
   /* IE10+ */
-
   background-color: linear-gradient(135deg, #3f51b5 0%, #4285f4 100%);
   /* W3C */
-
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f51b5', endColorstr='#4285f4', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
-
 }
 .navbar-nav a {
   cursor: pointer;
@@ -135,7 +135,6 @@
   backface-visibility: hidden;
   z-index: 2;
   /* for firefox 31 */
-
   transform: rotateY(0deg);
 }
 .front h2 {
