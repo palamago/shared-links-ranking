@@ -124,6 +124,7 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
 
         except Exception as e:
             print '>>> traceback 1 <<<'
+            sleep(60)
             ts = twPool.getConnection()
             traceback.print_exc()
 
