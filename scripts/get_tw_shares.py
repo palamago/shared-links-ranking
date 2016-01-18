@@ -15,8 +15,16 @@ class TwitterConnectionPool:
 
     pool = [
         {
-            'consumer_key' : Config.get('Twitter', 'consumer_key'),
-            'consumer_secret' : Config.get('Twitter', 'consumer_secret')
+            'consumer_key' : Config.get('Twitter1', 'consumer_key'),
+            'consumer_secret' : Config.get('Twitter1', 'consumer_secret')
+        },
+        {
+            'consumer_key' : Config.get('Twitter2', 'consumer_key'),
+            'consumer_secret' : Config.get('Twitter2', 'consumer_secret')
+        },
+        {
+            'consumer_key' : Config.get('Twitter2', 'consumer_key'),
+            'consumer_secret' : Config.get('Twitter2', 'consumer_secret')
         }
     ]
     
@@ -60,7 +68,7 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
     next_max_id = 0
     max_id = None
     first_max_id = False
-    sleep_for = 60 # sleep for 60 seconds
+    sleep_for = 10 # sleep for 60 seconds
 
     # let's start the action
     while(todo):
@@ -138,6 +146,28 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
 
     return {'count': count , 'max_id': max_id}
 
+def processResults(links, connection, twPool):
+
+    try:
+        ts = twPool.getConnection()
+    except Exception as e:
+        print '>>> traceback 2<<<'
+        traceback.print_exc()
+
+    for link in links:
+        #print link
+        if ts:
+            resp = doSearch(twPool,ts,link['link'],link['max_id'],link['counts'])
+            #print resp
+            with connection.cursor() as cursor:
+                sql = "UPDATE `tw_shares` set `counts` = %s, `max_id` = %s, `updated_at` = %s where `id` = %s"
+                cursor.execute(sql, (resp['count'],resp['max_id'],time.strftime('%Y-%m-%d %H:%M:%S'),link['id']))
+        else:
+            print 'finalizo, fracaso'
+
+    connection.commit()
+
+
 #**************************************
 
 #RUN
@@ -151,36 +181,60 @@ connection = pymysql.connect(host=Config.get('MySql', 'host'),
                              database=Config.get('MySql', 'database'),
                              cursorclass=pymysql.cursors.DictCursor)
 
-try:
-    with connection.cursor() as cursor:
-        # Read a single record
-        sql = "SELECT id, link, max_id, counts, updated_at FROM tw_shares ORDER BY updated_at ASC"
+#Audit start
+with connection.cursor() as cursor:
+        sql = "INSERT INTO log (status,created_at,name) VALUES ('running',NOW(),'get_tw_shares');"
         cursor.execute(sql)
-        result = cursor.fetchall()
+        connection.commit()
+        ID_LOG = cursor.lastrowid
 
+try:
     twPool = TwitterConnectionPool()
 
-    try:
-        ts = twPool.getConnection()
-    except Exception as e:
-        print '>>> traceback 2<<<'
-        traceback.print_exc()
+    #Nuevos links
+    with connection.cursor() as cursor:
+        sql = "SELECT id, link, max_id, counts, updated_at FROM tw_shares where updated_at = '0000-00-00 00:00:00'"
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        if(len(result)>0):
+            print('--NUEVOS LINKS: %s' % len(result))
+            processResults(result,connection,twPool)
 
-    for link in result:
-        #print link
-        if ts:
-            resp = doSearch(twPool,ts,link['link'],link['max_id'],link['counts'])
-            #print resp
-            with connection.cursor() as cursor:
-                sql = "UPDATE `tw_shares` set `counts` = %s, `max_id` = %s, `updated_at` = %s where `id` = %s"
-                cursor.execute(sql, (resp['count'],resp['max_id'],time.strftime('%Y-%m-%d %H:%M:%S'),link['id']))
-                connection.commit()
+    #Links anteriores paginados
+    hasRecords = True
+    page = 1
+    perPage = 25
+
+    while(hasRecords):
+
+        with connection.cursor() as cursor:
+            offset = (page - 1) * perPage;
+            # Read a page
+            print('--PAGE: %s' % page)
+            sql = "SELECT id, link, max_id, counts, updated_at FROM tw_shares LIMIT " + str(offset) + "," + str(perPage)
+            cursor.execute(sql)
+            result = cursor.fetchall()
+
+        if(len(result)>0):
+
+            processResults(result,connection,twPool)
+
+            page += 1
+
         else:
-            print 'finalizo, fracaso'
+
+            hasRecords = False
 
 
 finally:
+    #Audit end
+    with connection.cursor() as cursor:
+        sql = "UPDATE log SET updated_at = NOW(), status = 'finished' where id = %s"
+        cursor.execute(sql,(ID_LOG))
+        connection.commit()
+
     connection.close()
+
 #insert tw shares
 
 
