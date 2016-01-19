@@ -186,7 +186,7 @@ connection = pymysql.connect(host=Config.get('MySql', 'host'),
 
 #Audit start
 with connection.cursor() as cursor:
-        sql = "INSERT INTO log (status,created_at,name) VALUES ('running',NOW(),'get_tw_shares');"
+        sql = "INSERT INTO log (status,created_at,name) VALUES ('running',NOW(),'get-tw-shares');"
         cursor.execute(sql)
         connection.commit()
         ID_LOG = cursor.lastrowid

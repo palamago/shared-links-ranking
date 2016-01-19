@@ -53,11 +53,12 @@ return array(
 	'filters' => array(
 		'name' => array(
 		    'type' => 'enum',
-		    'title' => 'Status',
+		    'title' => 'Process',
 		    'options' => array(
 				'get-links' => 'Links',
 		        'get-shares' => 'Shares',
-		        'make-history' => 'History'
+		        'make-history' => 'History',
+		        'get-tw-shares' => 'Tw Shares'
 		    ), //must be an array
 		)
 
