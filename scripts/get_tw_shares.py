@@ -11,45 +11,23 @@ requests.packages.urllib3.disable_warnings()
 
 Config = ConfigParser.ConfigParser()
 
-Config.read(sys.argv[1])
+Config.read(sys.argv[2])
 
-class TwitterConnectionPool:
+class TwitterConnectionPool:    
 
-    pool = [
-        {
-            'consumer_key' : Config.get('Twitter1', 'consumer_key'),
-            'consumer_secret' : Config.get('Twitter1', 'consumer_secret')
-        },
-        {
-            'consumer_key' : Config.get('Twitter2', 'consumer_key'),
-            'consumer_secret' : Config.get('Twitter2', 'consumer_secret')
-        },
-        {
-            'consumer_key' : Config.get('Twitter2', 'consumer_key'),
-            'consumer_secret' : Config.get('Twitter2', 'consumer_secret')
-        }
-    ]
-    
-    currentConnection = -1
-    
-    def nextConnection(self):
-        self.currentConnection += 1
-        if self.currentConnection > len(self.pool)-1:
-            self.currentConnection = 0
-
-        return self.currentConnection
+    def setCredentials(self,key,secret):
+        self.consumer_key = key
+        self.consumer_secret = secret
 
     def getConnection(self):
 
         ts = None
         while (ts is None):
             try:
-                data = self.pool[self.nextConnection()]
-                print '---connection %s' % self.currentConnection 
 
-                auth = tweepy.AppAuthHandler(data['consumer_key'], data['consumer_secret'])
+                auth = tweepy.AppAuthHandler(self.consumer_key, self.consumer_secret)
  
-                ts = tweepy.API(auth, wait_on_rate_limit=False, wait_on_rate_limit_notify=False)
+                ts = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 
             except Exception as e:
                 ts = None
@@ -63,7 +41,6 @@ class TwitterConnectionPool:
 
 def doSearch(twPool, ts, url,last_max_id,initial_count):
     count = int(initial_count)
-    
 
     # init variables needed in loop
     todo = True
@@ -126,9 +103,9 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
 
         except Exception as e:
             print '>>> traceback 1 <<<'
-            time.sleep(60)
-            ts = twPool.getConnection()
-            traceback.print_exc()
+            #time.sleep(60)
+            #ts = twPool.getConnection()
+            #traceback.print_exc()
 
             #if 'status_data' in locals():
             #    epoch = status_data['resources']['search']['/search/tweets']['reset']
@@ -138,7 +115,7 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
             #    reset = datetime.datetime.fromtimestamp(float(epoch)).strftime('%Y-%m-%d %H:%M:%S')
             #    print reset
             #print '>>> fin2 <<<'
-            #sys.exit()
+            sys.exit()
 
     print url
     #print count
@@ -165,6 +142,7 @@ def processResults(links, connection, twPool):
             with connection.cursor() as cursor:
                 sql = "UPDATE `tw_shares` set `counts` = %s, `max_id` = %s, `updated_at` = %s where `id` = %s"
                 cursor.execute(sql, (resp['count'],resp['max_id'],time.strftime('%Y-%m-%d %H:%M:%S'),link['id']))
+                connection.commit()
         else:
             print 'finalizo, fracaso'
 
@@ -184,49 +162,57 @@ connection = pymysql.connect(host=Config.get('MySql', 'host'),
                              database=Config.get('MySql', 'database'),
                              cursorclass=pymysql.cursors.DictCursor)
 
+group_slug = sys.argv[1]
+
 #Audit start
 with connection.cursor() as cursor:
-        sql = "INSERT INTO log (status,created_at,name) VALUES ('running',NOW(),'get-tw-shares');"
+        sql = "INSERT INTO log (status,created_at,updated_at,name) VALUES ('running',NOW(),NOW(),'get-tw-shares');"
         cursor.execute(sql)
         connection.commit()
         ID_LOG = cursor.lastrowid
 
+#Get group
+with connection.cursor() as cursor:
+        sql = "SELECT * FROM `group` where slug = %s"
+        cursor.execute(sql,(group_slug))
+        group = cursor.fetchone()
+
 try:
-    twPool = TwitterConnectionPool()
+    if group is not None :
+        twPool = TwitterConnectionPool()
+        twPool.setCredentials(group['tw_key'],group['tw_secret'])
 
-    #Nuevos links
-    with connection.cursor() as cursor:
-        sql = "SELECT id, link, max_id, counts, updated_at FROM tw_shares where updated_at = '0000-00-00 00:00:00'"
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        if(len(result)>0):
-            print('--NUEVOS LINKS: %s' % len(result))
-            processResults(result,connection,twPool)
+        #Nuevos links
+        #with connection.cursor() as cursor:
+        #    sql = "SELECT id, link, max_id, counts, updated_at FROM tw_shares where updated_at = '0000-00-00 00:00:00'"
+        #    cursor.execute(sql)
+        #    result = cursor.fetchall()
+        #    if(len(result)>0):
+        #        print('--NUEVOS LINKS: %s' % len(result))
+        #        processResults(result,connection,twPool)
 
-    #Links anteriores paginados
-    hasRecords = True
-    page = 1
-    perPage = 25
+        #Links anteriores paginados
+        hasRecords = True
+        #page = 1
+        #perPage = 25
 
-    while(hasRecords):
+        while(hasRecords):
 
-        with connection.cursor() as cursor:
-            offset = (page - 1) * perPage;
-            # Read a page
-            print('--PAGE: %s' % page)
-            sql = "SELECT id, link, max_id, counts, updated_at FROM tw_shares LIMIT " + str(offset) + "," + str(perPage)
-            cursor.execute(sql)
-            result = cursor.fetchall()
+            with connection.cursor() as cursor:
+                #offset = (page - 1) * perPage;
+                # Read a page
+                #print('--PAGE: %s' % page)
+                sql = "SELECT * FROM topranking_ar.tw_shares ORDER BY (updated_at = '0000-00-00 00:00:00') DESC, updated_at DESC"
+                cursor.execute(sql)
+                result = cursor.fetchall()
 
-        if(len(result)>0):
+            if(len(result)>0):
 
-            processResults(result,connection,twPool)
+                processResults(result,connection,twPool)
 
-            page += 1
+            else:
 
-        else:
-
-            hasRecords = False
+                hasRecords = False
 
 
 finally:

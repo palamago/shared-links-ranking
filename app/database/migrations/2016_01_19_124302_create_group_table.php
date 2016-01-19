@@ -18,12 +18,8 @@ class CreateGroupTable extends Migration {
 			$table->string('name', 100);
 			$table->string('slug', 100);
 			$table->string('logo', 100);
-			$table->string('tw_key1', 100);
-			$table->string('tw_secret1', 100);
-			$table->string('tw_key2', 100);
-			$table->string('tw_secret2', 100);
-			$table->string('tw_key3', 100);
-			$table->string('tw_secret3', 100);
+			$table->string('tw_key', 100);
+			$table->string('tw_secret', 100);
 			$table->timestamps();
 		});
 	}
