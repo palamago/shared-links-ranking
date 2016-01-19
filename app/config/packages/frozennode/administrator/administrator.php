@@ -52,6 +52,7 @@ return array(
 	 *	)
 	 */
 	'menu' => array(
+		'group',
 		'newspaper',
 		'rss',
 		'tag',

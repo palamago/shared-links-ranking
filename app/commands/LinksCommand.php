@@ -77,8 +77,9 @@ class LinksCommand extends Command {
 			foreach ($feed->get_items() as $key => $value) {
 
 				//Fallback bad url
-				$url = $value->get_id();
-				$url = (filter_var($url, FILTER_VALIDATE_URL) === FALSE)?$value->get_permalink():$url;
+				$url = $value->get_permalink();
+				$url = (filter_var($url, FILTER_VALIDATE_URL) === FALSE)?$value->get_id():$url;
+				$url = (filter_var($url, FILTER_VALIDATE_URL) === FALSE)?$value->get_link():$url;
 
 				$link = Link::where('url', $url )->get()->first();
 
@@ -170,7 +171,7 @@ class LinksCommand extends Command {
 	            $target = substr($header, 10);
 				//$this->info($url." redirects to ".$target."");
 				//$this->info( ($target == null) );
-				if($target == null || strpos($target, 'login')>-1){
+				if($target == null || strpos($target, 'login')>-1 || strpos($target, 'detection')>-1){
 					return array(
 						'final_url'	=>	$url,
 						'og_image'	=>	$this->getOgImage($rawHtml)

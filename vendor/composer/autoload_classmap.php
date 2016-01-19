@@ -38,6 +38,7 @@ return array(
     'ClassPreloader\\Parser\\DirVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/DirVisitor.php',
     'ClassPreloader\\Parser\\FileVisitor' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/FileVisitor.php',
     'ClassPreloader\\Parser\\NodeTraverser' => $vendorDir . '/classpreloader/classpreloader/src/ClassPreloader/Parser/NodeTraverser.php',
+    'CreateGroupTable' => $baseDir . '/app/database/migrations/2016_01_19_124302_create_group_table.php',
     'CreateHistoryTable' => $baseDir . '/app/database/migrations/2014_12_18_204225_create_history_table.php',
     'CreateLinkTable' => $baseDir . '/app/database/migrations/2014_10_11_130028_create_link_table.php',
     'CreateLogTable' => $baseDir . '/app/database/migrations/2014_10_11_130028_create_log_table.php',
