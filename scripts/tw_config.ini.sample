@@ -1,15 +1,3 @@
-[Twitter1]
-consumer_key=xxxxxxxx
-consumer_secret=xxxxxxxxxxxxxxxxxxxxx
-
-[Twitter2]
-consumer_key=xxxxxxxx
-consumer_secret=xxxxxxxxxxxxxxxxxxxxx
-
-[Twitter3]
-consumer_key=xxxxxxxx
-consumer_secret=xxxxxxxxxxxxxxxxxxxxx
-
 [MySql]
 host=xxxxxx
 database=xxxxxxxx

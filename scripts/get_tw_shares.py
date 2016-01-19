@@ -80,7 +80,7 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
 
             new = len(response)
             if new > 0:
-                print ('NEWS %s!' % new)
+                print ('%s' % new)
 
             count += new
 
@@ -117,7 +117,7 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
             #print '>>> fin2 <<<'
             sys.exit()
 
-    print url
+    #print url
     #print count
     #print max_id
 
@@ -165,11 +165,11 @@ connection = pymysql.connect(host=Config.get('MySql', 'host'),
 group_slug = sys.argv[1]
 
 #Audit start
-with connection.cursor() as cursor:
-        sql = "INSERT INTO log (status,created_at,updated_at,name) VALUES ('running',NOW(),NOW(),'get-tw-shares');"
-        cursor.execute(sql)
-        connection.commit()
-        ID_LOG = cursor.lastrowid
+#with connection.cursor() as cursor:
+#        sql = "INSERT INTO log (status,created_at,updated_at,name) VALUES ('running',NOW(),NOW(),'get-tw-shares');"
+#        cursor.execute(sql)
+#        connection.commit()
+#        ID_LOG = cursor.lastrowid
 
 #Get group
 with connection.cursor() as cursor:
@@ -179,6 +179,7 @@ with connection.cursor() as cursor:
 
 try:
     if group is not None :
+        print 'Running!!'
         twPool = TwitterConnectionPool()
         twPool.setCredentials(group['tw_key'],group['tw_secret'])
 
@@ -202,7 +203,7 @@ try:
                 #offset = (page - 1) * perPage;
                 # Read a page
                 #print('--PAGE: %s' % page)
-                sql = "SELECT * FROM topranking_ar.tw_shares ORDER BY (updated_at = '0000-00-00 00:00:00') DESC, updated_at DESC"
+                sql = "SELECT * FROM topranking_ar.tw_shares ORDER BY (updated_at = '0000-00-00 00:00:00') DESC, updated_at DESC LIMIT 100"
                 cursor.execute(sql)
                 result = cursor.fetchall()
 
@@ -217,10 +218,10 @@ try:
 
 finally:
     #Audit end
-    with connection.cursor() as cursor:
-        sql = "UPDATE log SET updated_at = NOW(), status = 'finished' where id = %s"
-        cursor.execute(sql,(ID_LOG))
-        connection.commit()
+    #with connection.cursor() as cursor:
+    #    sql = "UPDATE log SET updated_at = NOW(), status = 'finished' where id = %s"
+    #    cursor.execute(sql,(ID_LOG))
+    #    connection.commit()
 
     connection.close()
 
