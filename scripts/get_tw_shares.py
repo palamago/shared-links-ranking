@@ -6,6 +6,8 @@ import time
 import sys
 import json
 import ConfigParser
+import requests.packages.urllib3
+requests.packages.urllib3.disable_warnings()
 
 Config = ConfigParser.ConfigParser()
 
