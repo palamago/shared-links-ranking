@@ -201,7 +201,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
 
 });
 
-NewsApp.controller('LinkCtrl', function($scope, Restangular, $http, $routeParams, $location) {
+NewsApp.controller('LinkCtrl', function($scope, Restangular, $http, $routeParams, $location, $timeout) {
 
   $scope.link    = false;
   $scope.loading = true;
@@ -218,7 +218,9 @@ NewsApp.controller('LinkCtrl', function($scope, Restangular, $http, $routeParams
 
     Restangular.one('charts', $routeParams.id).get().then(function(data){
       $scope.chartData = data.data;
-      $scope.renderCharts();
+      $timeout(function(){
+        $scope.renderCharts();
+      },1000)
     });
   };
 
