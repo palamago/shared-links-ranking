@@ -87,28 +87,28 @@ class ApiController extends BaseController {
 				'id' => $s->id_link,
 				'date' => $s->created_at->timestamp,
 				'name' => 'Facebook',
-				'value' => $s->facebook
+				'value' => (int)$s->facebook
 				);
 
 			$response[] = array(
 				'id' => $s->id_link,
 				'date' => $s->created_at->timestamp,
 				'name' => 'Twitter',
-				'value' => $s->twitter
+				'value' => (int)$s->twitter
 				);
 
 			$response[] = array(
 				'id' => $s->id_link,
 				'date' => $s->created_at->timestamp,
 				'name' => 'Parcial',
-				'value' => $s->total
+				'value' => (int)$s->total
 				);
 
 			$response[] = array(
 				'id' => $s->id_link,
 				'date' => $s->created_at->timestamp,
 				'name' => 'Acumulado',
-				'value' => $s->dif_total
+				'value' => (int)$s->dif_total
 				);
 		}
 
