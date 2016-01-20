@@ -225,6 +225,11 @@ NewsApp.controller('LinkCtrl', function($scope, Restangular, $http, $routeParams
   $scope.renderCharts = function(){
     console.log('renderCharts',$scope.chartData);
 
+    var attributes = [
+      {"name": "Twitter", "hex": "#54ABEE"},
+      {"name": "Facebook", "hex": "#4C66A4"}
+    ];
+
     // instantiate d3plus
    var visualization1 = d3plus.viz()
       .container("#vizShare")
@@ -237,12 +242,24 @@ NewsApp.controller('LinkCtrl', function($scope, Restangular, $http, $routeParams
       .height({ 
         value:400
       })
-      .y("value")
+      .y({
+        label: "Shares",
+        grid: false,
+        value: "value"
+      })
       .x({
-        label: false,
+        label: "Fecha",
+        grid: false,
         value: "date"
       })
+      .attrs(attributes)
+      .color("hex")
       .draw();
+
+    var attributes = [
+      {"name": "Parcial", "hex": "#54ABEE"},
+      {"name": "Acumulado", "hex": "#4C66A4"}
+    ];
 
     // instantiate d3plus
    var visualization2 = d3plus.viz()
@@ -256,8 +273,18 @@ NewsApp.controller('LinkCtrl', function($scope, Restangular, $http, $routeParams
       .height({ 
         value:400
       })
-      .y("value")
-      .x("date")
+      .y({
+        label: "Shares",
+        grid: false,
+        value: "value"
+      })
+      .x({
+        label: "Fecha",
+        grid: false,
+        value: "date"
+      })
+      .attrs(attributes)
+      .color("hex")
       .draw();
 
     

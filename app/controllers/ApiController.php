@@ -82,6 +82,37 @@ class ApiController extends BaseController {
 
 		$data = Stats::select(array('id_link','facebook','twitter','total','dif_total','created_at'))->where('id_link',$id)->get();
 
+		if (count($data)>1) {
+			$gap = $data[1]->created_at->timestamp - $data[0]->created_at->timestamp;
+			$response[] = array(
+				'id' => 0,
+				'date' => $data[0]->created_at->timestamp - $gap,
+				'name' => 'Facebook',
+				'value' => 0
+				);
+
+			$response[] = array(
+				'id' => 0,
+				'date' => $data[0]->created_at->timestamp - $gap,
+				'name' => 'Twitter',
+				'value' => 0
+				);
+
+			$response[] = array(
+				'id' => 0,
+				'date' => $data[0]->created_at->timestamp - $gap,
+				'name' => 'Acumulado',
+				'value' => 0
+				);
+
+			$response[] = array(
+				'id' => 0,
+				'date' => $data[0]->created_at->timestamp - $gap,
+				'name' => 'Parcial',
+				'value' => 0
+				);
+		}
+
 		foreach ($data as $key => $s) {
 			$response[] = array(
 				'id' => $s->id_link,
@@ -100,14 +131,14 @@ class ApiController extends BaseController {
 			$response[] = array(
 				'id' => $s->id_link,
 				'date' => $s->created_at->timestamp,
-				'name' => 'Parcial',
+				'name' => 'Acumulado',
 				'value' => (int)$s->total
 				);
 
 			$response[] = array(
 				'id' => $s->id_link,
 				'date' => $s->created_at->timestamp,
-				'name' => 'Acumulado',
+				'name' => 'Parcial',
 				'value' => (int)$s->dif_total
 				);
 		}
