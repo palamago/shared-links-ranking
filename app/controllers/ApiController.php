@@ -76,6 +76,45 @@ class ApiController extends BaseController {
 		return Response::json(array('data'=>$response));
 	}
 
+	public function getChartsData($id)
+	{
+		$response = array();
+
+		$data = Stats::select(array('id_link','facebook','twitter','total','dif_total','created_at'))->where('id_link',$id)->get();
+
+		foreach ($data as $key => $s) {
+			$response[] = array(
+				'id' => $s->id_link,
+				'date' => $s->created_at->timestamp,
+				'name' => 'Facebook',
+				'value' => $s->facebook
+				);
+
+			$response[] = array(
+				'id' => $s->id_link,
+				'date' => $s->created_at->timestamp,
+				'name' => 'Twitter',
+				'value' => $s->twitter
+				);
+
+			$response[] = array(
+				'id' => $s->id_link,
+				'date' => $s->created_at->timestamp,
+				'name' => 'Parcial',
+				'value' => $s->total
+				);
+
+			$response[] = array(
+				'id' => $s->id_link,
+				'date' => $s->created_at->timestamp,
+				'name' => 'Acumulado',
+				'value' => $s->dif_total
+				);
+		}
+
+		return Response::json(array('data'=>$response));
+	}
+
 	public function getLinkData($id)
 	{
 		$response = Link::with('newspaper')->with('tag')->with('stats')->find($id);

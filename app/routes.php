@@ -59,6 +59,7 @@ Route::get('/api/tag', 'ApiController@getTags');
 Route::get('/api/topnews', 'ApiController@getTopNews');
 
 Route::get('/api/sparklines/{ids}', 'ApiController@getSparklinesData');
+Route::get('/api/charts/{id}', 'ApiController@getChartsData');
 
 Route::get('/api/link/{id}', 'ApiController@getLinkData');
 

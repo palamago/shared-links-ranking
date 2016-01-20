@@ -215,7 +215,53 @@ NewsApp.controller('LinkCtrl', function($scope, Restangular, $http, $routeParams
       }
       $scope.loading = false;
     });
+
+    Restangular.one('charts', $routeParams.id).get().then(function(data){
+      $scope.chartData = data.data;
+      $scope.renderCharts();
+    });
   };
+
+  $scope.renderCharts = function(){
+    console.log('renderCharts',$scope.chartData);
+
+    // instantiate d3plus
+   var visualization1 = d3plus.viz()
+      .container("#vizShare")
+      .data($scope.chartData.filter(function(e){
+        return e.name == 'Facebook' || e.name == 'Twitter'
+      }))
+      .type("line")
+      .id("name") 
+      .text("name")
+      .height({ 
+        value:400
+      })
+      .y("value")
+      .x({
+        label: false,
+        value: "date"
+      })
+      .draw();
+
+    // instantiate d3plus
+   var visualization2 = d3plus.viz()
+      .container("#vizTotals")
+      .data($scope.chartData.filter(function(e){
+        return e.name == 'Parcial' || e.name == 'Acumulado'
+      }))
+      .type("line")
+      .id("name") 
+      .text("name")
+      .height({ 
+        value:400
+      })
+      .y("value")
+      .x("date")
+      .draw();
+
+    
+    }
 
   $scope.init();
 

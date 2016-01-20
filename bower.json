@@ -1,0 +1,20 @@
+{
+  "name": "shared-links-ranking",
+  "version": "0.0.0",
+  "homepage": "https://github.com/palamago/shared-links-ranking",
+  "authors": [
+    "Pablo H. Paladino <paladinop@gmail.com>"
+  ],
+  "componentsDirectory" : "public/bower_components",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3plus": "~1.8.0"
+  }
+}

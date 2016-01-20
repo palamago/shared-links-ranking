@@ -77,8 +77,6 @@
 		</div>
 		<!-- ./wrap -->
 
-
-
 	    <div id="footer">
 			<div class="container text-center">
 				<p class="muted credit">
@@ -115,6 +113,9 @@
         <script src="{{asset('js/libs/angular-route.min.js')}}"></script>
         <script src="{{asset('js/libs/restangular.min.js')}}"></script>
         <script src="{{asset('js/libs/angulike.js')}}"></script>
+
+        <script src="{{asset('bower_components/d3plus/d3plus.full.min.js')}}"></script>
+
 		<script src="{{asset('js/app.js')}}"></script>
 		<script src="{{asset('js/HistoryCtrl.js')}}"></script>
 		<script src="{{asset('js/TopCtrl.js')}}"></script>
