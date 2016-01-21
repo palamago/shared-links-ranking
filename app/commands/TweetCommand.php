@@ -83,24 +83,31 @@ class TweetCommand extends Command {
 	}
 
 	private function getTopLink($group){
-		$query = Link::join('stats', 'link.id', '=', 'stats.id_link')
-        ->select(DB::raw('sum(stats.dif_total) as total_day')
-        	,'link.id as id'
-        	,'link.url as url'
-        	,'link.id_newspaper as id_newspaper'
-        	,'link.id_tag as id_tag'
-        	,'link.final_url as final_url'
-        	,'link.title as title'
-        	,'link.date as date'
-        	,'link.facebook as facebook'
-        	,'link.twitter as twitter'
-        	,'link.total as total'
-        	,'link.googleplus as googleplus'
-        	,'link.linkedin as linkedin'
-        	,'link.image as image'
-        	)
-        ->orderBy('total_day','DESC')
-        ->groupBy('link.id');
+		
+		$filterDate = new DateTime('now');
+		$filterDate->sub(new DateInterval('PT'.$hs.'H'));
+
+		$query = Link::with('newspaper')->with('tag')->with('rss')
+            ->join('stats', 'link.id', '=', 'stats.id_link')
+            ->select(DB::raw('sum(stats.dif_total) as diff')
+            	,'link.id as id'
+            	,'link.url as url'
+            	,'link.id_newspaper as id_newspaper'
+            	,'link.id_tag as id_tag'
+            	,'link.id_rss as id_rss'
+            	,'link.final_url as final_url'
+            	,'link.title as title'
+            	,'link.date as date'
+            	,'link.facebook as facebook'
+            	,'link.twitter as twitter'
+            	,'link.total as total'
+            	,'link.googleplus as googleplus'
+            	,'link.linkedin as linkedin'
+            	,'link.image as image'
+            	)
+            ->orderBy('diff','DESC')
+            ->where('stats.created_at','>',$filterDate)
+            ->groupBy('link.id');
 
         return $query->first();
 	}
