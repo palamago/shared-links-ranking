@@ -48,33 +48,36 @@ class TweetCommand extends Command {
 
 			$top = $this->getTopLink($g);
 
-			$params = array(
-				'consumer_key'        	=> $g->tw_user_key,
-				'consumer_secret'     	=> $g->tw_user_secret ,
-				'token'        			=> $g->tw_user_token ,
-				'secret' 				=> $g->tw_user_token_secret 
-			);
-			Twitter::reconfig($params);
+			if($top){
+				$params = array(
+					'consumer_key'        	=> $g->tw_user_key,
+					'consumer_secret'     	=> $g->tw_user_secret ,
+					'token'        			=> $g->tw_user_token ,
+					'secret' 				=> $g->tw_user_token_secret 
+				);
+				Twitter::reconfig($params);
 
-			//News Image
-			$url = $top->image;
-			$ext = pathinfo($url, PATHINFO_EXTENSION);
-			$img = public_path('temp.'.$ext);
-			file_put_contents($img, file_get_contents($url));
-			$media = File::get(public_path('temp.'.$ext));
-			$uploaded_media_logo = Twitter::uploadMedia(['media' => $media]);
+				//News Image
+				$url = $top->image;
+				$ext = pathinfo($url, PATHINFO_EXTENSION);
+				$img = public_path('temp.'.$ext);
+				file_put_contents($img, file_get_contents($url));
+				$media = File::get(public_path('temp.'.$ext));
+				$uploaded_media_logo = Twitter::uploadMedia(['media' => $media]);
 
-			//Image logo
-			$url = $top->newspaper->logo;
-			$ext = pathinfo($url, PATHINFO_EXTENSION);
-			$img = public_path('temp.'.$ext);
-			file_put_contents($img, file_get_contents($url));
-			$media = File::get(public_path('temp.'.$ext));
-			$uploaded_media_news = Twitter::uploadMedia(['media' => $media]);
+				//Image logo
+				$url = $top->newspaper->logo;
+				$ext = pathinfo($url, PATHINFO_EXTENSION);
+				$img = public_path('temp.'.$ext);
+				file_put_contents($img, file_get_contents($url));
+				$media = File::get(public_path('temp.'.$ext));
+				$uploaded_media_news = Twitter::uploadMedia(['media' => $media]);
 
-			$link = $_ENV['url'] . '/#/link/' . $top->id;
+				$link = $_ENV['url'] . '/#/link/' . $top->id;
 
-			Twitter::postTweet(['status' => $top->title .' '. $link, 'format' => 'json', 'media_ids' => array($uploaded_media_logo->media_id_string,$uploaded_media_news->media_id_string)]);
+				Twitter::postTweet(['status' => $top->title .' '. $link, 'format' => 'json', 'media_ids' => array($uploaded_media_logo->media_id_string,$uploaded_media_news->media_id_string)]);
+			}
+
 		}
 
 		$log->status = "finished";
@@ -85,7 +88,7 @@ class TweetCommand extends Command {
 	private function getTopLink($group){
 		
 		$filterDate = new DateTime('now');
-		$filterDate->sub(new DateInterval('PT'.$hs.'H'));
+		$filterDate->sub(new DateInterval('PT1H'));
 
 		$query = Link::with('newspaper')->with('tag')->with('rss')
             ->join('stats', 'link.id', '=', 'stats.id_link')
