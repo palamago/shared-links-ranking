@@ -8,7 +8,8 @@
 		"frozennode/administrator": "dev-master",
 		"simplepie/simplepie": "dev-master",
 		"awjudd/feed-reader": "1.1.*",
-		"xethron/migrations-generator": "dev-master"
+		"xethron/migrations-generator": "dev-master",
+		"thujohn/twitter": "^2.1"
 	},
 	"autoload": {
 		"classmap": [

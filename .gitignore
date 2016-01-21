@@ -7,3 +7,4 @@ composer.lock
 Thumbs.db
 /scripts/tw_config.ini
 /public/bower_components
+/public/temp*

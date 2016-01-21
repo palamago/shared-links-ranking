@@ -124,7 +124,8 @@ return array(
 		'Frozennode\Administrator\AdministratorServiceProvider',
 		'Awjudd\FeedReader\FeedReaderServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
-		'Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider'
+		'Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider',
+	    'Thujohn\Twitter\TwitterServiceProvider'
 	),
 
 	/*
@@ -192,6 +193,7 @@ return array(
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
 		'FeedReader'      => 'Awjudd\FeedReader\Facades\FeedReader',
+	    'Twitter' 			=> 'Thujohn\Twitter\Facades\Twitter',
 
 	),
 

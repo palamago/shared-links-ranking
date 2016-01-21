@@ -54,11 +54,27 @@ return array(
 			'type' => 'text'
 		),
 		'tw_key' => array(
-			'title' => 'Twitter Key',
+			'title' => 'Twitter App Key',
 			'type' => 'text'
 		),
 		'tw_secret' => array(
-			'title' => 'Twitter Secret',
+			'title' => 'Twitter App Secret',
+			'type' => 'text'
+		),
+		'tw_user_key' => array(
+			'title' => 'Twitter User Key',
+			'type' => 'text'
+		),
+		'tw_user_secret' => array(
+			'title' => 'Twitter User Secret',
+			'type' => 'text'
+		),
+		'tw_user_token' => array(
+			'title' => 'Twitter User Token',
+			'type' => 'text'
+		),
+		'tw_user_token_secret' => array(
+			'title' => 'Twitter User Token Secret',
 			'type' => 'text'
 		)
 	)
