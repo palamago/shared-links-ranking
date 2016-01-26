@@ -20,6 +20,9 @@ return array(
 		'name' => array(
 			'title' => 'Name'
 		),
+		'id_group' => array(
+			'title' => 'Grupo'
+		),
 		'status' => array(
 			'title' => 'Status'
 		),
@@ -46,11 +49,21 @@ return array(
 		'name' => array(
 			'title' => 'Nombre',
 			'type' => 'text'
+		),
+		'grupo' => array(
+			'title' => 'Grupo',
+			'type' => 'relationship',
+			'name_field' => 'name'
 		)
 
 	),
 
 	'filters' => array(
+		'grupo' => array(
+			'title' => 'Grupo',
+			'type' => 'relationship',
+			'name_field' => 'name'
+		),
 		'name' => array(
 		    'type' => 'enum',
 		    'title' => 'Process',

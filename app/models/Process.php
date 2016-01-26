@@ -14,4 +14,9 @@ class Process extends Eloquent {
 		return ($diff==0 && $this->status=='finished')? "0.01 min." :round( $diff / 60,2). " min.";
 	}
 
+    public function grupo()
+    {
+        return $this->belongsTo('Group','id_group');
+    }
+
 }

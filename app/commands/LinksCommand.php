@@ -45,6 +45,7 @@ class LinksCommand extends Command {
 			$log = new Process();
 			$log->name = "get-links";
 			$log->status = "running";
+			$log->id_group = $group;
 			$log->save();
 
 			//Check new links

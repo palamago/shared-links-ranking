@@ -44,6 +44,7 @@ class SharesCommand extends Command {
 			$log = new Process();
 			$log->name = "get-shares";
 			$log->status = "running";
+			$log->id_group = $group;
 			$log->save();
 
 			$filterDate = new DateTime('now');

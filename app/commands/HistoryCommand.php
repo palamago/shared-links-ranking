@@ -44,6 +44,7 @@ class HistoryCommand extends Command {
 		$log = new Process();
 		$log->name = "make-history";
 		$log->status = "running";
+		$log->id_group = $group;
 		$log->save();
 
 		$today = Carbon::today();
