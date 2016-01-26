@@ -20,9 +20,6 @@ return array(
 		'name' => array(
 			'title' => 'Tag'
 		),
-		'id_group' => array(
-			'title' => 'Grupo'
-		),
 		'color' => array(
 		    'type' => 'color',
 		    'title' => 'Color',
@@ -38,11 +35,6 @@ return array(
 
 	'filters' => array(
 	    'id',
-	    'grupo' => array(
-			'title' => 'Grupo',
-			'type' => 'relationship',
-			'name_field' => 'name'
-		),
 	    'name' => array(
 	        'title' => 'Name',
 	    )
@@ -61,12 +53,6 @@ return array(
 			'title' => 'Tag',
 			'type' => 'text'
 		),
-		'grupo' => array(
-			'title' => 'Grupo',
-			'type' => 'relationship',
-			'name_field' => 'name'
-		),
-
 	)
 
 );

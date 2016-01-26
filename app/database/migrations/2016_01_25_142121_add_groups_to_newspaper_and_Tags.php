@@ -19,11 +19,6 @@ class AddGroupsToNewspaperAndTags extends Migration {
 			$table->foreign('id_group', 'newspaper_group')->references('slug')->on('group')->onUpdate('RESTRICT')->onDelete('CASCADE');
 		});
 
-		Schema::table('tags', function(Blueprint $table)
-		{
-			$table->string('id_group', 2)->nullable();
-			$table->foreign('id_group', 'tag_group')->references('slug')->on('group')->onUpdate('RESTRICT')->onDelete('CASCADE');
-		});
 	}
 
 
@@ -37,11 +32,6 @@ class AddGroupsToNewspaperAndTags extends Migration {
 		Schema::table('newspaper', function(Blueprint $table)
 		{
 			$table->dropForeign('newspaper_group');
-			$table->dropColumn('id_group');
-		});
-		Schema::table('tags', function(Blueprint $table)
-		{
-			$table->dropForeign('tag_group');
 			$table->dropColumn('id_group');
 		});
 	}

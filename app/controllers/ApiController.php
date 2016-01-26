@@ -16,11 +16,7 @@ class ApiController extends BaseController {
 	}
 
 	public function getTags(){
-		$group = (Input::get('group','')!='')?Input::get('group'):false;
-		$q = Tag::select('id','name','color','id_group')->orderBy('name', 'ASC');
-		if($group){
-			$q->where('id_group',$group);
-		}
+		$q = Tag::select('id','name','color')->orderBy('name', 'ASC');
 		return Response::json($q->get());
 	}
 

@@ -24,14 +24,12 @@ class DataDummySeeder extends Seeder {
             array(
                 'name'      => 'Sports',
                 'color'   => '#3f9b45',
-                'id_group' => DB::table('group')->first()->slug,
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime
             ),
             array(
                 'name'      => 'Latest',
                 'color'   => '#f51717',
-                'id_group' => DB::table('group')->first()->slug,
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime
             )
