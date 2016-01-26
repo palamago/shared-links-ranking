@@ -110,6 +110,7 @@ class TweetCommand extends Command {
             	)
             ->orderBy('diff','DESC')
             ->where('stats.created_at','>',$filterDate)
+            ->where('id_group',$group->slug)
             ->groupBy('link.id');
 
         return $query->first();
