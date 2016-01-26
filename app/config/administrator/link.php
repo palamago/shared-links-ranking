@@ -17,6 +17,9 @@ return array(
 	 */
 	'columns' => array(
 		'id',
+		'id_group' => array(
+			'title' => 'Grupo'
+		),
 		'title' => array(
 			'title' => 'Titulo'
 		),
@@ -53,12 +56,6 @@ return array(
 		'twitter' => array(
 			'title' => 'TW'
 		),
-		'linkedin' => array(
-			'title' => 'LN'
-		),
-		'googleplus' => array(
-			'title' => 'G+'
-		),
 		'total' => array(
 			'title' => 'Total'
 		)
@@ -73,6 +70,11 @@ return array(
 		'title' => array(
 			'title' => 'Titulo',
 			'type' => 'text'
+		),
+		'grupo' => array(
+			'title' => 'Grupo',
+			'type' => 'relationship',
+			'name_field' => 'name'
 		),
 		'url' => array(
 			'title' => 'Url',
@@ -99,6 +101,11 @@ return array(
 	    'title' => array(
 	        'title' => 'Título',
 	    ),
+	    'grupo' => array(
+			'title' => 'Grupo',
+			'type' => 'relationship',
+			'name_field' => 'name'
+		),
 		'tag' => array(
 			'title' => 'Tag',
 			'type' => 'relationship',

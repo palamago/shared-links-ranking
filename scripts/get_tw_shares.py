@@ -203,8 +203,8 @@ try:
                 #offset = (page - 1) * perPage;
                 # Read a page
                 #print('--PAGE: %s' % page)
-                sql = "SELECT * FROM topranking_ar.tw_shares ORDER BY (updated_at = '0000-00-00 00:00:00') DESC, updated_at ASC LIMIT 100"
-                cursor.execute(sql)
+                sql = "SELECT * FROM topranking_ar.tw_shares WHERE id_group = %s ORDER BY (updated_at = '0000-00-00 00:00:00') DESC, updated_at ASC LIMIT 100"
+                cursor.execute(sql,(group_slug))
                 result = cursor.fetchall()
 
             if(len(result)>0):

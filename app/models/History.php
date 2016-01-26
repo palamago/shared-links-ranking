@@ -16,4 +16,9 @@ class History extends Eloquent {
         return $this->belongsTo('Tag','id_tag');
     }
 
+    public function grupo()
+    {
+        return $this->belongsTo('Group','id_group');
+    }
+
 }

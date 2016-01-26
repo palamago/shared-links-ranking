@@ -38,6 +38,9 @@ class HistoryCommand extends Command {
 	 */
 	public function fire()
 	{
+
+		$group = $this->argument('group');
+
 		$log = new Process();
 		$log->name = "make-history";
 		$log->status = "running";
@@ -47,18 +50,18 @@ class HistoryCommand extends Command {
 
 		$topToday = array();
 
-		$newspapers = Newspaper::select('id')->get();
+		$newspapers = Newspaper::where('id_group',$group)->select('id')->get();
 		$tags = Tag::select('id')->get();
 
 		foreach ($newspapers as $key => $n) {
-			$top = $this->getTopLink($today,$n->id,false);
+			$top = $this->getTopLink($today,$n->id,false,$group);
 			if($top) {
 				$topToday[] = $top;
 			}
 		}
 
 		foreach ($tags as $key => $t) {
-			$top = $this->getTopLink($today,false,$t->id);
+			$top = $this->getTopLink($today,false,$t->id,$group);
 			if($top) {
 				$topToday[] = $top;
 			}
@@ -67,7 +70,7 @@ class HistoryCommand extends Command {
 		$topToday = array_unique($topToday);
 
 		//Remove links for today
-		History::where('date','=',$today)->delete();
+		History::where('id_group',$group)->where('date','=',$today)->delete();
 
 		//Save history
 		foreach ($topToday as $key => $t) {
@@ -89,13 +92,14 @@ class HistoryCommand extends Command {
 		
 	}
 
-	private function getTopLink($today, $newspaper_id=false, $tag_id=false){
+	private function getTopLink($today, $newspaper_id=false, $tag_id=false, $group_id=false){
 		$query = Link::join('stats', 'link.id', '=', 'stats.id_link')
         ->select(DB::raw('sum(stats.dif_total) as total_day')
         	,'link.id as id'
         	,'link.url as url'
         	,'link.id_newspaper as id_newspaper'
         	,'link.id_tag as id_tag'
+        	,'link.id_group as id_group'
         	,'link.final_url as final_url'
         	,'link.title as title'
         	,'link.date as date'
@@ -121,6 +125,11 @@ class HistoryCommand extends Command {
 			$query->where('link.id_tag', $tag_id);
 		}
 
+		//tag
+		if($group_id){
+			$query->where('link.id_group', $group_id);
+		}
+
         return $query->first();
 	}
 
@@ -132,6 +141,7 @@ class HistoryCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
+			array('group', InputArgument::REQUIRED, 'Grupo para filtrar')
 		);
 	}
 

@@ -9,12 +9,12 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
   $scope.filters = {
   	newspaper:'',
   	tag:'',
-    hs: 1,
-    group: GROUP_RANKING
+    hs: 1
   }
 
   $scope.times = [ '1', '3', '6', '12', '24' ];
   
+  $scope.groups   = [];
   $scope.newspapers   = [];
   $scope.tags     = [];
   $scope.topnews    = [];
@@ -151,6 +151,13 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
   }
 
   $scope.init = function(){
+
+    Restangular.all('group').getList().then(function(nList){
+      $scope.groups = Restangular.stripRestangular(nList);
+      $scope.currentGroup = nList.filter(function(d){
+        return d.slug == GROUP_RANKING;
+      })[0];
+    });
 
     Restangular.all('newspaper').getList().then(function(nList){
       $scope.newspapers = Restangular.stripRestangular(nList);

@@ -33,5 +33,8 @@ class Link extends Eloquent {
         }
     }
 
-
+    public function grupo()
+    {
+        return $this->belongsTo('Group','id_group');
+    }
 }

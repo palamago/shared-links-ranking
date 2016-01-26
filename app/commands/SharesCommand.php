@@ -39,6 +39,8 @@ class SharesCommand extends Command {
 	{
 		try{
 			
+			$group = $this->argument('group');
+
 			$log = new Process();
 			$log->name = "get-shares";
 			$log->status = "running";
@@ -48,7 +50,7 @@ class SharesCommand extends Command {
 			$filterDate->sub(new DateInterval('P1D'));
 
 			//Load shares
-			Link::where('date','>',$filterDate)->chunk(100, function($links)
+			Link::where('id_group',$group)->where('date','>',$filterDate)->chunk(100, function($links)
 			{
 				foreach ($links as $value) {
 					$shares = $this->getSharesCount($value);
@@ -195,6 +197,7 @@ class SharesCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
+			array('group', InputArgument::REQUIRED, 'Grupo para filtrar')
 		);
 	}
 

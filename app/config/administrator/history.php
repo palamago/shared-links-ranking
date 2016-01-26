@@ -17,6 +17,9 @@ return array(
 	 */
 	'columns' => array(
 		'id',
+		'id_group' => array(
+			'title' => 'Grupo'
+		),
 		'date' => array(
 			'title' => 'Fecha'
 		),
@@ -62,6 +65,11 @@ return array(
 			'title' => 'Titulo',
 			'type' => 'text'
 		),
+		'grupo' => array(
+			'title' => 'Grupo',
+			'type' => 'relationship',
+			'name_field' => 'name'
+		),
 		'url' => array(
 			'title' => 'Url',
 			'type' => 'text'
@@ -88,6 +96,11 @@ return array(
 	        'date' => 'Date',
 			'type' => 'date'
 	    ),
+	   	'grupo' => array(
+			'title' => 'Grupo',
+			'type' => 'relationship',
+			'name_field' => 'name'
+		),
 		'tag' => array(
 			'title' => 'Tag',
 			'type' => 'relationship',

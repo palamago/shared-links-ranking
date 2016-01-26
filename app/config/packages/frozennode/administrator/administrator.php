@@ -60,6 +60,7 @@ return array(
 		'log',
 		'user',
 		'history',
+		'tw_shares',
 		'Settings' => array('settings.site'),
 	),
 

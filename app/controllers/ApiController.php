@@ -29,10 +29,15 @@ class ApiController extends BaseController {
 	}
 
 	public function getTopNews(){
+		$group 			= (Input::get('group','')!='')?Input::get('group'):false;
 		$hs 			= (Input::get('hs','')!='')?Input::get('hs'):'1';
 		$hs 			= (in_array($hs, [1,3,6,12,24])?$hs:'1');
 		$newspaper_id 	= (Input::get('newspaper','')!='')?Input::get('newspaper'):false;
 		$tag_id 		= (Input::get('tag','')!='')?Input::get('tag'):false;
+
+		if(!$group){
+			Response::json([]);
+		}
 
 		//Time
 		$filterDate = new DateTime('now');
@@ -46,6 +51,7 @@ class ApiController extends BaseController {
             	,'link.id_newspaper as id_newspaper'
             	,'link.id_tag as id_tag'
             	,'link.id_rss as id_rss'
+            	,'link.id_group as id_group'
             	,'link.final_url as final_url'
             	,'link.title as title'
             	,'link.date as date'
@@ -58,6 +64,7 @@ class ApiController extends BaseController {
             	)
             ->orderBy('diff','DESC')
             ->where('stats.created_at','>',$filterDate)
+            ->where('link.id_group',$group)
             ->groupBy('link.id');
 		
 		//Newspaper

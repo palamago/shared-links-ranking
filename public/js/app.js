@@ -23,6 +23,8 @@ NewsApp.run(function($rootScope, Restangular){
 
   Restangular.setBaseUrl('/api');
 
+  Restangular.setDefaultRequestParams({group: GROUP_RANKING});
+
   $rootScope.getDateDiff = function(date){
     var diff = moment().diff(moment(date));
     diff = Math.floor(moment.duration(diff).asHours());

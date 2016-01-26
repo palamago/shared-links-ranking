@@ -37,7 +37,10 @@ class LinksCommand extends Command {
 	 */
 	public function fire()
 	{
+
 		try {
+
+			$group = $this->argument('group');
 
 			$log = new Process();
 			$log->name = "get-links";
@@ -45,7 +48,11 @@ class LinksCommand extends Command {
 			$log->save();
 
 			//Check new links
-			Rss::chunk(100, function($rss)
+			Rss::whereHas('newspaper', function($q) use ($group)
+            {
+                $q->where('id_group', $group);
+
+            })->chunk(100, function($rss)
 			{
 				foreach ($rss as $value) {
 					$this->loadRss($value);
@@ -57,7 +64,7 @@ class LinksCommand extends Command {
 			$filterDate = new DateTime('now');
 			$filterDate->sub(new DateInterval('P1D'));
 
-			Link::where('date','<',$filterDate)->where('updated_at','<',$filterDate)->delete();
+			Link::where('id_group',$group)->where('date','<',$filterDate)->where('updated_at','<',$filterDate)->delete();
 
 			$log->status = "finished";
 			$log->save();
@@ -117,6 +124,7 @@ class LinksCommand extends Command {
 						'id_rss' => $rss->id,
 						'id_tag' => $rss->id_tag,
 						'id_newspaper' => $rss->id_newspaper,
+						'id_group' => $rss->newspaper->id_group,
 						'date' => $date,
 						'facebook' => 0,
 						'twitter' => 0,
@@ -233,7 +241,7 @@ class LinksCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			
+			array('group', InputArgument::REQUIRED, 'Grupo para filtrar')
 		);
 	}
 
