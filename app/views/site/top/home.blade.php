@@ -32,11 +32,11 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('css/main.css')}}">
 		<style>
-        body {
-            padding: 70px 0;
-        }
-		@section('styles')
-		@show
+	        body {
+	            padding: 70px 0;
+	        }
+			@section('styles')
+			@show
 		</style>
 
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -53,30 +53,22 @@
 		<link rel="shortcut icon" href="{{{ asset('assets/ico/favicon.png') }}}">
 	</head>
 
-	<body ng-app="news-ranking-project">
-		<script type="text/javascript">
-			var GROUP_RANKING = '{{$group}}';
-		</script>
+	<body>
 		<!-- To make sticky footer need to wrap in a div -->
 		<div id="wrap">
 
-		<!-- Container -->
-		<div class="container">
-			<!-- Notifications -->
-			@include('notifications')
-			<!-- ./ notifications -->
-			<div>
-
-				<div ng-view autoscroll="true"></div>
-
+			<!-- Container -->
+			<div class="container">
+				<ul>
+				@foreach($groups as $g)
+					<li><a href="/{{$g->slug}}">{{$g->name}}</a></li>
+				@endforeach
+				</ul>
 			</div>
+			<!-- ./ container -->
 
-			<!-- ./ content -->
-		</div>
-		<!-- ./ container -->
-
-		<!-- the following div is needed to make a sticky footer -->
-		<div id="push"></div>
+			<!-- the following div is needed to make a sticky footer -->
+			<div id="push"></div>
 		</div>
 		<!-- ./wrap -->
 

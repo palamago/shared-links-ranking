@@ -7,11 +7,25 @@ class ApiController extends BaseController {
 	}
 
 	public function getNewspapers(){
-		return Response::json(Newspaper::select('id','name','logo')->orderBy('name', 'ASC')->get());
+		$group = (Input::get('group','')!='')?Input::get('group'):false;
+		$q = Newspaper::select('id','name','logo','id_group')->orderBy('name', 'ASC');
+		if($group){
+			$q->where('id_group',$group);
+		}
+		return Response::json($q->get());
 	}
 
 	public function getTags(){
-		return Response::json(Tag::select('id','name','color')->orderBy('name', 'ASC')->get());
+		$group = (Input::get('group','')!='')?Input::get('group'):false;
+		$q = Tag::select('id','name','color','id_group')->orderBy('name', 'ASC');
+		if($group){
+			$q->where('id_group',$group);
+		}
+		return Response::json($q->get());
+	}
+
+	public function getGroups(){
+		return Response::json(Group::select('slug','name','logo')->orderBy('name', 'ASC')->get());
 	}
 
 	public function getTopNews(){

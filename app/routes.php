@@ -51,11 +51,10 @@ Route::get('logout', function()
     return Redirect::to('login');
 });
 
-Route::get('/', 'TopController@getTop');
-
 Route::get('/api/newspaper', 'ApiController@getNewspapers');
 Route::get('/api/rss', 'ApiController@getRss');
 Route::get('/api/tag', 'ApiController@getTags');
+Route::get('/api/group', 'ApiController@getGroups');
 Route::get('/api/topnews', 'ApiController@getTopNews');
 
 Route::get('/api/sparklines/{ids}', 'ApiController@getSparklinesData');
@@ -64,3 +63,5 @@ Route::get('/api/charts/{id}', 'ApiController@getChartsData');
 Route::get('/api/link/{id}', 'ApiController@getLinkData');
 
 Route::get('/api/historynews', 'ApiController@getHistoryNews');
+
+Route::get('/{group?}', 'TopController@index');

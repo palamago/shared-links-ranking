@@ -9,7 +9,8 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
   $scope.filters = {
   	newspaper:'',
   	tag:'',
-    hs: 1
+    hs: 1,
+    group: GROUP_RANKING
   }
 
   $scope.times = [ '1', '3', '6', '12', '24' ];
@@ -71,8 +72,7 @@ NewsApp.controller('TopCtrl', function($scope, Restangular, $http, $location) {
       $scope.topnews = data;
       $scope.refreshSparklines();
     });
-  }   
-
+  }
 
   $scope.refreshSparklines = function(){
     if($scope.topnews.length){

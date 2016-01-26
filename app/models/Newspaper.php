@@ -10,4 +10,9 @@ class Newspaper extends Eloquent {
         return $this->hasMany('Rss','id_newspaper');
     }
 
+	public function grupo()
+    {
+        return $this->belongsTo('Group','id_group');
+    }
+
 }

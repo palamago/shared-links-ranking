@@ -24,6 +24,9 @@ return array(
 		'name' => array(
 			'title' => 'Nombre'
 		),
+		'id_group' => array(
+			'title' => 'Grupo'
+		),
 		'url' => array(
 			'title' => 'Url'
 		),
@@ -37,6 +40,11 @@ return array(
 
 	'filters' => array(
 	    'id',
+	    'grupo' => array(
+			'title' => 'Grupo',
+			'type' => 'relationship',
+			'name_field' => 'name'
+		),
 	    'name' => array(
 	        'title' => 'Name',
 	    )
@@ -58,7 +66,12 @@ return array(
 		'url' => array(
 			'title' => 'Url',
 			'type' => 'text'
-		)
+		),
+		'grupo' => array(
+			'title' => 'Grupo',
+			'type' => 'relationship',
+			'name_field' => 'name'
+		),
 
 	)
 

@@ -2,9 +2,13 @@
 
 class TopController extends BaseController {
 
-	public function getTop($filter='today')
+	public function index($group=false)
 	{
-		return View::make('site/top/index');
+		if($group){
+			return View::make('site/top/index', array('group' => $group));
+		}else{
+			return View::make('site/top/home', array('groups' => Group::all()));
+		}
 	}
 
 }

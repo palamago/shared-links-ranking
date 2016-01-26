@@ -10,16 +10,28 @@ class DataDummySeeder extends Seeder {
         DB::table('newspaper')->delete();
         DB::table('tags')->delete();
 
+        $group = array(
+            array(
+                'slug'      => 'us',
+                'name'   => 'Test',
+                'created_at' => new DateTime,
+                'updated_at' => new DateTime
+            )
+        );
+        DB::table('group')->insert( $group );
+
         $tags = array(
             array(
                 'name'      => 'Sports',
                 'color'   => '#3f9b45',
+                'id_group' => DB::table('group')->first()->slug,
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime
             ),
             array(
                 'name'      => 'Latest',
                 'color'   => '#f51717',
+                'id_group' => DB::table('group')->first()->slug,
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime
             )
@@ -31,6 +43,7 @@ class DataDummySeeder extends Seeder {
                 'name'      => 'New York Times',
                 'logo'   => 'https://pbs.twimg.com/profile_images/2044921128/finals.png',
                 'url'   => 'http://www.nytimes.com/',
+                'id_group' => DB::table('group')->first()->slug,
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime
             )

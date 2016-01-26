@@ -16,12 +16,11 @@ return array(
 	 * The display columns
 	 */
 	'columns' => array(
-		'id',
-		'name' => array(
-			'title' => 'Name'
-		),
 		'slug' => array(
 			'title' => 'Slug'
+		),
+		'name' => array(
+			'title' => 'Name'
 		),
 		'logo' => array(
 			'title' => 'Logo',
@@ -30,7 +29,6 @@ return array(
 	),
 
 	'filters' => array(
-	    'id',
 	    'name' => array(
 	        'title' => 'Name',
 	    )
@@ -40,13 +38,12 @@ return array(
 	 * The editable fields
 	 */
 	'edit_fields' => array(
-		'id',
-		'name' => array(
-			'title' => 'Name',
-			'type' => 'text'
-		),
 		'slug' => array(
 			'title' => 'Slug',
+			'type' => 'text'
+		),
+		'name' => array(
+			'title' => 'Name',
 			'type' => 'text'
 		),
 		'logo' => array(
