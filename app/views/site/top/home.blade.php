@@ -59,11 +59,14 @@
 
 			<!-- Container -->
 			<div class="container">
-				<ul>
-				@foreach($groups as $g)
-					<li><a href="/{{$g->slug}}">{{$g->name}}</a></li>
-				@endforeach
-				</ul>
+				<div class="jumbotron">
+					<h1>Top Ranking . Link</h1>
+					<ul>
+					@foreach($groups as $g)
+						<li><a href="/{{$g->slug}}/">{{$g->name}}</a></li>
+					@endforeach
+					</ul>
+				</div>
 			</div>
 			<!-- ./ container -->
 
