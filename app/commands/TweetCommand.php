@@ -73,7 +73,7 @@ class TweetCommand extends Command {
 				$media = File::get(public_path('temp.'.$ext));
 				$uploaded_media_news = Twitter::uploadMedia(['media' => $media]);
 
-				$link = $_ENV['url'] . $g->slug. '/#/link/' . $top->id;
+				$link = $_ENV['url'] . '/' . $g->slug. '/#/link/' . $top->id;
 
 				Twitter::postTweet(['status' => $top->title .' '. $link, 'format' => 'json', 'media_ids' => array($uploaded_media_logo->media_id_string,$uploaded_media_news->media_id_string)]);
 			}
