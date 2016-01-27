@@ -25,6 +25,8 @@ class ApiController extends BaseController {
 	}
 
 	public function getTopNews(){
+		$limit 			= (Input::get('limit','')!='')?Input::get('limit'):10;
+		$limit 			= $limit>10?10:$limit;
 		$group 			= (Input::get('group','')!='')?Input::get('group'):false;
 		$hs 			= (Input::get('hs','')!='')?Input::get('hs'):'1';
 		$hs 			= (in_array($hs, [1,3,6,12,24])?$hs:'1');
@@ -73,7 +75,7 @@ class ApiController extends BaseController {
 			$query->where('link.id_tag', $tag_id);
 		}
 
-		return Response::json($query->take(10)->get());
+		return Response::json($query->take($limit)->get());
 	}
 
 	public function getSparklinesData($ids)

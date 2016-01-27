@@ -31,13 +31,6 @@
         <!--link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap-theme.min.css')}}"-->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('css/main.css')}}">
-		<style>
-	        body {
-	            padding: 70px 0;
-	        }
-			@section('styles')
-			@show
-		</style>
 
 		<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 		<!--[if lt IE 9]>
@@ -53,20 +46,67 @@
 		<link rel="shortcut icon" href="{{{ asset('assets/ico/favicon.png') }}}">
 	</head>
 
-	<body>
+	<body ng-app="news-ranking-home">
 		<!-- To make sticky footer need to wrap in a div -->
 		<div id="wrap">
 
 			<!-- Container -->
-			<div class="container">
-				<div class="jumbotron">
-					<h1>Top Ranking . Link</h1>
-					<ul>
-					@foreach($groups as $g)
-						<li><a href="/{{$g->slug}}/">{{$g->name}}</a></li>
-					@endforeach
-					</ul>
+			<div class="container" ng-controller="HomeCtrl">
+				<div class="row">
+					<div class="col-md-4">
+						<img class="img-responsive" src="http://lorempixel.com/500/500/abstract/" />
+					</div>
+					<div class="col-md-8">
+						<div class="jumbotron">
+							<h1>Top Ranking . Link</h1>
+							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</div>
+					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-4">
+					</div>
+					@foreach($groups as $g)
+						<div class="col-md-4">
+							<div class="jumbotron" ng-init="getRanking('{{$g->slug}}')">
+								<h2 class="text-center">{{$g->name}} Top 3</h2>
+								<div class="row">
+									<p class="text-center" ng-hide="rankings['{{$g->slug}}'].length>0">Loading</p>
+									<div ng-repeat="r in rankings['{{$g->slug}}']" class="col-md-12">
+									<strong>@{{$index+1}}.</strong> @{{r.title}}
+									</div>
+								</div>
+							</div>
+						</div>
+					@endforeach
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+					</div>
+					@foreach($groups as $g)
+						<div class="col-md-4">
+							<a class="btn btn-block btn-primary text-center" href="/{{$g->slug}}/">Ver {{$g->name}} Top 10</a>
+						</div>
+					@endforeach
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+					</div>
+					@foreach($groups as $g)
+						<div class="col-md-4">
+							<div class="jumbotron">
+								<h3 class="text-center">Medios de {{$g->name}}</h3>
+								<div class="row">
+									<p class="text-center" ng-hide="newspapers['{{$g->slug}}'].length>0">Loading</p>
+									<div ng-repeat="n in newspapers['{{$g->slug}}']" class="col-md-3">
+										<img class="img-responsive" ng-src="@{{n.logo}}" />
+									</div>
+								</div>
+							</div>
+						</div>
+					@endforeach
+				</div>
+
 			</div>
 			<!-- ./ container -->
 
@@ -114,9 +154,8 @@
 
         <script src="{{asset('bower_components/d3plus/d3plus.full.min.js')}}"></script>
 
-		<script src="{{asset('js/app.js')}}"></script>
-		<script src="{{asset('js/HistoryCtrl.js')}}"></script>
-		<script src="{{asset('js/TopCtrl.js')}}"></script>
+		<script src="{{asset('js/app-home.js')}}"></script>
+		<script src="{{asset('js/HomeCtrl.js')}}"></script>
         <script src="{{asset('js/main.js')}}"></script>
 
         @yield('scripts')
