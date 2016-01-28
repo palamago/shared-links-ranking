@@ -53,14 +53,12 @@
 			<!-- Container -->
 			<div class="container" ng-controller="HomeCtrl">
 				<div class="row">
-					<div class="col-md-4">
-						<img class="img-responsive" src="http://lorempixel.com/500/500/abstract/" />
+					<div class="col-sm-4">
+						<img class="img-responsive" src="{{asset('img/LOGO-HOME.png')}}" />
 					</div>
-					<div class="col-md-8">
-						<div class="jumbotron">
-							<h1>Top Ranking . Link</h1>
-							<p>Herramienta que permite visualizar las noticias más compartidas en redes sociales en los principales diarios online de cada país.</p>
-						</div>
+					<div class="col-sm-8">
+						<hr/>
+						<p class="lead">Herramienta que permite visualizar las noticias más compartidas en redes sociales en los principales diarios online de cada país.</p>
 					</div>
 				</div>
 				<div class="row">
