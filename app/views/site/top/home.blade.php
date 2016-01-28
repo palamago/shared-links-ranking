@@ -6,7 +6,7 @@
 		<meta charset="utf-8" />
 		<title>
 			@section('title')
-			Shared Links Ranking
+			Top Ranking
 			@show
 		</title>
 		@section('meta_keywords')
@@ -65,7 +65,7 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="hidden-xs hidden-sm">
-						    <a class="twitter-timeline"  href="https://twitter.com/palamago/lists/topranking" data-widget-id="692490564072296448">Tweets de https://twitter.com/palamago/lists/topranking</a>
+						    <a class="twitter-timeline"  href="https://twitter.com/palamago/lists/topranking" data-widget-id="692490564072296448"><p class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></p></a>
 	          				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 						</div>
 					</div>
@@ -74,7 +74,7 @@
 							<div class="jumbotron" ng-init="getRanking('{{$g->slug}}')">
 								<h2 class="text-center">{{$g->name}} Top 3</h2>
 								<div class="row">
-									<p class="text-center" ng-hide="rankings['{{$g->slug}}'].length>0">Loading</p>
+									<p ng-hide="rankings['{{$g->slug}}'].length>0" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></p>
 									<div ng-repeat="r in rankings['{{$g->slug}}']" class="col-md-12">
 										<strong>@{{$index+1}}.</strong> @{{r.title}}
 									</div>
@@ -85,9 +85,9 @@
 							<div class="jumbotron">
 								<h3 class="text-center">Medios de {{$g->name}}</h3>
 								<div class="row">
-									<p class="text-center" ng-hide="newspapers['{{$g->slug}}'].length>0">Loading</p>
+									<p ng-hide="newspapers['{{$g->slug}}'].length>0" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></p>
 									<div ng-repeat="n in newspapers['{{$g->slug}}']" class="col-xs-3">
-										<img class="img-responsive img-rounded img-thumbnail" ng-src="@{{n.logo}}" />
+										<img title="@{{n.name}}" class="img-responsive img-rounded img-thumbnail img-newspaper" ng-src="@{{n.logo}}" />
 									</div>
 								</div>
 							</div>

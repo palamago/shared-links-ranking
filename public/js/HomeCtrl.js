@@ -1,4 +1,4 @@
-NewsApp.controller('HomeCtrl', function($scope, Restangular, $http, $location) {
+NewsApp.controller('HomeCtrl', function($scope, Restangular, $http, $location,$timeout) {
 
   $scope.loading = true;
   $scope.newspapers = {};
@@ -13,6 +13,9 @@ NewsApp.controller('HomeCtrl', function($scope, Restangular, $http, $location) {
   $scope.init = function(){
     Restangular.all('newspaper').getList().then(function(data){
       $scope.newspapers = _.groupBy(Restangular.stripRestangular(data), 'id_group');
+      $timeout(function() {
+        $('.img-newspaper').tooltip();
+      }, 500);
     });
   };
 
