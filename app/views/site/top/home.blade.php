@@ -75,7 +75,7 @@
 								<h2 class="text-center">{{$g->name}} Top 3</h2>
 								<div class="row">
 									<p ng-hide="rankings['{{$g->slug}}'].length>0" class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></p>
-									<div ng-repeat="r in rankings['{{$g->slug}}']" class="col-md-12">
+									<div ng-cloak ng-repeat="r in rankings['{{$g->slug}}']" class="col-md-12">
 										<strong>@{{$index+1}}.</strong> @{{r.title}}
 									</div>
 									<hr/>
