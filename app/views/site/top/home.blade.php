@@ -59,12 +59,16 @@
 					<div class="col-md-8">
 						<div class="jumbotron">
 							<h1>Top Ranking . Link</h1>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+							<p>Herramienta que permite visualizar las noticias más compartidas en redes sociales en los principales diarios online de cada país.</p>
 						</div>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-4">
+						<div class="hidden-xs hidden-sm">
+						    <a class="twitter-timeline"  href="https://twitter.com/palamago/lists/topranking" data-widget-id="692490564072296448">Tweets de https://twitter.com/palamago/lists/topranking</a>
+	          				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+						</div>
 					</div>
 					@foreach($groups as $g)
 						<div class="col-md-4">
@@ -73,39 +77,28 @@
 								<div class="row">
 									<p class="text-center" ng-hide="rankings['{{$g->slug}}'].length>0">Loading</p>
 									<div ng-repeat="r in rankings['{{$g->slug}}']" class="col-md-12">
-									<strong>@{{$index+1}}.</strong> @{{r.title}}
+										<strong>@{{$index+1}}.</strong> @{{r.title}}
 									</div>
+									<hr/>
 								</div>
+								<a class="btn btn-block btn-primary text-center" href="/{{$g->slug}}/">Ver {{$g->name}} Top 10</a>
 							</div>
-						</div>
-					@endforeach
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-					</div>
-					@foreach($groups as $g)
-						<div class="col-md-4">
-							<a class="btn btn-block btn-primary text-center" href="/{{$g->slug}}/">Ver {{$g->name}} Top 10</a>
-						</div>
-					@endforeach
-				</div>
-				<div class="row">
-					<div class="col-md-4">
-					</div>
-					@foreach($groups as $g)
-						<div class="col-md-4">
 							<div class="jumbotron">
 								<h3 class="text-center">Medios de {{$g->name}}</h3>
 								<div class="row">
 									<p class="text-center" ng-hide="newspapers['{{$g->slug}}'].length>0">Loading</p>
-									<div ng-repeat="n in newspapers['{{$g->slug}}']" class="col-md-3">
-										<img class="img-responsive" ng-src="@{{n.logo}}" />
+									<div ng-repeat="n in newspapers['{{$g->slug}}']" class="col-xs-3">
+										<img class="img-responsive img-rounded img-thumbnail" ng-src="@{{n.logo}}" />
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<p class="text-center">Sígue las novedades de {{$g->name}} en <a href="http://twitter.com/{{$g->twitter}}" target="_blank">{{'@'.$g->twitter}}</a></p>
+								<hr/>
+							</div>
 						</div>
 					@endforeach
-				</div>
+				</div>          
 
 			</div>
 			<!-- ./ container -->

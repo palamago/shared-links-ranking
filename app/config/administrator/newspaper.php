@@ -24,6 +24,9 @@ return array(
 		'name' => array(
 			'title' => 'Nombre'
 		),
+		'twitter' => array(
+			'title' => 'Twitter'
+		),
 		'id_group' => array(
 			'title' => 'Grupo'
 		),
@@ -57,6 +60,10 @@ return array(
 		'id',
 		'name' => array(
 			'title' => 'Nombre',
+			'type' => 'text'
+		),
+		'twitter' => array(
+			'title' => 'Twitter',
 			'type' => 'text'
 		),
 		'logo' => array(

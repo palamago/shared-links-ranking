@@ -22,6 +22,9 @@ return array(
 		'name' => array(
 			'title' => 'Name'
 		),
+		'twitter' => array(
+			'title' => 'Twitter'
+		),
 		'logo' => array(
 			'title' => 'Logo',
 			'output' => '<img src="(:value)" height="50" />',
@@ -44,6 +47,10 @@ return array(
 		),
 		'name' => array(
 			'title' => 'Name',
+			'type' => 'text'
+		),
+		'twitter' => array(
+			'title' => 'Twitter',
 			'type' => 'text'
 		),
 		'logo' => array(

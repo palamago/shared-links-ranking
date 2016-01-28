@@ -18,6 +18,7 @@ return array(
     'AddIdRefHistory' => $baseDir . '/app/database/migrations/2015_02_01_003649_add_id_ref_history.php',
     'AddNewTriggerGroup' => $baseDir . '/app/database/migrations/2016_01_26_104519_add_new_trigger_group.php',
     'AddTwitterKeys' => $baseDir . '/app/database/migrations/2016_01_21_200102_add_twitter_keys.php',
+    'AddTwitterToNewspaperAndGroup' => $baseDir . '/app/database/migrations/2016_01_27_201129_add_twitter_to_newspaper_and_group.php',
     'AlterGroups' => $baseDir . '/app/database/migrations/2016_01_25_142120_alter_groups.php',
     'ApiController' => $baseDir . '/app/controllers/ApiController.php',
     'Awjudd\\FeedReader\\Facades\\FeedReader' => $vendorDir . '/awjudd/feed-reader/src/Awjudd/FeedReader/Facades/FeedReader.php',

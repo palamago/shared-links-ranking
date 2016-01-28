@@ -3,19 +3,6 @@
 	<h2 class="text-center">Noticias más compartidas <strong>{{currentGroup.name}}</strong></h2>
   	<h2 class="text-center"> 
   		<span style="color:{{titles.tagColor}}" ng-show="titles.tag">{{titles.tag}}</span> <span style="color:{{titles.tagColor}}" ng-show="titles.newspaper"><strong>{{titles.newspaper}}</strong></span>
-  	<div class="btn-group">
-	    <a href="javascript:void(0)" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-	    <i class="mdi-device-access-time"></i>
-	    <span ng-if="filters.hs==1">Última hora</span>
-	    <span ng-if="filters.hs!=1">Últimas {{filters.hs}} horas</span>
-	    <i class="mdi-hardware-keyboard-arrow-down"></i></a>
-	    <ul class="dropdown-menu">
-	        <li ng-repeat="hs in times">
-	        	<a ng-if="hs==1" ng-click='filterClick("hs",hs)' href="javascript:;">Última hora</a>
-	        	<a ng-if="hs!=1" ng-click='filterClick("hs",hs)' href="javascript:;">Últimas {{hs}} horas</a>
-	        </li>
-	    </ul>
-	</div>
   	</h2>
 </div>
 
