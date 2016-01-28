@@ -61,6 +61,7 @@
 						<p class="lead">Herramienta que permite visualizar las noticias más compartidas en redes sociales en los principales diarios online de cada país.</p>
 					</div>
 				</div>
+				<hr/>
 				<div class="row">
 					<div class="col-md-4">
 						<div class="hidden-xs hidden-sm">
