@@ -75,7 +75,7 @@ class TweetCommand extends Command {
 
 				$link = $_ENV['url'] . '/' . $g->slug. '/#/link/' . $top->id;
 
-				Twitter::postTweet(['status' => $top->title .' '. $link, 'format' => 'json', 'media_ids' => array($uploaded_media_logo->media_id_string,$uploaded_media_news->media_id_string)]);
+				Twitter::postTweet(['status' => mb_strimwidth($top->title, 0, 50, "...") .' '. $link, 'format' => 'json', 'media_ids' => array($uploaded_media_logo->media_id_string,$uploaded_media_news->media_id_string)]);
 			}
 
 		}
