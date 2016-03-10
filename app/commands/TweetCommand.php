@@ -48,6 +48,9 @@ class TweetCommand extends Command {
 
 			$top = $this->getTopLink($g);
 
+			//Update icons
+			$this->updateAvatars($g);
+
 			if($top){
 				$params = array(
 					'consumer_key'        	=> $g->tw_user_key,
@@ -56,6 +59,7 @@ class TweetCommand extends Command {
 					'secret' 				=> $g->tw_user_token_secret 
 				);
 				Twitter::reconfig($params);
+
 
 				//News Image
 				$url = $top->image;
@@ -75,6 +79,7 @@ class TweetCommand extends Command {
 
 				$link = $_ENV['url'] . '/' . $g->slug. '/#/link/' . $top->id;
 
+				//Send
 				Twitter::postTweet(['status' => mb_strimwidth($top->title, 0, 90, "...") .' '. $link, 'format' => 'json', 'media_ids' => array($uploaded_media_logo->media_id_string,$uploaded_media_news->media_id_string)]);
 			}
 
@@ -83,6 +88,27 @@ class TweetCommand extends Command {
 		$log->status = "finished";
 		$log->save();
 		
+	}
+
+	private function updateAvatars($grupo){
+
+		$params = array(
+			'consumer_key'        	=> $grupo->tw_user_key,
+			'consumer_secret'     	=> $grupo->tw_user_secret ,
+			'token'        			=> $grupo->tw_user_token ,
+			'secret' 				=> $grupo->tw_user_token_secret 
+		);
+		Twitter::reconfig($params);
+
+		foreach ($grupo->newspapers as $n) {
+			if($n->twitter){
+				$data = Twitter::getUserTimeline(['screen_name' => $n->twitter, 'count' => 1, 'format' => 'json']);
+				$data = json_decode($data);
+				$n->logo = $data[0]->user->profile_image_url;
+				$n->save();
+			}
+		}
+
 	}
 
 	private function getTopLink($group){

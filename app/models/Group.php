@@ -6,4 +6,9 @@ class Group extends Eloquent {
 
 	protected $primaryKey = 'slug';
 
+	public function newspapers()
+    {
+        return $this->hasMany('Newspaper','id_group','slug');
+    }
+
 }
