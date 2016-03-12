@@ -52,6 +52,8 @@ class TweetCommand extends Command {
 			$this->updateAvatars($g);
 
 			if($top){
+
+				$imgs = array();
 				$params = array(
 					'consumer_key'        	=> $g->tw_user_key,
 					'consumer_secret'     	=> $g->tw_user_secret ,
@@ -60,14 +62,16 @@ class TweetCommand extends Command {
 				);
 				Twitter::reconfig($params);
 
-
 				//News Image
 				$url = $top->image;
-				$ext = pathinfo($url, PATHINFO_EXTENSION);
-				$img = public_path('temp.'.$ext);
-				file_put_contents($img, file_get_contents($url));
-				$media = File::get(public_path('temp.'.$ext));
-				$uploaded_media_logo = Twitter::uploadMedia(['media' => $media]);
+				if($url){
+					$ext = pathinfo($url, PATHINFO_EXTENSION);
+					$img = public_path('temp.'.$ext);
+					file_put_contents($img, file_get_contents($url));
+					$media = File::get(public_path('temp.'.$ext));
+					$uploaded_media_logo = Twitter::uploadMedia(['media' => $media]);
+					$img[] = $uploaded_media_logo->media_id_string;					
+				}
 
 				//Image logo
 				$url = $top->newspaper->logo;
@@ -76,11 +80,12 @@ class TweetCommand extends Command {
 				file_put_contents($img, file_get_contents($url));
 				$media = File::get(public_path('temp.'.$ext));
 				$uploaded_media_news = Twitter::uploadMedia(['media' => $media]);
+				$img[] = $uploaded_media_news->media_id_string;
 
 				$link = $_ENV['url'] . '/' . $g->slug. '/#/link/' . $top->id;
 
 				//Send
-				Twitter::postTweet(['status' => mb_strimwidth($top->title, 0, 90, "...") .' '. $link, 'format' => 'json', 'media_ids' => array($uploaded_media_logo->media_id_string,$uploaded_media_news->media_id_string)]);
+				Twitter::postTweet(['status' => mb_strimwidth($top->title, 0, 90, "...") .' '. $link, 'format' => 'json', 'media_ids' => $imgs]);
 			}
 
 		}
