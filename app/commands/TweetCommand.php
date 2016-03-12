@@ -70,7 +70,7 @@ class TweetCommand extends Command {
 					file_put_contents($img, file_get_contents($url));
 					$media = File::get(public_path('temp.'.$ext));
 					$uploaded_media_logo = Twitter::uploadMedia(['media' => $media]);
-					$img[] = $uploaded_media_logo->media_id_string;					
+					$imgs[] = $uploaded_media_logo->media_id_string;					
 				}
 
 				//Image logo
@@ -80,7 +80,7 @@ class TweetCommand extends Command {
 				file_put_contents($img, file_get_contents($url));
 				$media = File::get(public_path('temp.'.$ext));
 				$uploaded_media_news = Twitter::uploadMedia(['media' => $media]);
-				$img[] = $uploaded_media_news->media_id_string;
+				$imgs[] = $uploaded_media_news->media_id_string;
 
 				$link = $_ENV['url'] . '/' . $g->slug. '/#/link/' . $top->id;
 
