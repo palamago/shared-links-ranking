@@ -63,12 +63,6 @@
 				</div>
 				<hr/>
 				<div class="row">
-					<div class="col-md-4">
-						<div class="hidden-xs hidden-sm">
-						    <a class="twitter-timeline"  href="https://twitter.com/palamago/lists/topranking" data-widget-id="692490564072296448"><p class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></p></a>
-	          				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-						</div>
-					</div>
 					@foreach($groups as $g)
 						<div class="col-md-4">
 							<div class="jumbotron" ng-init="getRanking('{{$g->slug}}')">
@@ -97,7 +91,16 @@
 							</div>
 						</div>
 					@endforeach
-				</div>          
+				</div>     
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="hidden-xs hidden-sm">
+						    <a class="twitter-timeline"  href="https://twitter.com/palamago/lists/topranking" data-widget-id="692490564072296448"><p class="text-center"><i class="text-primary fa fa-circle-o-notch fa-spin fa-2x"></i></p></a>
+		      				<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+						</div>
+					</div>     
+				</div>     
 
 			</div>
 			<!-- ./ container -->

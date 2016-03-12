@@ -72,6 +72,18 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3f51b5', endColorstr='#4285f4', GradientType=1);
   /* IE6-9 fallback on horizontal gradient */
 }
+.logo-container {
+  position: relative;
+}
+.logo-container .current-group-header {
+  color: #fff;
+  position: absolute;
+  bottom: -9px;
+  text-transform: uppercase;
+  font-size: 17px;
+  right: -24px;
+  font-weight: bold;
+}
 .navbar-nav a {
   cursor: pointer;
 }

@@ -6,8 +6,22 @@
                 <span class="sr-only">Toggle navigation</span>
                 <i class="mdi-hardware-keyboard-control"></i>
             </a>
+            <div class="dropdown col-md-12 text-center">
+                <a href="javascript:void(0)" class="logo-container dropdown-toggle" data-toggle="dropdown">
+					<img alt="Brand" class="logo-menu" src="/img/LOGO-HOME.png">
+					<span class="current-group-header">{{currentGroup.slug}}</span>
+                </a>
+                <ul class="dropdown-menu col-md-12">
+                    <div>
+                    	<li><a href="/">PORTADA</a></li>
+                    </div>
+					<div ng-repeat="g in groups">
+						<li><a ng-href="/{{g.slug}}">{{g.name}}</a></li>
+					</div>
+
+                </ul>
+            </div>
             <a href="/">
-				<img alt="Brand" class="logo-menu" src="/img/LOGO-HOME.png">
 			</a>
         </div>
         <div id="nav-main" class="collapse navbar-collapse navbar-ex1-collapse">
