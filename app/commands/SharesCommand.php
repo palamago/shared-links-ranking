@@ -94,7 +94,7 @@ class SharesCommand extends Command {
 
 	private function getSharesCount($link){
 		$r = array(
-			'facebook' 		=> $this->getSharesFacebook($link->final_url),
+			'facebook' 		=> 0,//$this->getSharesFacebook($link->final_url),
 			'twitter' 		=> $this->getSharesTwitter($link->id),
 			'linkedin' 		=> 0,//$this->getSharesLinkedin($url),
 			'googleplus' 	=> 0//$this->getSharesGooglePlus($url)
@@ -137,6 +137,7 @@ class SharesCommand extends Command {
 		try {
 			$string = file_get_contents('https://api.facebook.com/method/links.getStats?urls='.$url.'&format=json');
 			$json = json_decode($string);
+			var_dump($string);
 			if(isset($json) && isset($json[0])){
 				$res = (int)$json[0]->share_count + (int)$json[0]->like_count;
 			}
