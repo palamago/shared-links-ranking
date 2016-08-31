@@ -92,7 +92,7 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
             print ('%s' % url)
             traceback.print_exc()
 
-            sys.exit()
+            #sys.exit()
 
     #print url
     #print count
