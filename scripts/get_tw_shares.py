@@ -105,7 +105,7 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
             print '>>> traceback 1 <<<'
             #time.sleep(60)
             #ts = twPool.getConnection()
-            #traceback.print_exc()
+            traceback.print_exc()
 
             #if 'status_data' in locals():
             #    epoch = status_data['resources']['search']['/search/tweets']['reset']
