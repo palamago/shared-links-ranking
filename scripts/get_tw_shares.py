@@ -64,17 +64,6 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
             else:
                 response = ts.search(q=url, count=100)
 
-            # first query the Twitter API
-            #response = ts.search_tweets(tso)
-#            response = ts.search(tso.create_search_url())
-
-            # print rate limiting status
-            #print( "Current rate-limiting status: %s" % ts.get_metadata()['x-rate-limit-remaining'])
-
-         #   status_data = ts.rate_limit_status()
-         #   remaining_tweets = status_data['resources']['search']['/search/tweets']['remaining']
-         #   print "Current rate-limiting status: %s" % remaining_tweets
-
             # check if there are statuses returned and whether we still have work to do
             todo = not len(response) == 0
 
@@ -96,25 +85,13 @@ def doSearch(twPool, ts, url,last_max_id,initial_count):
                         max_id = next_max_id
                     next_max_id -= 1 # decrement to avoid seeing this tweet again
 
-            #stats
-            #if remaining_tweets == 0:
-            #    print '-----tiene zero!!!!!'
-            #    ts = twPool.getConnection()
-
         except Exception as e:
             print '>>> traceback 1 <<<'
-            #time.sleep(60)
-            #ts = twPool.getConnection()
+            print ('%s' % next_max_id)
+            print ('%s' % last_max_id)
+            print ('%s' % url)
             traceback.print_exc()
 
-            #if 'status_data' in locals():
-            #    epoch = status_data['resources']['search']['/search/tweets']['reset']
-
-            #    print epoch
-                #print '>>> fin <<<'
-            #    reset = datetime.datetime.fromtimestamp(float(epoch)).strftime('%Y-%m-%d %H:%M:%S')
-            #    print reset
-            #print '>>> fin2 <<<'
             sys.exit()
 
     #print url
